@@ -1,10 +1,21 @@
-<template>
-  <div class="index"></div>
-</template>
+<template> </template>
 
 <script>
   export default {
+    transition: "layout",
     name: "index",
+    head() {
+      return {
+        title: "",
+        meta: [
+          {
+            hid: "description",
+            name: "description",
+            content: "",
+          },
+        ],
+      };
+    },
     components: {},
     data() {
       return {};
@@ -14,6 +25,8 @@
     methods: {},
     created() {},
     mounted() {},
+    async asyncData({ store, query }) {},
   };
 </script>
-<style scoped></style>
+
+<style scoped lang="scss"></style>
