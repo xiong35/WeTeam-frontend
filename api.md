@@ -108,6 +108,7 @@
 
   ```json
   {
+    "token":"...",
     "rater": "<id>",  // 发布评价的人, 如果设为 null 代表匿名
     "raterName": "<nickname>",  // 发布评价的人的nickname, 如果设为 null 代表匿名
     "ratee": "<id>",  // 被评价的人
@@ -153,7 +154,49 @@
   }
   ```
 
+### 关注
 
+#### 关注 / 取消关注某人  // new
+
+- url: `POST /user/follow`
+- 数据:
+
+  ```json
+  {
+    "token": "...",
+    "followee": "userID", // 被关注的人
+    "type": "begin|cancel"
+  }
+  ```
+
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+  }
+  ```
+
+#### 获取所有自己关注的用户 //new
+
+- url: `POST /user/follow?userID=<id>`
+- 数据: query 中的 id
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "userID": "...",
+        "avatar": "...",
+        "nickname": "..."
+      }
+    ]
+  }
+  ```
 
 ## 组队消息
 
@@ -164,6 +207,7 @@
 
   ```json
   {
+    "token":"...",
     "publisher": "<userID>",
     "publisherToken": "<token>",
     "title": "...",
@@ -174,7 +218,7 @@
     "grade": "...",   // 以下几项均为一段字符串的描述, 如"大二以上, 大一实力强者也可"
     "skill": "...",
     "major": "...",
-    "members": ["<userID>", "<userID>", ]
+    "members": []
   }
   ```
 
@@ -241,13 +285,99 @@
   }
   ```
 
-## 发布项目
+## 消息
+
+### 获得申请加入的信息  // new
+
+- url: `GET /massage/join?token=<token>`
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "target": "<项目id>",
+        "massage": "<留言>",
+        "from": "<申请人id>"
+      }
+    ]
+  }
+  ```
+
+### 获得得到响应的信息  // new
+
+- url: `GET /massage/joinResponse?token=<token>`
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "accepted": "Boolean",
+        "target": "<项目id>",
+        "massage": "<留言>",
+      }
+    ]
+  }
+  ```
+
+### 申请组队    // new
+
+- url: `POST /massage/join`
+- 数据:
+
+  ```json
+  {
+    "token": "token",
+    "target": "<id>", // 申请的项目的id
+    "massage": "...", // 推荐自己的理由
+  }
+  ```
+
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+  }
+  ```
+
+### 响应申请    // new
+
+- url: `POST /massage/joinResponse`
+- 数据:
+
+  ```json
+  {
+    "token": "<token>",
+    "accepted": "Boolean",
+    "target": "<项目id>",
+    "massage": "<留言>",
+  }
+  ```
+
+- 响应
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+  }
+  ```
+
+## 发布主题项目
 
 - url: `POST /projectTheme`
 - 数据:
 
   ```json
   {
+    "token":"...",
     "publisher": "<userID>",
     "publisherToken": "<token>",
     "title": "...",
