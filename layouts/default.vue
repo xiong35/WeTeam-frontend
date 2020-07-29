@@ -1,12 +1,15 @@
 <template>
   <v-app>
-    <v-main class="pa-5 pb-1">
-      <nuxt />
+    <v-main>
+      <div class="pa-5 pb-1">
+        <nuxt />
+      </div>
     </v-main>
     <v-bottom-navigation
       :input-value="showNav"
       v-model="bottomNav"
       shift
+      app
     >
       <v-btn nuxt to="home">
         <span>首页</span>
