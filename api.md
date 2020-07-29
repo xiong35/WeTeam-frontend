@@ -272,7 +272,7 @@
 
 #### 获取所有自己关注的用户
 
-- url: `POST /user/follow?userID=<id>`
+- url: `GET /user/follow?userID=<id>` // change 先前手滑写的POST
 - 数据: query 中的 id
 - 响应:
 
@@ -302,10 +302,10 @@
     "token":"...",
     "publisher": "<userID>",
     "title": "...",
-    "type": ["...", "...", ],   // change, 项目类型
-    "rank":  "...",   // change 项目评级
-    "major": ["...", "...", ],    // change 要求专业
-    "period": "...",    // change 项目周期
+    "type": ["...", "...", ],
+    "rank":  "...",
+    "major": ["...", "...", ],
+    "period": "...",
     "beginDate": "<yyyy/mm/dd格式的String>",
     "description": "...",
     "memberNum": "Number",
@@ -346,10 +346,10 @@
       "publisherName": "...",
       "publishTime": "<时间戳>",
       "title": "...",
-      "type": ["...", "...", ], // change
-      "rank":  "...", // change
-      "major": ["...", "...", ],  // change
-      "period": "...",  // change
+      "type": ["...", "...", ],
+      "rank":  "...",
+      "major": ["...", "...", ],
+      "period": "...",
       "beginDate": "<yyyy/mm/dd格式的String>",
       "description": "...",
       "memberNum": "Number",
@@ -378,17 +378,17 @@
         "beginDate": "<yyyy/mm/dd格式的String>",
         "memberNum": "Number",
         "id": "<id>",
-        "type": ["...", "...", ], // change
-        "rank":  "...", // change
-        "major": ["...", "...", ],  // change
-        "period": "...",  // change
+        "type": ["...", "...", ],
+        "rank":  "...",
+        "major": ["...", "...", ],
+        "period": "...",
       },
       // ...
     ]
   }
   ```
 
-#### 获得满足搜索条件的发布 // change
+#### 获得满足搜索条件的发布
 
 - url: `GET /project?keyword=...`
 - 数据: query 中的 keyword=all 参数

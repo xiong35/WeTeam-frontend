@@ -88,6 +88,20 @@
         outlined=""
         label="项目周期"
       ></v-select>
+      <v-textarea
+        label="技能要求"
+        outlined=""
+        v-model="skill"
+      ></v-textarea>
+      <v-select
+        v-model="major"
+        :items="majors"
+        outlined=""
+        label="专业要求"
+        multiple
+        chips
+        :menu-props="{ top: true, offsetY: true }"
+      ></v-select>
       <v-select
         v-model="rank"
         :items="['院级', '校级', '省级', '国家级']"
@@ -111,6 +125,8 @@
 
 <script>
   import TopBar from "~/components/TopBar";
+
+  import { majors } from "~/assets/data";
 
   export default {
     transition: "layout",
@@ -138,6 +154,9 @@
         number: "",
         period: "",
         rank: "",
+        major: "",
+        skill: "",
+        majors,
       };
     },
     computed: {},
