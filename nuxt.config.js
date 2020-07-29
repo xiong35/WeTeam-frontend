@@ -6,7 +6,7 @@ export default {
   mode: "universal",
   router: {
     // TODO change base?
-    base: "/blog2.0/",
+    base: "/WeTeam/",
   },
   head: {
     titleTemplate: "%s - " + "WeTeam",
