@@ -8,6 +8,7 @@
     <v-bottom-navigation
       :input-value="showNav"
       v-model="bottomNav"
+      id="bottom-nav"
       shift
       app
     >
@@ -95,3 +96,8 @@
     },
   };
 </script>
+<style lang="scss">
+  #bottom-nav {
+    z-index: 99999;
+  }
+</style>
