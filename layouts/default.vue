@@ -11,23 +11,23 @@
       shift
       app
     >
-      <v-btn nuxt to="home">
+      <v-btn nuxt to="/home">
         <span>首页</span>
         <v-icon>mdi-home</v-icon>
       </v-btn>
-      <v-btn nuxt to="school">
+      <v-btn nuxt to="/school">
         <span>校园圈</span>
         <v-icon>mdi-school</v-icon>
       </v-btn>
-      <v-btn nuxt to="post">
+      <v-btn nuxt to="/post">
         <span>发布</span>
         <v-icon>mdi-comment-plus</v-icon>
       </v-btn>
-      <v-btn nuxt to="massage">
+      <v-btn nuxt to="/massage">
         <span>消息中心</span>
         <v-icon>mdi-bell</v-icon>
       </v-btn>
-      <v-btn nuxt to="about">
+      <v-btn nuxt to="/about">
         <span>我的</span>
         <v-icon>mdi-account</v-icon>
       </v-btn>
