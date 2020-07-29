@@ -7,8 +7,11 @@
           <img :src="info.avatar" alt="alt" />
         </v-avatar>
         <h3 class="ma-2">{{ info.nickname }}</h3>
-        <span class="left-box mr-5 pr-5"
-          >关注: {{ info.followingNum }}</span
+        <nuxt-link
+          tag="span"
+          :to="'/user/follower?userID=' + info.userID"
+          class="left-box mr-5 pr-5"
+          >关注: {{ info.followingNum }}</nuxt-link
         >
         <span>粉丝: {{ info.followerNum }}</span>
       </v-col>
