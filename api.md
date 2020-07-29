@@ -1,5 +1,5 @@
 
-# api 文档
+# api 文档 v3.2
 
 > 用尖括号括起来的地方代表某个变量, 如 "id=<..>" 指id等于某个用户的id号, 实际请求时替换为 "id=1234567" 之类的  
 > 用 "|" 分割的代表n选1, 如 "\<male|female|unknown\>" 代表3选1  
@@ -72,7 +72,7 @@
 
 #### 获取
 
-- url: `GET /user/info?userID=<...>`
+- url: `GET /user/info?userID=<...>?userID=<...>`
 - 数据: query 中的 userID
 - 响应:
 
@@ -80,21 +80,62 @@
   {
     "status": 200,
     "msg": "ok",
+    "data": [
+      {
+        "avatar": "<url>",
+        "nickname": "...",
+        "gender": "male|female|unknown",
+        "description": "...",
+        "school": "...",
+        "schoolID": "...", //校园卡号
+        "major": "...",
+        "followerNum": "Number",
+        "followingNum": "Number",
+        "grade": "Number", // 入学年份
+        "rating": {   // rate详见下方 获取评分 部分, 在用户首页只展示星级
+          "ratedNum": "Number",     // 只用统计评价人数和总分数就行了, 平均分前端来算就好了
+          "attitude": "Number",     // 以下几项都是总分数
+          "capability": "Number",
+          "personality": "Number",
+        }
+      },
+      // ...
+    ]
+  }
+  ```
+
+#### 增加简历
+
+- url: `POST /user/resume`
+- 数据:
+
+  ```json
+  {
+    "token": "<>",
+    "resume": "..."   // 是一段长文本, markdown什么的
+  }
+  ```
+
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+  }
+  ```
+
+#### 查看简历
+
+- url: `GET /user/resume?userID=<>`
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
     "data": {
-      "avatar": "<url>",
-      "nickname": "...",
-      "gender": "male|female|unknown",
-      "description": "...",
-      "school": "...",
-      "schoolID": "...", //校园卡号
-      "major": "...",
-      "grade": "Number", // 入学年份
-      "rating": {   // rate详见下方 获取评分 部分, 在用户首页只展示星级
-        "ratedNum": "Number",     // 只用统计评价人数和总分数就行了, 平均分前端来算就好了
-        "attitude": "Number",     // 以下几项都是总分数
-        "capability": "Number",
-        "personality": "Number",
-      }
+      "resume": "..."
     }
   }
   ```
@@ -108,11 +149,11 @@
 
   ```json
   {
-    "token":"...",
+    "token":"<token>",
     "rater": "<id>",  // 发布评价的人, 如果设为 null 代表匿名
-    "raterName": "<nickname>",  // 发布评价的人的nickname, 如果设为 null 代表匿名
+
     "ratee": "<id>",  // 被评价的人
-    "raterToken": "<token>",  // 凭token进行身份验证
+
     "attitude": "Number",
     "capability": "Number",
     "personality": "Number",
@@ -143,11 +184,62 @@
       {
         "rater": "<id>",  // 发布评价的人, 如果设为 null 代表匿名
         "raterName": "<nickname>",  // 发布评价的人的nickname, 如果设为 null 代表匿名
+        "raterAvatar": "<url>",
         "ratee": "<id>",  // 被评价的人
         "attitude": "Number",
         "capability": "Number",
         "personality": "Number",
-        "description": "..."    // 详细评价, 可为null
+        "description": "...",    // 详细评价, 可为null
+        "time": "<时间戳, Number>",
+      },
+      // ...
+    ]
+  }
+  ```
+
+### 私信
+
+#### 发私信
+
+- url: `POST /user/chat`
+- 数据:
+
+  ```json
+  {
+    "token":"...",
+    "from": "<id>",  // 发布评价的人, 如果设为 null 代表匿名
+    "to": "<id>",  // 被评价的人
+    "massage": "..."    // 具体内容
+  }
+  ```
+
+- 返回:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+  }
+  ```
+
+#### 获取私信
+
+- url: `GET /user/rate?userID=<id>`
+- 数据: query 中的 userID
+- 返回:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "from": "<id>",  // 发布评价的人
+        "fromName": "<nickname>",  // 发布评价的人的nickname
+        "fromAvatar": "<url>",  // 发布评价的人的avatar
+        "to": "<id>",  // 被评价的人
+        "massage": "...",    // 详细内容
+        "time": "<时间戳, Number>", // 发布的时间
       },
       // ...
     ]
@@ -156,7 +248,7 @@
 
 ### 关注
 
-#### 关注 / 取消关注某人  // new
+#### 关注 / 取消关注某人
 
 - url: `POST /user/follow`
 - 数据:
@@ -178,7 +270,7 @@
   }
   ```
 
-#### 获取所有自己关注的用户 //new
+#### 获取所有自己关注的用户
 
 - url: `POST /user/follow?userID=<id>`
 - 数据: query 中的 id
@@ -209,15 +301,16 @@
   {
     "token":"...",
     "publisher": "<userID>",
-    "publisherToken": "<token>",
     "title": "...",
-    "tags": ["...", "...", ],
+    "type": ["...", "...", ],   // change, 项目类型
+    "rank":  "...",   // change 项目评级
+    "major": ["...", "...", ],    // change 要求专业
+    "period": "...",    // change 项目周期
     "beginDate": "<yyyy/mm/dd格式的String>",
     "description": "...",
     "memberNum": "Number",
     "grade": "...",   // 以下几项均为一段字符串的描述, 如"大二以上, 大一实力强者也可"
     "skill": "...",
-    "major": "...",
     "members": []
   }
   ```
@@ -248,15 +341,21 @@
     "msg": "ok",
     "data":   {
       "id": "<id>",
+      "publisher": "<userID>",
+      "publisherAvatar": "<url>",
+      "publisherName": "...",
+      "publishTime": "<时间戳>",
       "title": "...",
-      "tags": ["...", "...", ],
+      "type": ["...", "...", ], // change
+      "rank":  "...", // change
+      "major": ["...", "...", ],  // change
+      "period": "...",  // change
       "beginDate": "<yyyy/mm/dd格式的String>",
       "description": "...",
       "memberNum": "Number",
       "grade": "...",
       "skill": "...",
-      "major": "...",
-      "members": ["<userID>", "<userID>", ]
+      "members": ["<userID>", "<userID>", ],
     }
   }
   ```
@@ -278,7 +377,38 @@
         "tags": ["...", "...", ],
         "beginDate": "<yyyy/mm/dd格式的String>",
         "memberNum": "Number",
-        "id": "<id>"
+        "id": "<id>",
+        "type": ["...", "...", ], // change
+        "rank":  "...", // change
+        "major": ["...", "...", ],  // change
+        "period": "...",  // change
+      },
+      // ...
+    ]
+  }
+  ```
+
+#### 获得满足搜索条件的发布 // change
+
+- url: `GET /project?keyword=...`
+- 数据: query 中的 keyword=all 参数
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "title": "...",
+        "tags": ["...", "...", ],
+        "beginDate": "<yyyy/mm/dd格式的String>",
+        "memberNum": "Number",
+        "id": "<id>",
+        "type": ["...", "...", ],
+        "rank":  "...",
+        "major": ["...", "...", ], 
+        "period": "...", 
       },
       // ...
     ]
@@ -287,7 +417,7 @@
 
 ## 消息
 
-### 获得申请加入的信息  // new
+### 获得申请加入的信息
 
 - url: `GET /massage/join?token=<token>`
 - 响应:
@@ -306,7 +436,7 @@
   }
   ```
 
-### 获得得到响应的信息  // new
+### 获得得到响应的信息
 
 - url: `GET /massage/joinResponse?token=<token>`
 - 响应:
@@ -325,7 +455,7 @@
   }
   ```
 
-### 申请组队    // new
+### 申请组队
 
 - url: `POST /massage/join`
 - 数据:
@@ -347,7 +477,7 @@
   }
   ```
 
-### 响应申请    // new
+### 响应申请
 
 - url: `POST /massage/joinResponse`
 - 数据:
