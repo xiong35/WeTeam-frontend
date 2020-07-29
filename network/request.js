@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function request(config) {
   const instance = axios.create({
-    baseURL: "http://api.xiong35.cn/blog2.0/",
+    baseURL: " https://easy-mock.com/mock/5f1fc20267b7b33927fe2bf8",
     timeout: 5000
   });
 
