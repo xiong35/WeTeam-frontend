@@ -1,13 +1,13 @@
 <template>
   <v-card>
-    <TopBar title="项目详情"></TopBar>
+    <TopBar title="的follower"></TopBar>
     <v-list three-line>
       <v-list-item
         :to="'/user?userID=' + follower.userID"
         v-for="(follower, index) in followers"
         :key="index"
       >
-        <v-list-item-avatar>
+        <v-list-item-avatar size="55px">
           <v-img :src="follower.avatar"></v-img>
         </v-list-item-avatar>
 
@@ -15,7 +15,7 @@
           <v-list-item-title>{{
             follower.nickname
           }}</v-list-item-title>
-          <v-list-tile-sub-title>去看看ta></v-list-tile-sub-title>
+          <v-list-item-subtitle>去看看ta></v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -83,6 +83,8 @@
 <style scoped lang="scss">
   .v-list-item:not(:last-of-type) {
     border-bottom: 1px solid #dddd;
-    background-color: #fff;
+  }
+  .v-list-item--link:before {
+    background-color: #fff !important;
   }
 </style>

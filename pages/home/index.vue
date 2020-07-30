@@ -1,17 +1,13 @@
 <template>
   <div class="home">
     <v-row class="px-2 mb-n3">
-      <!-- <v-select
-        :items="picker"
-        class="col-3"
-        v-model="picked"
-        solo
-      ></v-select> -->
       <v-text-field
         v-model="keyword"
         rounded
         outlined
         append-icon="mdi-magnify"
+        @click:append="search"
+        @keydown.enter="search"
         placeholder="请输入查找内容"
       >
         <template v-slot:prepend-inner>
@@ -50,17 +46,19 @@
       </v-carousel-item>
     </v-carousel>
 
-    <v-row class="mt-2 align-center">
-      <v-tabs
-        class="col-8"
-        v-model="tab"
-        background-color="transparent"
-        color="basil"
-        grow
-      >
-        <v-tab>关注</v-tab>
-        <v-tab>推荐</v-tab>
-      </v-tabs>
+    <v-row class="mt-4 align-center">
+      <v-col class="col-8 pa-0">
+        <v-tabs
+          class="pl-3 pr-1"
+          v-model="tab"
+          background-color="transparent"
+          color="basil"
+          grow=""
+        >
+          <v-tab>关注</v-tab>
+          <v-tab>推荐</v-tab>
+        </v-tabs>
+      </v-col>
       <v-btn outlined @click="dialog = true" class="mx-auto"
         >筛选排序</v-btn
       >
@@ -84,12 +82,14 @@
                     '6~10人',
                     '10人以上',
                   ]"
+                  outlined=""
                   label="项目人数"
                 ></v-select>
               </v-col>
               <v-col cols="12">
                 <v-select
                   v-model="periodFilter"
+                  outlined=""
                   :items="[
                     '不限',
                     '一周内',
@@ -107,6 +107,7 @@
               </v-col>
               <v-col cols="12">
                 <v-select
+                  outlined=""
                   v-model="typeFilter"
                   :items="[
                     '不限',
@@ -129,6 +130,7 @@
               </v-col>
               <v-col cols="12">
                 <v-select
+                  outlined=""
                   v-model="rankFilter"
                   :items="[
                     '不限',
@@ -140,18 +142,19 @@
                   label="项目评级"
                   multiple
                   chips
+                  :menu-props="{ top: true, offsetY: true }"
                 ></v-select>
               </v-col>
             </v-row>
           </v-container>
         </v-card-text>
-        <v-card-actions class="mt-n4 pr-4">
+        <v-card-actions class="mt-n12 pr-4">
           <v-spacer></v-spacer>
           <v-btn
             color="blue darken-1 ma-3"
             text
             @click="dialog = false"
-            >Save</v-btn
+            >保存</v-btn
           >
         </v-card-actions>
       </v-card>
@@ -212,9 +215,7 @@
           "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2801976318,4129713714&fm=15&gp=0.jpg",
         ],
         tab: 0,
-        sortBy: "发布者评分",
         sortList: ["发布者评分", "项目人数", "开始时间"],
-        order: "asc",
         dialog: false,
         periodFilter: ["不限"],
         typeFilter: ["不限"],
@@ -224,7 +225,18 @@
     },
     computed: {},
     watch: {},
-    methods: {},
+    methods: {
+      search() {
+        if (this.keywordCategory == "用户") {
+          alert("暂不支持搜索用户QwQ");
+          this.keywordCategory = "组队";
+          return;
+        }
+        this.$router.push(
+          `/home/search?kw=${this.keyword}&cat=${this.keywordCategory}`
+        );
+      },
+    },
     created() {},
     mounted() {},
     async asyncData({ store, query }) {
