@@ -36,10 +36,7 @@
       >客服中心</nuxt-link
     >
     <v-divider></v-divider>
-    <nuxt-link
-      class="py-4 px-6 pb-9"
-      tag="h2"
-      :to="'/user?userID=' + info.userID"
+    <nuxt-link class="py-4 px-6 pb-9" tag="h2" to="/about/us"
       >联系我们</nuxt-link
     >
   </v-card>
