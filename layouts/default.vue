@@ -6,7 +6,6 @@
       </div>
     </v-main>
     <v-bottom-navigation
-      :input-value="showNav"
       v-model="bottomNav"
       id="bottom-nav"
       shift
@@ -44,25 +43,41 @@
   } from "~/utils/validate";
   import { GET } from "~/network/methods";
 
+  const pageMap = {
+    home: 0,
+    school: 1,
+    post: 2,
+    massage: 3,
+    about: 4,
+  };
+
   export default {
     data() {
       return {
         bottomNav: 0,
       };
     },
-    computed: {
-      showNav() {
-        return true;
+    watch: {
+      "$route.path"(path) {
+        let paths = path.split("?")[0].split("/").slice(1);
+        this.bottomNav = pageMap[paths[0]];
       },
     },
+    computed: {},
     async mounted() {
+      let paths = this.$route.path
+        .split("?")[0]
+        .split("/")
+        .slice(1);
+      this.bottomNav = pageMap[paths[0]];
+
       setToken("token", "userID");
       let { token, userID } = getToken();
       if (!token) {
         return;
       }
-      let res = await GET("/user/info?userID=" + userID);
-      res = {
+      // let res = await GET("/user/info?userID=" + userID);
+      let res = {
         status: 200,
         data: [
           {
@@ -85,7 +100,6 @@
           },
         ],
       };
-      console.log("res:", res);
       if (res.status == 200) {
         this.$store.commit("setUserInfo", {
           ...res.data[0],

@@ -130,7 +130,6 @@
       massages = massages.sort((a, b) => {
         return b.data.time - a.data.time;
       });
-      console.log(massages);
       return { massages };
     },
   };

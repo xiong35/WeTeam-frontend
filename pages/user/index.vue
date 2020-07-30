@@ -145,7 +145,6 @@
     watch: {},
     methods: {
       avgStar(star) {
-        console.log(this);
         if (typeof star == "number") {
           return star / this.info.rating.ratedNum;
         } else if (typeof star == "object") {
@@ -163,7 +162,6 @@
       checkSignIn(this);
     },
     async asyncData({ store, query }) {
-      console.log(query);
       return { info: store.state.userInfo || {} };
     },
   };

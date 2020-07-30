@@ -23,7 +23,9 @@
     computed: {},
     watch: {},
     methods: {},
-    created() {},
+    created() {
+      this.$router.replace("/home");
+    },
     mounted() {},
     async asyncData({ store, query }) {},
   };

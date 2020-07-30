@@ -24,6 +24,5 @@ export function timestampFmt(timestamp, fmt = "yyyy-mm-dd HH:MM") {
       );
     }
   }
-  console.log(fmt);
   return fmt;
 }
