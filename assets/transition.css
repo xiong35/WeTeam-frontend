@@ -1,28 +1,8 @@
-/* .layout-enter-active,
+.layout-enter-active,
 .layout-leave-active {
   transition: opacity 0.15s;
 }
 .layout-enter,
 .layout-leave-active {
   opacity: 0;
-} */
-
-.layout-enter-active,
-.layout-leave-active {
-  transition: all 0.2s linear;
-}
-.layout-enter {
-  transform: translateY(100vh);
-  opacity: 0.2;
-}
-
-.layout-leave-to {
-  opacity: 0.2;
-  transform: translateY(-100vh);
-}
-
-.layout-enter-to,
-.layout-leave {
-  opacity: 1;
-  transform: translateY(0);
 }
