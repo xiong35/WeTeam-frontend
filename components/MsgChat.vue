@@ -1,12 +1,13 @@
 <template>
   <v-card>
-    <v-list-item>
+    <v-list-item @click="$router.push('/user?userID=' + msg.from)">
       <v-list-item-avatar>
         <v-img :src="msg.fromAvatar"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="headline"
-          >来自{{ msg.fromName }}的留言</v-list-item-title
+          >来自<strong>{{ msg.fromName }}</strong
+          >的留言</v-list-item-title
         >
       </v-list-item-content>
     </v-list-item>

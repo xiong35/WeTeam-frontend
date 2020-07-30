@@ -1,11 +1,14 @@
 <template>
   <v-card>
-    <v-list-item>
+    <v-list-item
+      @click="$router.push('/project?id=' + msg.target)"
+    >
       <v-list-item-content>
         <v-list-item-title class="headline"
-          >来自项目: {{ msg.title }} 的回复</v-list-item-title
+          >来自项目<strong>{{ msg.title }}</strong
+          >的回复</v-list-item-title
         >
-        <v-list-tile-sub-title>{{ result }}</v-list-tile-sub-title>
+        <v-list-item-subtitle>{{ result }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 

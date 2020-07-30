@@ -1,15 +1,19 @@
 <template>
   <v-card>
-    <v-list-item>
+    <v-list-item @click="$router.push('/user?userID=' + msg.from)">
       <v-list-item-avatar>
         <v-img :src="msg.fromAvatar"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="headline"
-          >来自{{ msg.fromName }}的申请</v-list-item-title
+          >来自<strong>{{ msg.fromName }}</strong
+          >的申请</v-list-item-title
         >
-        <v-list-tile-sub-title
-          >申请加入项目: {{ msg.title }}</v-list-tile-sub-title
+        <v-list-item-subtitle
+          >申请加入项目
+          <nuxt-link tag="i" :to="'/project?id=' + msg.target">{{
+            msg.title
+          }}</nuxt-link></v-list-item-subtitle
         >
       </v-list-item-content>
     </v-list-item>
