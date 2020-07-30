@@ -48,9 +48,9 @@
           data: [
             {
               title: "...",
-              finished: false, // change 项目是否结束
+              finished: true, // change 项目是否结束
               tags: ["...", "..."],
-              beginDate: "2002/06/89",
+              beginDate: "2002/06/19",
               memberNum: 7,
               id: "sdc",
               type: ["...", "..."],

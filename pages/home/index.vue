@@ -64,12 +64,12 @@
       >
     </v-row>
 
-    <v-dialog v-model="dialog" max-width="600px">
+    <v-dialog scrollable v-model="dialog" max-h>
       <v-card>
         <v-card-title>
           <span class="headline">筛选条件</span>
         </v-card-title>
-        <v-card-text>
+        <v-card-text style="height: 60vh;">
           <v-container>
             <v-row>
               <v-col cols="12">
@@ -148,7 +148,7 @@
             </v-row>
           </v-container>
         </v-card-text>
-        <v-card-actions class="mt-n12 pr-4">
+        <v-card-actions class="pr-4">
           <v-spacer></v-spacer>
           <v-btn
             color="blue darken-1 ma-3"
