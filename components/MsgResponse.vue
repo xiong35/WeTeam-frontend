@@ -8,7 +8,13 @@
           >来自项目<strong>{{ msg.title }}</strong
           >的回复</v-list-item-title
         >
-        <v-list-item-subtitle>{{ result }}</v-list-item-subtitle>
+        <v-list-item-subtitle
+          >{{ result }}
+
+          <span class="float-right">{{
+            timestampFmt(msg.time)
+          }}</span>
+        </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
@@ -30,6 +36,8 @@
 
 <script>
   import ChatBtn from "~/components/ChatBtn";
+
+  import { timestampFmt } from "~/utils/time";
 
   export default {
     name: "MsgChat",
@@ -53,7 +61,7 @@
       },
     },
     watch: {},
-    methods: {},
+    methods: { timestampFmt },
     created() {},
     mounted() {},
   };

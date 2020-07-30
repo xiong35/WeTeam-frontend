@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-list-item @click="$router.push('/user?userID=' + msg.from)">
-      <v-list-item-avatar>
+      <v-list-item-avatar size="50">
         <v-img :src="msg.fromAvatar"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
@@ -13,8 +13,11 @@
           >申请加入项目
           <nuxt-link tag="i" :to="'/project?id=' + msg.target">{{
             msg.title
-          }}</nuxt-link></v-list-item-subtitle
-        >
+          }}</nuxt-link>
+          <span class="float-right">{{
+            timestampFmt(msg.time)
+          }}</span>
+        </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
@@ -43,6 +46,8 @@
 <script>
   import ChatBtn from "~/components/ChatBtn";
 
+  import { timestampFmt } from "~/utils/time";
+
   export default {
     name: "MsgChat",
     components: { ChatBtn },
@@ -57,7 +62,7 @@
     },
     computed: {},
     watch: {},
-    methods: {},
+    methods: { timestampFmt },
     created() {},
     mounted() {},
   };

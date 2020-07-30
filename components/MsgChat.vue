@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-list-item @click="$router.push('/user?userID=' + msg.from)">
-      <v-list-item-avatar>
+      <v-list-item-avatar size="50">
         <v-img :src="msg.fromAvatar"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
@@ -9,6 +9,11 @@
           >来自<strong>{{ msg.fromName }}</strong
           >的留言</v-list-item-title
         >
+        <v-list-item-subtitle>
+          <span class="float-right">{{
+            timestampFmt(msg.time)
+          }}</span>
+        </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
@@ -32,6 +37,8 @@
 <script>
   import ChatBtn from "~/components/ChatBtn";
 
+  import { timestampFmt } from "~/utils/time";
+
   export default {
     name: "MsgChat",
     components: { ChatBtn },
@@ -46,7 +53,7 @@
     },
     computed: {},
     watch: {},
-    methods: {},
+    methods: { timestampFmt },
     created() {},
     mounted() {},
   };
