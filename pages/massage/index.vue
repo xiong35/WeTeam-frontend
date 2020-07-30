@@ -2,12 +2,17 @@
   <div>
     <div class="pt-2" v-for="(msg, ind) in massages" :key="ind">
       <MsgChat :msg="msg.data" v-if="msg.type == 0"></MsgChat>
+      <MsgResponse
+        :msg="msg.data"
+        v-else-if="msg.type == 1"
+      ></MsgResponse>
     </div>
   </div>
 </template>
 
 <script>
   import MsgChat from "~/components/MsgChat";
+  import MsgResponse from "~/components/MsgResponse";
 
   export default {
     transition: "layout",
@@ -24,7 +29,7 @@
         ],
       };
     },
-    components: { MsgChat },
+    components: { MsgChat, MsgResponse },
     data() {
       return {};
     },
@@ -72,14 +77,14 @@
           {
             accepted: true,
             target: "<项目id>",
-            massage: "<留言>",
+            massage: "这是负责人的留言...",
             title: "foo",
             time: new Date() * 1 - 400, // change
           },
           {
             accepted: false,
             target: "<项目id>",
-            massage: "<留言>",
+            massage: "这是负责人的留言...",
             title: "bar",
             time: new Date() * 1 - 60, // change
           },

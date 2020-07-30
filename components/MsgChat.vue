@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="344" class="mx-auto">
+  <v-card>
     <v-list-item>
       <v-list-item-avatar>
         <v-img :src="msg.fromAvatar"></v-img>

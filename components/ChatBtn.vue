@@ -1,10 +1,11 @@
 <template>
+  <!-- min-width="85%"
+    nudge-left="13%" -->
   <v-menu
     v-model="menu"
     :close-on-content-click="false"
     :close-on-click="false"
-    min-width="85%"
-    nudge-left="13%"
+    min-width="80%"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn text :color="color" v-bind="attrs" v-on="on">{{
