@@ -6,6 +6,10 @@
         :msg="msg.data"
         v-else-if="msg.type == 1"
       ></MsgResponse>
+      <MsgRequest
+        :msg="msg.data"
+        v-else-if="msg.type == 2"
+      ></MsgRequest>
     </div>
   </div>
 </template>
@@ -13,6 +17,7 @@
 <script>
   import MsgChat from "~/components/MsgChat";
   import MsgResponse from "~/components/MsgResponse";
+  import MsgRequest from "~/components/MsgRequest";
 
   export default {
     transition: "layout",
@@ -29,7 +34,7 @@
         ],
       };
     },
-    components: { MsgChat, MsgResponse },
+    components: { MsgChat, MsgResponse, MsgRequest },
     data() {
       return {};
     },
@@ -96,10 +101,21 @@
         data: [
           {
             target: "<项目id>",
-            title: "foobar",
+            title: "baz",
             massage: "<留言>",
             from: "<申请人id>",
+            fromAvatar: "https://ui-avatars.com/api/?name=jack", // change
+            fromName: "jack", // change
             time: new Date() * 1 - 800,
+          },
+          {
+            target: "<项目id>",
+            massage: "<留言>",
+            title: "foobar", // change
+            from: "<申请人id>",
+            fromAvatar: "https://ui-avatars.com/api/?name=rose", // change
+            fromName: "rose", // change
+            time: new Date() * 1 - 180,
           },
         ],
       };

@@ -430,7 +430,10 @@
       {
         "target": "<项目id>",
         "massage": "<留言>",
+        "title": "项目名称",  // change
         "from": "<申请人id>",
+        "fromAvatar": "...",  // change
+        "fromName": "...", // change
         "time": "时间戳"  // change
       }
     ]
@@ -450,6 +453,7 @@
       {
         "accepted": "Boolean",
         "target": "<项目id>",
+        "title": "项目名称",  // change
         "massage": "<留言>",
         "time": "<时间戳Number>"  // change
       }
@@ -488,6 +492,7 @@
   {
     "token": "<token>",
     "accepted": "Boolean",
+    "title": "项目名称", // change
     "target": "<项目id>",
     "massage": "<留言>",
   }
