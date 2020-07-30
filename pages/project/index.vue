@@ -122,11 +122,11 @@
                 <p class="text-h6">
                   {{ member.nickname }}
                 </p>
-                <ProjectRate
+                <BtnRate
                   v-if="post.finished"
                   :userID="post.members[index]"
                   :nickname="member.nickname"
-                ></ProjectRate>
+                ></BtnRate>
               </v-list-item-content>
             </v-list-item>
           </v-card>
@@ -138,7 +138,7 @@
 
 <script>
   import TopBar from "~/components/TopBar";
-  import ProjectRate from "~/components/ProjectRate";
+  import BtnRate from "~/components/BtnRate";
 
   import { timestampFmt } from "~/utils/time";
 
@@ -159,7 +159,7 @@
     },
     components: {
       TopBar,
-      ProjectRate,
+      BtnRate,
     },
     data() {
       return {};

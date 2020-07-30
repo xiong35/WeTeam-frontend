@@ -51,9 +51,7 @@
         <small>*请客观公平准确的评价队友, 大家一起进步!</small>
       </v-card-text>
       <v-card-actions class="px-5">
-        <v-btn color="purple darken-1" text @click="block"
-          >拉黑</v-btn
-        >
+        <BtnBlock :userID="userID"></BtnBlock>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" text @click="dialog = false"
           >关闭</v-btn
@@ -67,9 +65,11 @@
 </template>
 
 <script>
+  import BtnBlock from "~/components/BtnBlock";
+
   export default {
-    name: "ProjectRate",
-    components: {},
+    name: "BtnRate",
+    components: { BtnBlock },
     data() {
       return {
         dialog: false,
@@ -92,11 +92,6 @@
     computed: {},
     watch: {},
     methods: {
-      block() {
-        if (!confirm("你确定要拉黑此人吗?")) {
-          return;
-        }
-      },
       submit() {},
     },
     created() {},

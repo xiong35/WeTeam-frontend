@@ -33,9 +33,8 @@
         拒绝
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn text color="deep-purple accent-4">
-        拉黑
-      </v-btn>
+      <BtnBlock :userID="msg.from"></BtnBlock>
+
       <v-btn icon>
         <v-icon>mdi-trash-can-outline</v-icon>
       </v-btn>
@@ -44,13 +43,14 @@
 </template>
 
 <script>
-  import ChatBtn from "~/components/ChatBtn";
+  import BtnChat from "~/components/BtnChat";
+  import BtnBlock from "~/components/BtnBlock";
 
   import { timestampFmt } from "~/utils/time";
 
   export default {
     name: "MsgChat",
-    components: { ChatBtn },
+    components: { BtnChat, BtnBlock },
     data() {
       return {};
     },

@@ -22,11 +22,10 @@
     </v-card-text>
 
     <v-card-actions>
-      <ChatBtn text="回复留言" userID="adf"></ChatBtn>
+      <BtnChat text="回复留言" userID="adf"></BtnChat>
       <v-spacer></v-spacer>
-      <v-btn text color="deep-purple accent-4">
-        拉黑
-      </v-btn>
+      <BtnBlock :userID="msg.from"></BtnBlock>
+
       <v-btn icon>
         <v-icon>mdi-trash-can-outline</v-icon>
       </v-btn>
@@ -35,13 +34,14 @@
 </template>
 
 <script>
-  import ChatBtn from "~/components/ChatBtn";
+  import BtnChat from "~/components/BtnChat";
+  import BtnBlock from "~/components/BtnBlock";
 
   import { timestampFmt } from "~/utils/time";
 
   export default {
     name: "MsgChat",
-    components: { ChatBtn },
+    components: { BtnChat, BtnBlock },
     data() {
       return {};
     },

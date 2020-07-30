@@ -35,13 +35,13 @@
 </template>
 
 <script>
-  import ChatBtn from "~/components/ChatBtn";
+  import BtnChat from "~/components/BtnChat";
 
   import { timestampFmt } from "~/utils/time";
 
   export default {
     name: "MsgChat",
-    components: { ChatBtn },
+    components: { BtnChat },
     data() {
       return {};
     },
