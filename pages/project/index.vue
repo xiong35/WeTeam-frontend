@@ -3,7 +3,7 @@
     <TopBar title="项目详情"></TopBar>
     <v-list three-line>
       <v-list-item>
-        <v-list-item-avatar>
+        <v-list-item-avatar size="60">
           <v-img :src="post.publisherAvatar"></v-img>
         </v-list-item-avatar>
 
@@ -102,17 +102,33 @@
           <v-list-item-title class="mb-2">
             现有成员
           </v-list-item-title>
+
           <v-card
-            class="col-3 pa-1 text-center"
+            class="pa-0 member text-center"
             flat
-            :to="`/user?id=${post.members[index]}`"
             v-for="(member, index) in members"
             :key="index"
           >
-            <v-avatar rounded>
-              <img :src="member.avatar" alt="alt" />
-            </v-avatar>
-            <p class="mt-1">{{ member.nickname }}</p>
+            <v-list-item three-line>
+              <v-list-item-avatar
+                @click="
+                  $router.push(`/user?id=${post.members[index]}`)
+                "
+                size="45"
+              >
+                <img :src="member.avatar" alt="alt" />
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <p class="text-h6">
+                  {{ member.nickname }}
+                </p>
+                <ProjectRate
+                  v-if="post.finished"
+                  :userID="post.members[index]"
+                  :nickname="member.nickname"
+                ></ProjectRate>
+              </v-list-item-content>
+            </v-list-item>
           </v-card>
         </v-list-item-content>
       </v-list-item>
@@ -122,6 +138,7 @@
 
 <script>
   import TopBar from "~/components/TopBar";
+  import ProjectRate from "~/components/ProjectRate";
 
   import { timestampFmt } from "~/utils/time";
 
@@ -142,6 +159,7 @@
     },
     components: {
       TopBar,
+      ProjectRate,
     },
     data() {
       return {};
@@ -160,6 +178,7 @@
         publisher: "<userID>", // NEW
         title: "this is title",
         publisher: "123", // NEW
+        finished: false,
         publisherAvatar:
           "https://ui-avatars.com/api/?name=John+Doe", // NEW
         publisherName: "jack", // NEW
@@ -200,5 +219,14 @@
   .v-list-item__subtitle,
   ul {
     color: #2b2b2b !important;
+  }
+
+  .member {
+    flex: 0 0 50%;
+  }
+  @media (max-width: 374.5px) {
+    .member {
+      flex: 0 0 100%;
+    }
   }
 </style>

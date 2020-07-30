@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <div class="pa-5 pb-1">
+      <div class="pa-md-5 pa-3 pb-1">
         <nuxt />
       </div>
     </v-main>
@@ -9,7 +9,9 @@
       v-model="bottomNav"
       id="bottom-nav"
       shift
+      grow
       app
+      small
     >
       <v-btn nuxt to="/home">
         <span>首页</span>
@@ -24,7 +26,7 @@
         <v-icon>mdi-comment-plus</v-icon>
       </v-btn>
       <v-btn nuxt to="/massage">
-        <span>消息中心</span>
+        <span>消息</span>
         <v-icon>mdi-bell</v-icon>
       </v-btn>
       <v-btn nuxt to="/about">
@@ -113,5 +115,8 @@
 <style lang="scss">
   #bottom-nav {
     z-index: 99999;
+    .v-btn {
+      min-width: 0;
+    }
   }
 </style>
