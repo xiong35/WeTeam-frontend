@@ -10,6 +10,7 @@
         :msg="msg.data"
         v-else-if="msg.type == 2"
       ></MsgRequest>
+      <MsgRate :msg="msg.data" v-else-if="msg.type == 3"></MsgRate>
     </div>
   </div>
 </template>
@@ -18,6 +19,7 @@
   import MsgChat from "~/components/MsgChat";
   import MsgResponse from "~/components/MsgResponse";
   import MsgRequest from "~/components/MsgRequest";
+  import MsgRate from "~/components/MsgRate";
 
   export default {
     transition: "layout",
@@ -34,7 +36,12 @@
         ],
       };
     },
-    components: { MsgChat, MsgResponse, MsgRequest },
+    components: {
+      MsgChat,
+      MsgResponse,
+      MsgRequest,
+      MsgRate,
+    },
     data() {
       return {};
     },
@@ -119,13 +126,43 @@
           },
         ],
       };
-      [msgRes, responseRes, requestRes].forEach((res, ind) => {
-        if (res && res.status == 200) {
-          massages = massages.concat(
-            res.data.map((obj) => ({ type: ind, data: obj }))
-          );
+      let rateRes = {
+        status: 200,
+        msg: "ok",
+        data: [
+          {
+            rater: "123", // 发布评价的人, 如果设为 null 代表匿名
+            raterName: "jack", // 发布评价的人的nickname, 如果设为 null 代表匿名
+            raterAvatar: "https://ui-avatars.com/api/?name=jack",
+            ratee: "456", // 被评价的人
+            attitude: 3,
+            capability: 4,
+            personality: 5,
+            description: "8太行", // 详细评价, 可为null
+            time: new Date().getTime() - 60000,
+          },
+          {
+            rater: "245", // 发布评价的人, 如果设为 null 代表匿名
+            raterName: "rose", // 发布评价的人的nickname, 如果设为 null 代表匿名
+            raterAvatar: "https://ui-avatars.com/api/?name=rose",
+            ratee: "123", // 被评价的人
+            attitude: 5,
+            capability: 4,
+            personality: 5,
+            description: "整挺好", // 详细评价, 可为null
+            time: new Date().getTime() - 10000,
+          },
+        ],
+      };
+      [msgRes, responseRes, requestRes, rateRes].forEach(
+        (res, ind) => {
+          if (res && res.status == 200) {
+            massages = massages.concat(
+              res.data.map((obj) => ({ type: ind, data: obj }))
+            );
+          }
         }
-      });
+      );
 
       massages = massages.sort((a, b) => {
         return b.data.time - a.data.time;
