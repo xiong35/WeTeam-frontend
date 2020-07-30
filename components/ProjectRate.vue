@@ -14,7 +14,7 @@
       <v-card-title>
         <span class="headline">对{{ nickname }}的点评</span>
       </v-card-title>
-      <v-card-text style="max-height: 60vh;">
+      <v-card-text style="max-height: 50vh;">
         <v-container>
           <v-row class="justify-center align-center">
             <span class="mr-4 text--primary">性格分:</span>
