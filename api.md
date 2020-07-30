@@ -1,5 +1,5 @@
 
-# api 文档 v3.2
+# api 文档 v3.3
 
 > 用尖括号括起来的地方代表某个变量, 如 "id=<..>" 指id等于某个用户的id号, 实际请求时替换为 "id=1234567" 之类的  
 > 用 "|" 分割的代表n选1, 如 "\<male|female|unknown\>" 代表3选1  
@@ -294,6 +294,8 @@
 
 ### 发布
 
+> 发布时自动添加发布者为成员之一
+
 - url: `POST /project`
 - 数据:
 
@@ -341,6 +343,7 @@
     "msg": "ok",
     "data":   {
       "id": "<id>",
+      "finished": "Boolean",  // change 项目是否结束
       "publisher": "<userID>",
       "publisherAvatar": "<url>",
       "publisherName": "...",
@@ -374,7 +377,7 @@
       // 这里数据就不分页了吧, 这样可以直接在前端排序, 免得请求太频繁
       {
         "title": "...",
-        "tags": ["...", "...", ],
+        "tags": ["...", "...", ],      "finished": "Boolean",  // change 项目是否结束
         "beginDate": "<yyyy/mm/dd格式的String>",
         "memberNum": "Number",
         "id": "<id>",
@@ -401,6 +404,7 @@
     "data": [
       {
         "title": "...",
+        "finished": "Boolean",  // change 项目是否结束
         "tags": ["...", "...", ],
         "beginDate": "<yyyy/mm/dd格式的String>",
         "memberNum": "Number",
@@ -412,6 +416,54 @@
       },
       // ...
     ]
+  }
+  ```
+
+#### 获得某个用户参加的所有项目   // change
+
+- url: `GET /project/user?userID=...`
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "title": "...",
+        "finished": "Boolean",  // change 项目是否结束
+        "tags": ["...", "...", ],
+        "beginDate": "<yyyy/mm/dd格式的String>",
+        "memberNum": "Number",
+        "id": "<id>",
+        "type": ["...", "...", ],
+        "rank":  "...",
+        "major": ["...", "...", ], 
+        "period": "...", 
+      },
+      // ...
+    ]
+  }
+  ```
+
+### 结束项目    // chenged
+
+- url: `POST /project/finish`
+- 数据:
+
+  ```json
+  {
+    "token": "...", // 必须是项目发起者才能结束
+    "id": "项目id",
+  }
+  ```
+
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
   }
   ```
 
@@ -493,12 +545,37 @@
     "token": "<token>",
     "accepted": "Boolean",
     "title": "项目名称", // change
+    "from": "<userID>",  // change, 申请人的id
     "target": "<项目id>",
     "massage": "<留言>",
   }
   ```
 
 - 响应
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+  }
+  ```
+
+### 拉黑    // change
+
+> 拉黑后不接受私信, 暂时没有解除和查看拉黑的操作
+
+- url: `POST /message/reject`
+- 数据
+
+  ```json
+  {
+    "token": "...",
+    "rejecter": "<userID>", // 谁发起的拉黑
+    "rejectee": "<userID",  // 拉黑了谁
+  }
+  ```
+
+- 响应:
 
   ```json
   {
