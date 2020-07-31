@@ -25,7 +25,7 @@
         <span>发布</span>
         <v-icon>mdi-comment-plus</v-icon>
       </v-btn>
-      <v-btn nuxt to="/massage">
+      <v-btn nuxt to="/message">
         <span>消息</span>
         <v-icon>mdi-bell</v-icon>
       </v-btn>
@@ -49,7 +49,7 @@
     home: 0,
     school: 1,
     post: 2,
-    massage: 3,
+    message: 3,
     about: 4,
   };
 

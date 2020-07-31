@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="pt-2" v-for="(msg, ind) in massages" :key="ind">
+    <div class="pt-2" v-for="(msg, ind) in messages" :key="ind">
       <MsgChat :msg="msg.data" v-if="msg.type == 0"></MsgChat>
       <MsgResponse
         :msg="msg.data"
@@ -58,7 +58,7 @@
     async asyncData({ store, query }) {
       let { token, userInfo } = store.state;
       let userID = userInfo.userID;
-      let massages = [];
+      let messages = [];
 
       let responses = await Promise.allSettled([
         GET("/user/chat?userID=" + userID),
@@ -77,7 +77,7 @@
             fromName: "<nickname>", // 发布评价的人的nickname
             fromAvatar: "https://ui-avatars.com/api/?name=dpas", // 发布评价的人的avatar
             to: "fjhasv", // 被评价的人
-            massage: "this is a message", // 详细内容
+            message: "this is a message", // 详细内容
             time: new Date() * 1 - 200, // 发布的时间
           },
           {
@@ -85,7 +85,7 @@
             fromName: "<nickname>", // 发布评价的人的nickname
             fromAvatar: "https://ui-avatars.com/api/?name=dpas", // 发布评价的人的avatar
             to: "fjhasv", // 被评价的人
-            massage: "this is another message", // 详细内容
+            message: "this is another message", // 详细内容
             time: new Date() * 1 - 141123, // 发布的时间
           },
           {
@@ -93,7 +93,7 @@
             fromName: "<nickname>", // 发布评价的人的nickname
             fromAvatar: "https://ui-avatars.com/api/?name=dpas", // 发布评价的人的avatar
             to: "fjhasv", // 被评价的人
-            massage: "this is not a message", // 详细内容
+            message: "this is not a message", // 详细内容
             time: new Date() * 1 - 2, // 发布的时间
           },
         ],
@@ -105,14 +105,14 @@
           {
             accepted: true,
             target: "<项目id>",
-            massage: "这是负责人的留言...",
+            message: "这是负责人的留言...",
             title: "foo",
             time: new Date() * 1 - 400, // change
           },
           {
             accepted: false,
             target: "<项目id>",
-            massage: "这是负责人的留言...",
+            message: "这是负责人的留言...",
             title: "bar",
             time: new Date() * 1 - 60, // change
           },
@@ -125,7 +125,7 @@
           {
             target: "<项目id>",
             title: "baz",
-            massage: "<留言>",
+            message: "<留言>",
             from: "<申请人id>",
             fromAvatar: "https://ui-avatars.com/api/?name=jack", // change
             fromName: "jack", // change
@@ -133,7 +133,7 @@
           },
           {
             target: "<项目id>",
-            massage: "<留言>",
+            message: "<留言>",
             title: "foobar", // change
             from: "<申请人id>",
             fromAvatar: "https://ui-avatars.com/api/?name=rose", // change
@@ -171,12 +171,14 @@
         ],
       }; */
 
+      console.log(responses);
+
       responses.forEach((promise, ind) => {
         if (
           promise.status == "fulfilled" &&
           promise.value.status == 200
         ) {
-          massages = massages.concat(
+          messages = messages.concat(
             promise.value.data.map((obj) => ({
               type: ind,
               data: obj,
@@ -185,10 +187,10 @@
         }
       });
 
-      massages = massages.sort((a, b) => {
+      messages = messages.sort((a, b) => {
         return b.data.time - a.data.time;
       });
-      return { massages };
+      return { messages };
     },
   };
 </script>

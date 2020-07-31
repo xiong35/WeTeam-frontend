@@ -18,7 +18,7 @@
     </v-list-item>
 
     <v-card-text>
-      {{ msg.massage }}
+      {{ msg.message }}
     </v-card-text>
 
     <v-card-actions>
