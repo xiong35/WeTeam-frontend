@@ -221,7 +221,7 @@
           members: [],
         };
 
-        let res = await POST("/project", data);
+        let res = await POST("/project", data, "application/json");
 
         let { id } = res.data;
 

@@ -12,9 +12,13 @@ export async function POST(
   data,
   contentType = "application/x-www-form-urlencoded"
 ) {
+  if (contentType == "application/x-www-form-urlencoded") {
+    data = qs.stringify(data);
+  }
+
   let res = await request({
     url,
-    data: qs.stringify(data),
+    data,
     method: "POST",
     headers: {
       "Content-Type": contentType,
