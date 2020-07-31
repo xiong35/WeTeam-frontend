@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import { POST } from "~/network/methods";
+  import { POST, GET } from "~/network/methods";
   import { sha40_digest } from "~/utils/sha256";
   import { setTokenNID } from "~/utils/validate";
 
@@ -73,8 +73,18 @@
 
         let { token, userID } = res.data;
 
-        this.$store.commit("setToken", token);
         setTokenNID(token, userID);
+
+        res = await GET("/user/info?userID=" + userID);
+
+        if (res.status == 200) {
+          console.log(res);
+          this.$store.commit("setUserInfo", {
+            ...res.data[0],
+            userID,
+          });
+          this.$store.commit("setToken", token);
+        }
 
         alert("登陆成功");
 

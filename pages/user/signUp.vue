@@ -191,7 +191,7 @@
 <script>
   import { majors, mavonConfig, MY_BASE_URL } from "~/assets/data";
 
-  import { POST, upload } from "~/network/methods";
+  import { POST, upload, GET } from "~/network/methods";
   import { sha40_digest } from "~/utils/sha256";
   import { setTokenNID } from "~/utils/validate";
 
@@ -300,10 +300,23 @@
 
         let { token, userID } = res.data;
 
-        this.$store.commit("setToken", token);
         setTokenNID(token, userID);
 
+        res = await GET("/user/info?userID=" + userID);
+
+        if (res.status == 200) {
+          this.$store.commit("setUserInfo", {
+            ...res.data[0],
+            userID,
+          });
+          this.$store.commit("setToken", token);
+        }
+
         POST("/user/resume", { resume, token });
+
+        alert("注册成功!");
+
+        this.$router.push("/home");
       },
     },
     created() {},

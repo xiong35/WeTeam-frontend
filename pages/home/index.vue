@@ -183,12 +183,12 @@
     name: "index",
     head() {
       return {
-        title: "",
+        title: "主页",
         meta: [
           {
             hid: "description",
             name: "description",
-            content: "",
+            content: "WeTeam 的主页",
           },
         ],
       };
@@ -201,7 +201,6 @@
         keywordCategory: "组队",
         keyword: "",
         images: [
-          "https://upload-images.jianshu.io/upload_images/244174-453ee0e35add5aee.png?imageMogr2/auto-orient/strip|imageView2/2/w/741/format/webp",
           "http://static.xiong35.cn/image/placeHolder.gif",
           "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2801976318,4129713714&fm=15&gp=0.jpg",
         ],
@@ -231,8 +230,8 @@
     created() {},
     mounted() {},
     async asyncData({ store, query }) {
-      let res = await GET("/project?id=all");
-      console.log(res);
+      // let res = await GET("/project?id=all");
+
       const data = [
         {
           title: "this is title",

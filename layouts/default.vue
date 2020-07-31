@@ -73,34 +73,16 @@
         .slice(1);
       this.bottomNav = pageMap[paths[0]];
 
+      if (this.$store.state.token) {
+        return;
+      }
+
       let { token, userID } = getToken();
       if (!token) {
         return;
       }
-      // let res = await GET("/user/info?userID=" + userID);
-      let res = {
-        status: 200,
-        data: [
-          {
-            avatar: "https://ui-avatars.com/api/?name=jack",
-            nickname: "jack",
-            gender: "male",
-            description: "this is description",
-            schoolID: "U201914903", //校园卡号
-            major: "cs",
-            followerNum: "4",
-            followingNum: "3",
-            grade: "19", // 入学年份
-            rating: {
-              // rate详见下方 获取评分 部分, 在用户首页只展示星级
-              ratedNum: 1, // 只用统计评价人数和总分数就行了, 平均分前端来算就好了
-              attitude: 5, // 以下几项都是总分数
-              capability: 4,
-              personality: 4,
-            },
-          },
-        ],
-      };
+      let res = await GET("/user/info?userID=" + userID);
+
       if (res.status == 200) {
         this.$store.commit("setUserInfo", {
           ...res.data[0],
