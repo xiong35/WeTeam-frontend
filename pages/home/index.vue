@@ -232,6 +232,7 @@
     mounted() {},
     async asyncData({ store, query }) {
       let res = await GET("/project?id=all");
+      console.log(res);
       const data = [
         {
           title: "this is title",

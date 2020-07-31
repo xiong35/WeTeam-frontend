@@ -32,6 +32,10 @@
 </template>
 
 <script>
+  import { POST } from "~/network/methods";
+  import { sha40_digest } from "~/utils/sha256";
+  import { setTokenNID } from "~/utils/validate";
+
   export default {
     transition: "layout",
     name: "index",
@@ -58,7 +62,24 @@
     computed: {},
     watch: {},
     methods: {
-      handleLogin() {},
+      async handleLogin() {
+        let { account, password } = this;
+        password = sha40_digest(password);
+
+        let res = await POST("/user/login", {
+          password,
+          userID: account,
+        });
+
+        let { token, userID } = res.data;
+
+        this.$store.commit("setToken", token);
+        setTokenNID(token, userID);
+
+        alert("登陆成功");
+
+        this.$router.push("/home");
+      },
     },
     created() {},
     mounted() {},

@@ -191,8 +191,9 @@
 <script>
   import { majors, mavonConfig, MY_BASE_URL } from "~/assets/data";
 
-  import { POST } from "~/network/methods";
-  import sha256_digest from "~/utils/sha256";
+  import { POST, upload } from "~/network/methods";
+  import { sha40_digest } from "~/utils/sha256";
+  import { setTokenNID } from "~/utils/validate";
 
   export default {
     transition: "layout",
@@ -250,16 +251,7 @@
         let formData = new FormData(); //创建form对象
         formData.append("file", this.avatarFile); //通过append向form对象添加数据
 
-        // let res = await net.request(config);
-        let res = await POST(
-          "/img/avatar",
-          formData,
-          "multipart/form-data;"
-        );
-        if (!res) return;
-        if (res.status !== 200) {
-          alert(res.msg);
-        }
+        let res = await upload("/img/avatar", formData);
 
         this.avatar = MY_BASE_URL + res.data.url.slice(1);
       },
@@ -279,12 +271,15 @@
           grade,
           pw,
           account,
+          defaultAvatar,
+          resume,
         } = this;
 
         grade = parseInt(grade);
+        let password = sha40_digest(pw);
 
         let data = {
-          avatar,
+          avatar: avatar || defaultAvatar,
           nickname,
           gender,
           description,
@@ -292,12 +287,23 @@
           schoolID,
           major,
           grade,
-          password: sha256_digest(pw),
+          password,
           userID: account,
         };
 
-        let res = await POST("/user/info", data);
-        console.log(res);
+        await POST("/user/info", data);
+
+        let res = await POST("/user/login", {
+          password,
+          userID: account,
+        });
+
+        let { token, userID } = res.data;
+
+        this.$store.commit("setToken", token);
+        setTokenNID(token, userID);
+
+        POST("/user/resume", { resume, token });
       },
     },
     created() {},

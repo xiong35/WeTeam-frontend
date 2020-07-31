@@ -11,7 +11,8 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.12.0",
     "mavon-editor": "^2.9.0",
-    "nuxt": "^2.14.0"
+    "nuxt": "^2.14.0",
+    "qs": "^6.9.4"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2",

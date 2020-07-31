@@ -13,7 +13,7 @@ export function getToken() {
   return { token, userID };
 }
 
-export function setToken(token, userID) {
+export function setTokenNID(token, userID) {
   localStorage.setItem(
     "token",
     JSON.stringify({

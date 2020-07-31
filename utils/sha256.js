@@ -288,9 +288,13 @@ function sha256_encode_hex() {
 
 /* Main function: returns a hex string representing the SHA256 value of the 
 given data */
-export default function sha256_digest(data) {
+export function sha256_digest(data) {
   sha256_init();
   sha256_update(data, data.length);
   sha256_final();
   return sha256_encode_hex();
+}
+
+export function sha40_digest(data) {
+  return sha256_digest(data).slice(40);
 }
