@@ -141,6 +141,7 @@
   import BtnRate from "~/components/BtnRate";
 
   import { timestampFmt } from "~/utils/time";
+  import { GET, POST } from "~/network/methods";
 
   export default {
     transition: "layout",
@@ -173,41 +174,24 @@
     created() {},
     mounted() {},
     async asyncData({ store, query }) {
-      const data = {
-        id: "<id>",
-        publisher: "<userID>", // NEW
-        title: "this is title",
-        publisher: "123", // NEW
-        finished: true,
-        publisherAvatar:
-          "https://ui-avatars.com/api/?name=John+Doe", // NEW
-        publisherName: "jack", // NEW
-        publishTime: new Date().getTime(), // NEWNEW, 项目发布的时间
-        tags: ["foo", "bar"],
-        beginDate: "2020/07/09",
-        description:
-          "this is a vary awesome project welcom to join us",
-        memberNum: 7,
-        grade: "better grade 2, grade 1 is accepetable",
-        skill: "ps, c, c++",
-        major: "cs",
-        members: ["wegfae", "awrgAFv", "efaef"],
-      };
-      const members = [
-        {
-          avatar: "https://ui-avatars.com/api/?name=rose",
-          nickname: "rose",
-        },
-        {
-          avatar: "https://ui-avatars.com/api/?name=marry",
-          nickname: "marry",
-        },
-        {
-          avatar: "https://ui-avatars.com/api/?name=Jim",
-          nickname: "Jim",
-        },
-      ];
-      return { post: data, members };
+      let { id } = query;
+      if (!id) {
+        this.$router.replace("/404");
+      }
+
+      let res = await GET("/project?id=" + id);
+      if (!res || res.status != 200) {
+        this.$router.replace("/404");
+      }
+      console.log(res);
+
+      let memberID = res.data.members;
+
+      res = await GET(
+        "/user/info?userID=" + memberID.join("&userID=")
+      );
+
+      return { post: res.data, members: res.data };
     },
   };
 </script>
