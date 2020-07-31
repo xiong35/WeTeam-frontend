@@ -40,6 +40,7 @@
           <v-text-field
             label="密码"
             outlined
+            type="password"
             :rules="[
               (v) => !!v || '请填写密码',
               (v) => v.length >= 6 || '密码至少需要6位',
@@ -52,6 +53,7 @@
           <v-text-field
             label="确认密码"
             outlined
+            type="password"
             :rules="[(v) => v === pw || '两次密码不一致']"
             required
             clearable
@@ -81,10 +83,10 @@
                     '头像大小不能超过 6 MB!',
                 ]"
                 accept="image/png, image/jpeg, image/jpg, image/bmp"
-                placeholder="选择头像"
                 label="选择头像"
                 v-model="avatarFile"
                 outlined
+                @change="uploadAvatar"
                 :prepend-icon="null"
               ></v-file-input>
             </v-col>
@@ -92,6 +94,7 @@
               <v-img
                 :src="avatar || defaultAvatar"
                 alt=""
+                @click="genNumber"
                 aspect-ratio="1"
               ></v-img>
             </v-col>
@@ -115,6 +118,18 @@
             clearable
             v-model="schoolID"
           ></v-text-field>
+          <v-textarea
+            label="个人简介"
+            outlined
+            :rules="[
+              (v) => {
+                return !!v || '个人简介不能为空QwQ';
+              },
+            ]"
+            required
+            clearable
+            v-model="description"
+          ></v-textarea>
           <v-autocomplete
             :items="majors"
             v-model="major"
@@ -125,17 +140,11 @@
             :rules="[(v) => !!v || '请选择专业']"
           ></v-autocomplete>
           <v-select
-            :items="[
-              '大一',
-              '大二',
-              '大三',
-              '大四',
-              '研究生',
-              '博士生',
-            ]"
+            :items="['20级', '19级', '18级', '17级', '16级']"
             v-model="grade"
             label="年级"
             outlined
+            :menu-props="{ top: true, offsetY: true }"
             :rules="[(v) => !!v || '请选择年级']"
           ></v-select>
         </v-form>
@@ -156,7 +165,7 @@
           :toolbars="mavonConfig"
           v-model="resume"
           defaultOpen="edit"
-          subfield="false"
+          :subfield="false"
           placeholder="请编写你的简历, 让更多人了解你. (支持markdown, latex)"
         />
         <v-btn
@@ -180,7 +189,10 @@
 </template>
 
 <script>
-  import { majors, mavonConfig } from "~/assets/data";
+  import { majors, mavonConfig, MY_BASE_URL } from "~/assets/data";
+
+  import { POST } from "~/network/methods";
+  import sha256_digest from "~/utils/sha256";
 
   export default {
     transition: "layout",
@@ -201,15 +213,15 @@
     data() {
       return {
         curStep: 1,
-        account: "",
-        nickname: "",
-        pw: "",
-        pwConfirm: "",
+        account: "18827",
+        nickname: "xiong35",
+        pw: "123456",
+        pwConfirm: "123456",
         page1Valid: true,
         avatar: "",
         gender: "保密",
-        description: "",
-        schoolID: "",
+        description: "foo bar. lorem",
+        schoolID: "U201914903",
         majors,
         major: "",
         grade: "",
@@ -217,12 +229,13 @@
         page2Valid: true,
         resume: "",
         mavonConfig,
+        avatarID: 0,
       };
     },
     computed: {
       defaultAvatar() {
-        let randInt = ~~(Math.random() * 119);
-        return `http://static.xiong35.cn/image/icons/Emojious/${randInt}.png`;
+        this.genNumber();
+        return `http://static.xiong35.cn/image/icons/Emojious/${this.avatarID}.png`;
       },
     },
     watch: {},
@@ -232,7 +245,60 @@
           this.curStep = next;
         }
       },
-      submit() {},
+
+      async uploadAvatar(e) {
+        let formData = new FormData(); //创建form对象
+        formData.append("file", this.avatarFile); //通过append向form对象添加数据
+
+        // let res = await net.request(config);
+        let res = await POST(
+          "/img/avatar",
+          formData,
+          "multipart/form-data;"
+        );
+        if (!res) return;
+        if (res.status !== 200) {
+          alert(res.msg);
+        }
+
+        this.avatar = MY_BASE_URL + res.data.url.slice(1);
+      },
+
+      genNumber() {
+        this.avatarID = ~~(Math.random() * 119);
+      },
+
+      async submit() {
+        let {
+          avatar,
+          nickname,
+          gender,
+          description,
+          schoolID,
+          major,
+          grade,
+          pw,
+          account,
+        } = this;
+
+        grade = parseInt(grade);
+
+        let data = {
+          avatar,
+          nickname,
+          gender,
+          description,
+          school: "华中科技大学",
+          schoolID,
+          major,
+          grade,
+          password: sha256_digest(pw),
+          userID: account,
+        };
+
+        let res = await POST("/user/info", data);
+        console.log(res);
+      },
     },
     created() {},
     mounted() {},

@@ -176,6 +176,7 @@
 
 <script>
   import Card from "~/components/Card";
+  import { GET } from "~/network/methods";
 
   export default {
     transition: "layout",
@@ -230,6 +231,7 @@
     created() {},
     mounted() {},
     async asyncData({ store, query }) {
+      let res = await GET("/project?id=all");
       const data = [
         {
           title: "this is title",

@@ -1,23 +1,24 @@
 import axios from "axios";
+import { MY_BASE_URL } from "~/assets/data";
 
 export function request(config) {
   const instance = axios.create({
-    baseURL: " https://easy-mock.com/mock/5f1fc20267b7b33927fe2bf8",
-    timeout: 5000
+    baseURL: MY_BASE_URL,
+    timeout: 5000,
   });
 
   instance.interceptors.request.use(
-    config => {
+    (config) => {
       return config;
     },
-    err => { }
+    (err) => {}
   );
 
   instance.interceptors.response.use(
-    response => {
+    (response) => {
       return response.data;
     },
-    err => { }
+    (err) => {}
   );
 
   // return a Promise

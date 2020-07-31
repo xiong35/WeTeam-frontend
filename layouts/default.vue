@@ -73,7 +73,6 @@
         .slice(1);
       this.bottomNav = pageMap[paths[0]];
 
-      setToken("token", "userID");
       let { token, userID } = getToken();
       if (!token) {
         return;

@@ -123,3 +123,5 @@ export const mavonConfig = {
   subfield: true, // 单双栏模式
   preview: true, // 预览
 };
+
+export const MY_BASE_URL = "http://101.200.210.170/";

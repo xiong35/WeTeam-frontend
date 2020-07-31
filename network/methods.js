@@ -6,13 +6,17 @@ export function GET(url) {
   });
 }
 
-export function POST(url, data) {
+export function POST(
+  url,
+  data,
+  contentType = "application/json;"
+) {
   return request({
     url,
     data,
     method: "POST",
     headers: {
-      "Content-Type": "application/json;",
+      "Content-Type": contentType,
     },
   });
 }
