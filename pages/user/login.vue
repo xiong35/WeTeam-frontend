@@ -92,8 +92,14 @@
       },
     },
     created() {},
-    mounted() {},
-    async asyncData({ store, query }) {},
+    mounted() {
+      if (this.hint) {
+        alert("请先登录!");
+      }
+    },
+    async asyncData({ store, query }) {
+      return { hint: query.hint };
+    },
   };
 </script>
 

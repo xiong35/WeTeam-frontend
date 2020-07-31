@@ -131,7 +131,6 @@
   import MsgRate from "~/components/MsgRate";
   import Card from "~/components/Card";
 
-  import { checkSignIn } from "~/utils/validate";
   import { POST, GET } from "~/network/methods";
 
   export default {
@@ -148,6 +147,12 @@
           },
         ],
       };
+    },
+    validate({ store, redirect }) {
+      if (!store.state.token || !store.state.userInfo) {
+        redirect("/user/login?hint=true");
+      }
+      return true;
     },
     components: { TopBar, MsgRate, Card },
     data() {
@@ -190,9 +195,7 @@
     },
     created() {},
     filters: {},
-    mounted() {
-      checkSignIn(this);
-    },
+    mounted() {},
     async asyncData({ store, query }) {
       let { userID } = query;
 
@@ -201,7 +204,7 @@
       }
 
       let info;
-      if (store.state.userInfo && store.state.userInfo.userID) {
+      if (store.state.userInfo.userID) {
         if (userID == store.state.userInfo.userID) {
           info = store.state.userInfo;
         }

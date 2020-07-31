@@ -21,12 +21,12 @@
     name: "index",
     head() {
       return {
-        title: "",
+        title: "发布",
         meta: [
           {
             hid: "description",
             name: "description",
-            content: "",
+            content: "WeTeam 的发布",
           },
         ],
       };

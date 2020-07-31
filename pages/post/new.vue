@@ -149,22 +149,27 @@
 
   import { majors } from "~/assets/data";
   import { POST } from "~/network/methods";
-  import { checkSignIn } from "~/utils/validate";
 
   export default {
     transition: "layout",
     name: "index",
     head() {
       return {
-        title: "",
+        title: "创建组队",
         meta: [
           {
             hid: "description",
             name: "description",
-            content: "",
+            content: "创建组队",
           },
         ],
       };
+    },
+    validate({ store, redirect }) {
+      if (!store.state.token || !store.state.userInfo) {
+        redirect("/user/login?hint=true");
+      }
+      return true;
     },
     components: { TopBar },
     data() {
@@ -231,9 +236,7 @@
       },
     },
     created() {},
-    mounted() {
-      checkSignIn(this);
-    },
+    mounted() {},
     async asyncData({ store, query }) {},
   };
 </script>

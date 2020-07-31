@@ -45,8 +45,6 @@
 <script>
   import TopBar from "~/components/TopBar";
 
-  import { checkSignIn } from "~/utils/validate";
-
   export default {
     transition: "layout",
     name: "index",
@@ -62,6 +60,12 @@
         ],
       };
     },
+    validate({ store, redirect }) {
+      if (!store.state.token || !store.state.userInfo) {
+        redirect("/user/login?hint=true");
+      }
+      return true;
+    },
     components: { TopBar },
     data() {
       return {};
@@ -71,9 +75,7 @@
     methods: {},
     created() {},
     filters: {},
-    mounted() {
-      checkSignIn(this);
-    },
+    mounted() {},
     async asyncData({ store, query }) {
       return { info: store.state.userInfo || {} };
     },

@@ -38,11 +38,7 @@
 </template>
 
 <script>
-  import {
-    setToken,
-    getToken,
-    checkSignIn,
-  } from "~/utils/validate";
+  import { setToken, getToken } from "~/utils/validate";
   import { GET } from "~/network/methods";
 
   const pageMap = {

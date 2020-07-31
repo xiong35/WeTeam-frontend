@@ -39,12 +39,12 @@
     name: "index",
     head() {
       return {
-        title: "",
+        title: "关于我们",
         meta: [
           {
             hid: "description",
             name: "description",
-            content: "",
+            content: "WeTeam: 关于我们",
           },
         ],
       };

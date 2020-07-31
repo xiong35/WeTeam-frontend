@@ -20,12 +20,12 @@
     name: "index",
     head() {
       return {
-        title: "",
+        title: "搜索结果",
         meta: [
           {
             hid: "description",
             name: "description",
-            content: "",
+            content: "搜索结果",
           },
         ],
       };
