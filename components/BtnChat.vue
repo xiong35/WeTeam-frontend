@@ -28,6 +28,8 @@
 </template>
 
 <script>
+  import { POST } from "~/network/methods";
+
   export default {
     name: "BtnChat",
     components: {},
@@ -54,7 +56,18 @@
     computed: {},
     watch: {},
     methods: {
-      submit() {
+      async submit() {
+        let res = await POST("/user/chat", {
+          token: this.$store.state.token,
+          from: this.$store.state.userInfo.userID,
+          to: this.userID,
+          message: this.sendMsg,
+        });
+
+        console.log(res);
+
+        alert("发送成功!");
+
         this.menu = false;
       },
     },

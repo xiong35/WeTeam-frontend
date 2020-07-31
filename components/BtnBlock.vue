@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  import { POST } from "~/network/methods";
+
   export default {
     name: "BtnBlock",
     components: {},
@@ -20,13 +22,21 @@
     computed: {},
     watch: {},
     methods: {
-      block() {
+      async block() {
         if (
-          confirm(
+          !confirm(
             "确定将此用户加入黑名单吗?(你将不会收到他的任何消息)"
           )
         ) {
+          return;
         }
+        let res = await POST("/message/reject", {
+          token: this.$store.state.token,
+          rejecter: this.$store.state.userInfo.userID,
+          rejectee: this.userID,
+        });
+
+        alert("成功拉黑此人!");
       },
     },
     created() {},

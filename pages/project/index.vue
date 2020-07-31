@@ -245,7 +245,9 @@
     },
     computed: {
       inGroup() {
-        let userID = this.$store.state.userInfo.userID;
+        let userID =
+          this.$store.state.userInfo &&
+          this.$store.state.userInfo.userID;
         let members = this.post.members;
 
         let ind = members.findIndex((v) => {
