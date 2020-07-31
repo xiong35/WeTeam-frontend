@@ -209,7 +209,7 @@
     "token":"...",
     "from": "<id>",  // 发布评价的人, 如果设为 null 代表匿名
     "to": "<id>",  // 被评价的人
-    "massage": "..."    // 具体内容
+    "message": "..."    // 具体内容
   }
   ```
 
@@ -238,7 +238,7 @@
         "fromName": "<nickname>",  // 发布评价的人的nickname
         "fromAvatar": "<url>",  // 发布评价的人的avatar
         "to": "<id>",  // 被评价的人
-        "massage": "...",    // 详细内容
+        "message": "...",    // 详细内容
         "time": "<时间戳, Number>", // 发布的时间
       },
       // ...
@@ -471,7 +471,7 @@
 
 ### 获得申请加入的信息
 
-- url: `GET /massage/join?token=<token>`
+- url: `GET /message/join?token=<token>`
 - 响应:
 
   ```json
@@ -481,7 +481,7 @@
     "data": [
       {
         "target": "<项目id>",
-        "massage": "<留言>",
+        "message": "<留言>",
         "title": "项目名称",  // change
         "from": "<申请人id>",
         "fromAvatar": "...",  // change
@@ -494,7 +494,7 @@
 
 ### 获得得到响应的信息
 
-- url: `GET /massage/joinResponse?token=<token>`
+- url: `GET /message/joinResponse?token=<token>`
 - 响应:
 
   ```json
@@ -506,7 +506,7 @@
         "accepted": "Boolean",
         "target": "<项目id>",
         "title": "项目名称",  // change
-        "massage": "<留言>",
+        "message": "<留言>",
         "time": "<时间戳Number>"  // change
       }
     ]
@@ -515,14 +515,14 @@
 
 ### 申请组队
 
-- url: `POST /massage/join`
+- url: `POST /message/join`
 - 数据:
 
   ```json
   {
     "token": "token",
     "target": "<id>", // 申请的项目的id
-    "massage": "...", // 推荐自己的理由
+    "message": "...", // 推荐自己的理由
   }
   ```
 
@@ -537,7 +537,7 @@
 
 ### 响应申请
 
-- url: `POST /massage/joinResponse`
+- url: `POST /message/joinResponse`
 - 数据:
 
   ```json
@@ -547,7 +547,7 @@
     "title": "项目名称", // change
     "from": "<userID>",  // change, 申请人的id
     "target": "<项目id>",
-    "massage": "<留言>",
+    "message": "<留言>",
   }
   ```
 

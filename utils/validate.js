@@ -28,5 +28,7 @@ export function checkSignIn({ $store, $router }) {
   if (!$store.state.token) {
     alert("您还没有登录!");
     $router.replace("/user/login");
+    return false;
   }
+  return true;
 }

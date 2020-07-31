@@ -6,12 +6,9 @@
           {{ post.title }}
         </span>
         <v-spacer></v-spacer>
-        <v-chip small v-if="post.finished" outlined color="orange"
-          >已结束</v-chip
-        >
-        <v-chip small v-else outlined color="primary"
-          >进行中</v-chip
-        >
+        <ChipProjectStatus
+          :finished="post.finished"
+        ></ChipProjectStatus>
       </v-row>
 
       <v-chip small outlined class="ma-1" color="red"
@@ -36,10 +33,12 @@
 </template>
 
 <script>
+  import ChipProjectStatus from "~/components/ChipProjectStatus";
+
   export default {
     transition: "layout",
     name: "Card",
-    components: {},
+    components: { ChipProjectStatus },
     props: {
       post: {
         type: Object,

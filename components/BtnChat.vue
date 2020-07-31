@@ -1,6 +1,4 @@
 <template>
-  <!-- min-width="85%"
-    nudge-left="13%" -->
   <v-menu
     v-model="menu"
     :close-on-content-click="false"
