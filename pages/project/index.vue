@@ -260,14 +260,19 @@
         this.dialog = false;
         alert("发送成功");
       },
-      async finish() {
+
+      finish() {
         if (!checkSignIn(this)) {
           return;
         }
 
         if (confirm("确定要结束本次活动吗?")) {
-          console.log("end");
-          // TODO end project & message page
+          POST("/project/finish", {
+            token: this.$store.state.token,
+            id: this.id,
+          });
+
+          this.post.finished = true;
         }
       },
     },
