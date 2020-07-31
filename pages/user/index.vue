@@ -3,7 +3,7 @@
     <TopBar :title="info.nickname + '的主页'" />
     <v-row class="text-center">
       <v-col>
-        <v-avatar size="6rpx">
+        <v-avatar class="mt-4" size="80px">
           <img :src="info.avatar" alt="alt" />
         </v-avatar>
         <h3 class="ma-2">{{ info.nickname }}</h3>

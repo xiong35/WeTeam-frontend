@@ -21,17 +21,20 @@
   import MsgRequest from "~/components/MsgRequest";
   import MsgRate from "~/components/MsgRate";
 
+  import { POST, GET } from "~/network/methods";
+  import { checkSignIn } from "~/utils/validate";
+
   export default {
     transition: "layout",
     name: "index",
     head() {
       return {
-        title: "",
+        title: "消息列表",
         meta: [
           {
             hid: "description",
             name: "description",
-            content: "",
+            content: "WeTeam 的消息列表界面",
           },
         ],
       };
@@ -49,9 +52,22 @@
     watch: {},
     methods: {},
     created() {},
-    mounted() {},
+    mounted() {
+      checkSignIn(this);
+    },
     async asyncData({ store, query }) {
+      let { token, userInfo } = store.state;
+      let userID = userInfo.userID;
       let massages = [];
+
+      let responses = await Promise.allSettled([
+        GET("/user/chat?userID=" + userID),
+        GET("/message/joinResponse?token=" + token),
+        GET("/message/join?token=" + token),
+        GET("/user/rate?userID=" + userID),
+      ]);
+
+      /*  
       let msgRes = {
         status: 200,
         msg: "ok",
@@ -153,16 +169,21 @@
             time: new Date().getTime() - 10000,
           },
         ],
-      };
-      [msgRes, responseRes, requestRes, rateRes].forEach(
-        (res, ind) => {
-          if (res && res.status == 200) {
-            massages = massages.concat(
-              res.data.map((obj) => ({ type: ind, data: obj }))
-            );
-          }
+      }; */
+
+      responses.forEach((promise, ind) => {
+        if (
+          promise.status == "fulfilled" &&
+          promise.value.status == 200
+        ) {
+          massages = massages.concat(
+            promise.value.data.map((obj) => ({
+              type: ind,
+              data: obj,
+            }))
+          );
         }
-      );
+      });
 
       massages = massages.sort((a, b) => {
         return b.data.time - a.data.time;

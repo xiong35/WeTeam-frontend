@@ -13,7 +13,7 @@
     },
     props: {
       userID: {
-        type: String,
+        type: Number,
         reruired: true,
       },
     },

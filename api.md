@@ -224,7 +224,7 @@
 
 #### 获取私信
 
-- url: `GET /user/rate?userID=<id>`
+- url: `GET /user/chat?userID=<id>`
 - 数据: query 中的 userID
 - 返回:
 
