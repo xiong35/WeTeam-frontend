@@ -124,6 +124,7 @@
   import MsgRate from "~/components/MsgRate";
 
   import { checkSignIn } from "~/utils/validate";
+  import { POST, GET } from "~/network/methods";
 
   export default {
     transition: "layout",
@@ -169,60 +170,32 @@
       checkSignIn(this);
     },
     async asyncData({ store, query }) {
-      let rateRes = {
-        status: 200,
-        msg: "ok",
-        data: [
-          {
-            rater: "123", // 发布评价的人, 如果设为 null 代表匿名
-            raterName: "jack", // 发布评价的人的nickname, 如果设为 null 代表匿名
-            raterAvatar: "https://ui-avatars.com/api/?name=jack",
-            ratee: "456", // 被评价的人
-            attitude: 3,
-            capability: 4,
-            personality: 5,
-            description: "8太行", // 详细评价, 可为null
-            time: new Date().getTime() - 60000,
-          },
-          {
-            rater: "245", // 发布评价的人, 如果设为 null 代表匿名
-            raterName: "rose", // 发布评价的人的nickname, 如果设为 null 代表匿名
-            raterAvatar: "https://ui-avatars.com/api/?name=rose",
-            ratee: "123", // 被评价的人
-            attitude: 5,
-            capability: 4,
-            personality: 5,
-            description: "整挺好", // 详细评价, 可为null
-            time: new Date().getTime() - 10000,
-          },
-        ],
-      };
+      let { userID } = query;
 
-      let infoRes = {
-        status: 200,
-        data: [
-          {
-            avatar: "https://ui-avatars.com/api/?name=jack",
-            nickname: "jack",
-            gender: "male",
-            description: "this is description",
-            schoolID: "U201914903", //校园卡号
-            major: "cs",
-            followerNum: "4",
-            followingNum: "3",
-            grade: "19", // 入学年份
-            rating: {
-              // rate详见下方 获取评分 部分, 在用户首页只展示星级
-              ratedNum: 1, // 只用统计评价人数和总分数就行了, 平均分前端来算就好了
-              attitude: 5, // 以下几项都是总分数
-              capability: 4,
-              personality: 4,
-            },
-          },
-        ],
-      };
+      if (!userID) {
+        this.$router.replace("/404");
+      }
 
-      return { info: infoRes.data[0], rates: rateRes.data };
+      let info;
+      if (store.state.userInfo && store.state.userInfo.userID) {
+        if (userID == store.state.userInfo.userID) {
+          info = store.state.userInfo;
+        }
+      }
+      if (!info) {
+        let res = await GET("/user/info?userID=" + userID);
+
+        if (!res || res.status != 200) {
+          this.$router.replace("/404");
+        }
+
+        info = res.data[0];
+      }
+
+      let res = await GET("/user/rate?userID=" + userID);
+      let rates = res.data;
+
+      return { info, rates };
     },
   };
 </script>
