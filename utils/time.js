@@ -1,4 +1,4 @@
-export function timestampFmt(timestamp, fmt = "yyyy-mm-dd HH:MM") {
+export function timestampFmt(timestamp, fmt = "mm-dd HH:MM") {
   if (timestamp < 1000000000000) {
     timestamp *= 1000;
   }

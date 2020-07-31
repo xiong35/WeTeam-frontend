@@ -178,7 +178,7 @@
         publisher: "<userID>", // NEW
         title: "this is title",
         publisher: "123", // NEW
-        finished: false,
+        finished: true,
         publisherAvatar:
           "https://ui-avatars.com/api/?name=John+Doe", // NEW
         publisherName: "jack", // NEW

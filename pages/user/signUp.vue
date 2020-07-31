@@ -221,7 +221,8 @@
     },
     computed: {
       defaultAvatar() {
-        return "https://ui-avatars.com/api/?name=" + this.nickname;
+        let randInt = ~~(Math.random() * 119);
+        return `http://static.xiong35.cn/image/icons/Emojious/${randInt}.png`;
       },
     },
     watch: {},
