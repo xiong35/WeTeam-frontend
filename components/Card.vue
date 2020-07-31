@@ -14,11 +14,14 @@
         >
       </v-row>
 
+      <v-chip small outlined class="ma-1" color="red"
+        >{{ post.rank }}
+      </v-chip>
       <v-chip
-        v-for="(tag, ind) in post.tags"
+        v-for="(tag, ind) in post.type"
         outlined
         :key="ind"
-        class="mr-1"
+        class="ma-1"
         small
         >{{ tag }}</v-chip
       >

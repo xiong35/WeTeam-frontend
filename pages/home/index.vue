@@ -230,32 +230,16 @@
     created() {},
     mounted() {},
     async asyncData({ store, query }) {
-      // let res = await GET("/project?id=all");
+      let res = await GET("/project?id=all");
 
-      const data = [
-        {
-          title: "this is title",
-          tags: ["foo", "bar"],
-          beginDate: "2020/03/20",
-          memberNum: 7,
-          id: "98t6eihg",
-        },
-        {
-          title: "this is title",
-          tags: ["foo", "bar"],
-          beginDate: "2020/08/20",
-          memberNum: 7,
-          id: "98t6eihg",
-        },
-        {
-          title: "this is title",
-          tags: ["foo"],
-          beginDate: "2020/01/20",
-          memberNum: 7,
-          id: "98t6eihg",
-        },
-      ];
-      return { allPosts: data };
+      if (!res || res.status != 200) {
+        alert("好像出了点问题QwQ");
+        return;
+      }
+
+      console.log(res.data);
+
+      return { allPosts: res.data };
     },
   };
 </script>
