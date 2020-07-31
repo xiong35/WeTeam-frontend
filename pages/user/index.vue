@@ -25,7 +25,12 @@
         <nuxt-link
           tag="span"
           class="text-h6"
-          :to="'/user/resume?id=' + info.userID"
+          :to="
+            '/user/resume?userID=' +
+            info.userID +
+            '&nickname=' +
+            info.nickname
+          "
           >查看简历 ></nuxt-link
         >
       </v-row>

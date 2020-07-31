@@ -112,7 +112,9 @@
             <v-list-item three-line>
               <v-list-item-avatar
                 @click="
-                  $router.push(`/user?id=${post.members[index]}`)
+                  $router.push(
+                    `/user?userID=${post.members[index]}`
+                  )
                 "
                 size="45"
               >
@@ -179,19 +181,18 @@
         this.$router.replace("/404");
       }
 
-      let res = await GET("/project?id=" + id);
-      if (!res || res.status != 200) {
+      let projectRes = await GET("/project?id=" + id);
+      if (!projectRes || projectRes.status != 200) {
         this.$router.replace("/404");
       }
-      console.log(res);
 
-      let memberID = res.data.members;
+      let memberID = projectRes.data.members;
 
-      res = await GET(
+      let memberRes = await GET(
         "/user/info?userID=" + memberID.join("&userID=")
       );
 
-      return { post: res.data, members: res.data };
+      return { post: projectRes.data, members: memberRes.data };
     },
   };
 </script>
