@@ -151,9 +151,7 @@
   {
     "token":"<token>",
     "rater": "<id>",  // 发布评价的人, 如果设为 null 代表匿名
-
     "ratee": "<id>",  // 被评价的人
-
     "attitude": "Number",
     "capability": "Number",
     "personality": "Number",

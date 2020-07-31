@@ -47,6 +47,13 @@
             v-model="description"
           >
           </v-textarea>
+          <v-switch
+            v-model="anonymous"
+            label="开启匿名?"
+            color="indigo"
+            hide-details
+            class="mt-n5"
+          ></v-switch>
         </v-container>
         <small>*请客观公平准确的评价队友, 大家一起进步!</small>
       </v-card-text>
@@ -66,6 +73,7 @@
 
 <script>
   import BtnBlock from "~/components/BtnBlock";
+  import { POST } from "~/network/methods";
 
   export default {
     name: "BtnRate",
@@ -77,11 +85,12 @@
         attitude: 4,
         capability: 4,
         description: "",
+        anonymous: false,
       };
     },
     props: {
       userID: {
-        type: String,
+        type: Number,
         required: true,
       },
       nickname: {
@@ -92,7 +101,37 @@
     computed: {},
     watch: {},
     methods: {
-      submit() {},
+      async submit() {
+        let { token, userInfo } = this.$store.state;
+
+        let rater = userInfo.userID;
+        let ratee = this.userID;
+
+        let {
+          attitude,
+          capability,
+          personality,
+          description,
+          anonymous,
+        } = this;
+
+        if (anonymous) {
+          rater = null;
+        }
+
+        let res = await POST("/user/rate", {
+          token,
+          rater,
+          ratee,
+          attitude,
+          personality,
+          capability,
+          description,
+        });
+
+        alert("提交成功!");
+        this.dialog = false;
+      },
     },
     created() {},
     mounted() {},

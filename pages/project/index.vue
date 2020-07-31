@@ -127,7 +127,7 @@
             v-for="(member, index) in members"
             :key="index"
           >
-            <v-list-item three-line>
+            <v-list-item three-line class="pa-0 px-1">
               <v-list-item-avatar
                 @click="
                   $router.push(
@@ -143,7 +143,7 @@
                   {{ member.nickname }}
                 </p>
                 <BtnRate
-                  v-if="post.finished"
+                  v-if="post.finished && inGroup"
                   :userID="post.members[index]"
                   :nickname="member.nickname"
                 ></BtnRate>
@@ -243,7 +243,18 @@
     filters: {
       timestampFmt,
     },
-    computed: {},
+    computed: {
+      inGroup() {
+        let userID = this.$store.state.userInfo.userID;
+        let members = this.post.members;
+
+        let ind = members.findIndex((v) => {
+          return v == userID;
+        });
+
+        return !!~ind;
+      },
+    },
     watch: {},
     methods: {
       async submit() {
