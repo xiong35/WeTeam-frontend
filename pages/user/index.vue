@@ -118,7 +118,9 @@
       </v-tab-item>
 
       <v-tab-item>
-        <v-card flat> </v-card>
+        <div v-for="(record, index) in records" :key="index">
+          <Card :post="record"></Card>
+        </div>
       </v-tab-item>
     </v-tabs-items>
   </v-card>
@@ -127,6 +129,7 @@
 <script>
   import TopBar from "~/components/TopBar";
   import MsgRate from "~/components/MsgRate";
+  import Card from "~/components/Card";
 
   import { checkSignIn } from "~/utils/validate";
   import { POST, GET } from "~/network/methods";
@@ -146,16 +149,32 @@
         ],
       };
     },
-    components: { TopBar, MsgRate },
+    components: { TopBar, MsgRate, Card },
     data() {
       return {
         info: {},
         tab: 0,
         showDetailRate: false,
+        haveRecords: false,
+        records: [],
       };
     },
     computed: {},
-    watch: {},
+    watch: {
+      async tab(newVal, oldVal) {
+        if (this.haveRecords) {
+          return;
+        }
+
+        let res = await GET(
+          "/project/user?userID=" + this.info.userID
+        );
+        if (!res || res.status != 200) {
+          return;
+        }
+        this.records = res.data;
+      },
+    },
     methods: {
       avgStar(star) {
         if (typeof star == "number") {
