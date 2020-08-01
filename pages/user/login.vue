@@ -7,7 +7,7 @@
     <v-card-title>登录</v-card-title>
     <v-text-field
       v-model="account"
-      label="请输入账号"
+      label="请输入登录账号"
     ></v-text-field>
     <v-text-field
       v-model="password"

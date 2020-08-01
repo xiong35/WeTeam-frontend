@@ -7,7 +7,9 @@
 
       <v-divider></v-divider>
 
-      <v-stepper-step :complete="page2Valid" step="2"
+      <v-stepper-step
+        :complete="page2Valid && curStep > 2"
+        step="2"
         >完善基本信息</v-stepper-step
       >
 
@@ -23,10 +25,13 @@
         <h3 class="mb-3">输入账号密码</h3>
         <v-form ref="form1" v-model="page1Valid" lazy-validation>
           <v-text-field
-            label="账号"
+            label="登录账号"
             required
             clearable
-            :rules="[(v) => !!v || '请填写账号']"
+            :rules="[
+              (v) => !!v || '请填写账号',
+              (v) => v.length >= 6 || '登录账号至少需要6位',
+            ]"
             autofocus
             v-model="account"
           ></v-text-field>
