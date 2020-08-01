@@ -159,7 +159,7 @@
       <v-tab-item>
         <v-card flat>
           <Card
-            v-for="post in allPosts"
+            v-for="post in filteredPosts"
             :key="post.id"
             :post="post"
           ></Card>
@@ -284,8 +284,18 @@
             return true;
           });
         } else {
+          let following = this.$store.state.following.map(
+            (v) => v.userID
+          );
           return this.allPosts.filter((p) => {
-            console.log(p);
+            for (let m of p.members) {
+              for (let f of following) {
+                if (m == f) {
+                  return true;
+                }
+              }
+            }
+            return false;
           });
         }
       },
