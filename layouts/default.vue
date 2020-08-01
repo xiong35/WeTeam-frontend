@@ -14,24 +14,24 @@
       small
     >
       <v-btn nuxt to="/home">
-        <span>首页</span>
         <v-icon>mdi-home</v-icon>
+        <span>首页</span>
       </v-btn>
       <v-btn nuxt to="/school">
-        <span>校园圈</span>
         <v-icon>mdi-school</v-icon>
+        <span>校园圈</span>
       </v-btn>
       <v-btn nuxt to="/post">
-        <span>发布</span>
         <v-icon>mdi-comment-plus</v-icon>
+        <span>发布</span>
       </v-btn>
       <v-btn nuxt to="/message">
-        <span>消息</span>
         <v-icon>mdi-bell</v-icon>
+        <span>消息</span>
       </v-btn>
       <v-btn nuxt to="/about">
-        <span>我的</span>
         <v-icon>mdi-account</v-icon>
+        <span>我的</span>
       </v-btn>
     </v-bottom-navigation>
   </v-app>

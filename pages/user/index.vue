@@ -9,7 +9,12 @@
         <h3 class="ma-2">{{ info.nickname }}</h3>
         <nuxt-link
           tag="span"
-          :to="'/user/follower?userID=' + info.userID"
+          :to="
+            '/user/following?userID=' +
+            info.userID +
+            '&nickname=' +
+            info.nickname
+          "
           class="left-box mr-5 pr-5"
           >关注: {{ info.followingNum }}</nuxt-link
         >
@@ -265,12 +270,15 @@
 
         info = res.data[0];
       }
-      info.userID = userID * 1;
 
       let res = await GET("/user/rate?userID=" + userID);
       let rates = res.data;
 
-      return { info, rates, self };
+      return {
+        info: { ...info, userID: userID * 1 },
+        rates,
+        self,
+      };
     },
   };
 </script>

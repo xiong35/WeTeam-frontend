@@ -1,19 +1,19 @@
 <template>
   <v-card>
-    <TopBar title="的follower"></TopBar>
+    <TopBar :title="title"></TopBar>
     <v-list three-line>
       <v-list-item
-        :to="'/user?userID=' + follower.userID"
-        v-for="(follower, index) in followers"
+        :to="'/user?userID=' + following.userID"
+        v-for="(following, index) in followings"
         :key="index"
       >
         <v-list-item-avatar size="55px">
-          <v-img :src="follower.avatar"></v-img>
+          <v-img :src="following.avatar"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
           <v-list-item-title>{{
-            follower.nickname
+            following.nickname
           }}</v-list-item-title>
           <v-list-item-subtitle>去看看ta></v-list-item-subtitle>
         </v-list-item-content>
@@ -25,17 +25,19 @@
 <script>
   import TopBar from "~/components/TopBar";
 
+  import { GET } from "~/network/methods";
+
   export default {
     transition: "layout",
     name: "index",
     head() {
       return {
-        title: "",
+        title: this.title,
         meta: [
           {
             hid: "description",
             name: "description",
-            content: "",
+            content: this.title,
           },
         ],
       };
@@ -47,35 +49,19 @@
       return {};
     },
     filters: {},
-    computed: {},
+    computed: {
+      title() {
+        return this.nickname + "的关注";
+      },
+    },
     watch: {},
     methods: {},
     created() {},
     mounted() {},
     async asyncData({ store, query }) {
-      const res = {
-        status: 200,
-        msg: "ok",
-        data: [
-          {
-            userID: "fggaf",
-            avatar: "https://ui-avatars.com/api/?name=rose",
-            nickname: "rose",
-          },
-          {
-            userID: "fggaf",
-            avatar: "https://ui-avatars.com/api/?name=marry",
-            nickname: "marry",
-          },
-          {
-            userID: "fggaf",
-            avatar: "https://ui-avatars.com/api/?name=Jim",
-            nickname: "Jim",
-          },
-        ],
-      };
+      let res = await GET("/user/follow?userID=" + query.userID);
 
-      return { followers: res.data };
+      return { followings: res.data, ...query };
     },
   };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <v-text-field dense label="Regular"></v-text-field>
+    not yet
   </div>
 </template>
 
@@ -33,10 +33,4 @@
   };
 </script>
 
-<style scoped lang="scss">
-  #home {
-    width: 100%;
-    height: 100%;
-    background-color: pink;
-  }
-</style>
+<style scoped lang="scss"></style>
