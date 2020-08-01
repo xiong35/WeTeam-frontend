@@ -114,7 +114,7 @@
     },
     validate({ store, redirect }) {
       if (!store.state.token || !store.state.userInfo) {
-        redirect("/user/login?hint=true");
+        return redirect("/user/login?hint=true");
       }
       return true;
     },
@@ -143,6 +143,7 @@
         formData.append("file", this.coverFile); //通过append向form对象添加数据
 
         let res = await upload("/img/acticity", formData);
+        console.log(res);
 
         this.cover = MY_BASE_URL + res.data.url.slice(1);
       },

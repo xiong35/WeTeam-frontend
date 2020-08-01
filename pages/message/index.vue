@@ -28,7 +28,7 @@
     name: "index",
     validate({ store, redirect }) {
       if (!store.state.token || !store.state.userInfo) {
-        redirect("/user/login?hint=true");
+        return redirect("/user/login?hint=true");
       }
       return true;
     },

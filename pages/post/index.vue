@@ -31,6 +31,13 @@
         ],
       };
     },
+    validate({ store, redirect }) {
+      console.log(store.state);
+      if (!store.state.token || !store.state.userInfo) {
+        return redirect("/user/login?hint=true");
+      }
+      return true;
+    },
     components: {},
     data() {
       return {};

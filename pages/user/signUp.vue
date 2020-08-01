@@ -1,13 +1,15 @@
 <template>
   <v-stepper v-model="curStep" alt-labels>
     <v-stepper-header>
-      <v-stepper-step :complete="curStep > 1" step="1"
+      <v-stepper-step :complete="page1Valid" step="1"
         >输入账号密码</v-stepper-step
       >
 
       <v-divider></v-divider>
 
-      <v-stepper-step step="2">完善基本信息</v-stepper-step>
+      <v-stepper-step :complete="page2Valid" step="2"
+        >完善基本信息</v-stepper-step
+      >
 
       <v-divider></v-divider>
 
@@ -208,7 +210,7 @@
         nickname: "",
         pw: "",
         pwConfirm: "",
-        page1Valid: true,
+        page1Valid: false,
         avatar: "",
         gender: "",
         description: "",
@@ -217,7 +219,7 @@
         major: "",
         grade: "",
         avatarFile: null,
-        page2Valid: true,
+        page2Valid: false,
         resume: "",
         mavonConfig,
         avatarID: 0,
