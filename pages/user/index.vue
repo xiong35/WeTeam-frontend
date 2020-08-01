@@ -16,23 +16,47 @@
         <span>粉丝: {{ info.followerNum }}</span>
       </v-col>
     </v-row>
-    <v-col class="ml-3 pt-0">
-      <v-row class="align-center">
-        <span class="text-h6 mr-2">年级专业: </span
-        >{{ info.grade }}级, {{ info.major }}专业
-      </v-row>
-      <v-row>
-        <nuxt-link
-          tag="span"
-          class="text-h6"
-          :to="
-            '/user/resume?userID=' +
-            info.userID +
-            '&nickname=' +
-            info.nickname
-          "
-          >查看简历 ></nuxt-link
-        >
+    <v-col class="pt-0">
+      <p class="text-center pa-0">
+        {{ info.grade }}级 - {{ info.major }}专业
+      </p>
+      <v-row class="py-0 text-center">
+        <v-col class="col-4">
+          <BtnChat
+            v-if="!self"
+            color="black"
+            :outlined="true"
+            :textbtn="false"
+            icon="mdi-chat-processing-outline"
+            :userID="info.userID"
+          ></BtnChat>
+        </v-col>
+        <v-col class="col-4">
+          <v-btn
+            color="black"
+            nuxt
+            :to="
+              '/user/resume?userID=' +
+              info.userID +
+              '&nickname=' +
+              info.nickname
+            "
+            outlined
+          >
+            <v-icon left>mdi-file-account-outline</v-icon>简历
+          </v-btn>
+        </v-col>
+        <v-col class="col-4">
+          <v-btn
+            v-if="!self"
+            color="black"
+            nuxt
+            @click="star"
+            outlined
+          >
+            <v-icon left>mdi-account-star-outline</v-icon>关注
+          </v-btn>
+        </v-col>
       </v-row>
     </v-col>
     <v-tabs
@@ -129,6 +153,7 @@
 <script>
   import TopBar from "~/components/TopBar";
   import MsgRate from "~/components/MsgRate";
+  import BtnChat from "~/components/BtnChat";
   import Card from "~/components/Card";
 
   import { POST, GET } from "~/network/methods";
@@ -154,7 +179,7 @@
       }
       return true;
     },
-    components: { TopBar, MsgRate, Card },
+    components: { TopBar, MsgRate, Card, BtnChat },
     data() {
       return {
         info: {},
@@ -181,6 +206,7 @@
       },
     },
     methods: {
+      star() {},
       avgStar(star) {
         if (typeof star == "number") {
           return star / this.info.rating.ratedNum;
@@ -203,10 +229,12 @@
         this.$router.replace("/404");
       }
 
-      let info;
+      let info,
+        self = false;
       if (store.state.userInfo.userID) {
         if (userID == store.state.userInfo.userID) {
           info = store.state.userInfo;
+          self = true;
         }
       }
       if (!info) {
@@ -222,7 +250,7 @@
       let res = await GET("/user/rate?userID=" + userID);
       let rates = res.data;
 
-      return { info, rates };
+      return { info, rates, self };
     },
   };
 </script>

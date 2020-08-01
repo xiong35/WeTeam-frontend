@@ -6,9 +6,16 @@
     min-width="80%"
   >
     <template v-slot:activator="{ on, attrs }">
-      <v-btn text :color="color" v-bind="attrs" v-on="on">{{
-        text
-      }}</v-btn>
+      <v-btn
+        :outlined="outlined"
+        :text="textbtn"
+        :color="color"
+        v-bind="attrs"
+        v-on="on"
+      >
+        <v-icon v-if="icon" left>{{ icon }}</v-icon
+        >{{ text }}</v-btn
+      >
     </template>
 
     <v-card class="pa-3">
@@ -41,7 +48,7 @@
     },
     props: {
       userID: {
-        type: String,
+        type: Number,
         required: true,
       },
       color: {
@@ -51,6 +58,18 @@
       text: {
         type: String,
         default: "留言",
+      },
+      outlined: {
+        type: Boolean,
+        default: false,
+      },
+      textbtn: {
+        type: Boolean,
+        default: true,
+      },
+      icon: {
+        type: String,
+        default: "",
       },
     },
     computed: {},
