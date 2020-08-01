@@ -75,11 +75,12 @@
         <v-card-title>
           <span class="headline">筛选条件</span>
         </v-card-title>
-        <v-card-text style="height: 50vh;">
+        <v-card-text style="min-height: 50vh;">
           <v-container>
             <v-select
               class="pa-0"
               v-model="numberFilter"
+              @change="checkAll"
               :items="[
                 '不限',
                 '1~2人',
@@ -92,6 +93,7 @@
             <v-select
               class="pa-0"
               v-model="periodFilter"
+              @change="checkAll"
               :items="[
                 '不限',
                 '一周内',
@@ -109,6 +111,7 @@
             <v-select
               class="pa-0"
               v-model="typeFilter"
+              @change="checkAll"
               :items="[
                 '不限',
                 '科技大赛',
@@ -131,6 +134,7 @@
             <v-select
               class="pa-0"
               v-model="rankFilter"
+              @change="checkAll"
               :items="['不限', '院级', '校级', '省级', '国家级']"
               label="项目评级"
               multiple
@@ -313,6 +317,17 @@
       },
     },
     methods: {
+      checkAll(list) {
+        let ind = list.indexOf("不限");
+        if (ind == -1) {
+          return;
+        }
+        if (ind == list.length - 1) {
+          list.splice(0, list.length);
+          list.push("不限");
+        }
+        list.splice(ind, 1);
+      },
       search() {
         if (this.keywordCategory == "用户") {
           alert("暂不支持搜索用户QwQ");

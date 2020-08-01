@@ -106,9 +106,10 @@
       ></v-select>
       <v-autocomplete
         v-model="major"
-        :items="majors"
+        :items="['不限', ...majors]"
         label="专业要求(多选)"
         multiple
+        clearable
         chips
         :rules="[(v) => v.length > 0 || '请选择专业']"
         :menu-props="{ top: true, offsetY: true }"
