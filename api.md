@@ -1,5 +1,5 @@
 
-# api 文档 v3.4
+# api 文档 v4.0
 
 > 用尖括号括起来的地方代表某个变量, 如 "id=<..>" 指id等于某个用户的id号, 实际请求时替换为 "id=1234567" 之类的  
 > 用 "|" 分割的代表n选1, 如 "\<male|female|unknown\>" 代表3选1  
@@ -140,6 +140,27 @@
   }
   ```
 
+#### 修改简历
+
+- url: `PUT /user/resume`
+- 数据:
+
+  ```json
+  {
+    "token": "<>",
+    "resume": "..."   // 是一段长文本, markdown什么的
+  }
+  ```
+
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+  }
+  ```
+
 ### 评分
 
 #### 进行评分
@@ -189,6 +210,8 @@
         "personality": "Number",
         "description": "...",    // 详细评价, 可为null
         "time": "<时间戳, Number>",
+        "id": "<此条评分的id>", 
+        "isChecked": "Boolean",   // 是否已回复, 如果这个评分被后续的api请求标记为已读, 就标记为 true, 
       },
       // ...
     ]
@@ -238,6 +261,8 @@
         "to": "<id>",  // 被评价的人
         "message": "...",    // 详细内容
         "time": "<时间戳, Number>", // 发布的时间
+        "id": "<此条私信的id>", 
+        "isChecked": "Boolean",   // 是否已回复, 如果这个私信被回复过, 或者被后续的api请求标记为已读, 就标记为 true, 
       },
       // ...
     ]
@@ -270,7 +295,7 @@
 
 #### 获取所有自己关注的用户
 
-- url: `GET /user/follow?userID=<id>` // change 先前手滑写的POST
+- url: `GET /user/follow?userID=<id>`
 - 数据: query 中的 id
 - 响应:
 
@@ -288,7 +313,47 @@
   }
   ```
 
-## 组队消息
+#### 获取所有 follower
+
+- url: `GET /user/follower?userID=<id>`
+- 数据: query 中的 id
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "userID": "...",
+        "avatar": "...",
+        "nickname": "..."
+      }
+    ]
+  }
+  ```
+
+### 搜索用户
+
+- url: `GET /user/search?keyword=<...>`
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "userID": "...",
+        "avatar": "...",
+        "nickname": "..."
+      },
+      // ...
+    ]
+  }
+  ```
+
+## 组队
 
 ### 发布
 
@@ -341,7 +406,7 @@
     "msg": "ok",
     "data":   {
       "id": "<id>",
-      "finished": "Boolean",  // change 项目是否结束
+      "finished": "Boolean",
       "publisher": "<userID>",
       "publisherAvatar": "<url>",
       "publisherName": "...",
@@ -375,8 +440,7 @@
       // 这里数据就不分页了吧, 这样可以直接在前端排序, 免得请求太频繁
       {
         "title": "...",
-        "tags": ["...", "...", ],
-        "finished": "Boolean",  // change 项目是否结束
+        "finished": "Boolean",
         "beginDate": "<yyyy/mm/dd格式的String>",
         "memberNum": "Number",
         "id": "<id>",
@@ -404,7 +468,7 @@
     "data": [
       {
         "title": "...",
-        "finished": "Boolean",  // change 项目是否结束
+        "finished": "Boolean",
         "tags": ["...", "...", ],
         "beginDate": "<yyyy/mm/dd格式的String>",
         "memberNum": "Number",
@@ -419,7 +483,7 @@
   }
   ```
 
-#### 获得某个用户参加的所有项目   // change
+#### 获得某个用户参加的所有项目
 
 - url: `GET /project/user?userID=...`
 - 响应:
@@ -431,7 +495,7 @@
     "data": [
       {
         "title": "...",
-        "finished": "Boolean",  // change 项目是否结束
+        "finished": "Boolean",
         "tags": ["...", "...", ],
         "beginDate": "<yyyy/mm/dd格式的String>",
         "memberNum": "Number",
@@ -446,7 +510,7 @@
   }
   ```
 
-### 结束项目    // chenged
+### 结束项目
 
 - url: `POST /project/finish`
 - 数据:
@@ -467,6 +531,55 @@
   }
   ```
 
+### 删除项目
+
+- url: `DELETE /project`
+- 数据:
+
+  ```json
+  {
+    "token": "...", // 必须是项目发起者才能删除
+    "id": "项目id",
+  }
+  ```
+
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+  }
+  ```
+
+### 获得自己浏览记录
+
+- url: `GET /project/history?token=<token>`
+- 数据: query 中的 **token** 参数
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "title": "...",
+        "finished": "Boolean",
+        "beginDate": "<yyyy/mm/dd格式的String>",
+        "memberNum": "Number",
+        "id": "<id>",
+        "type": ["...", "...", ],
+        "rank":  "...",
+        "major": ["...", "...", ],
+        "period": "...",
+        "members": ["userID", ]
+      },
+      // ...
+    ]
+  }
+  ```
+
 ## 消息
 
 ### 获得申请加入的信息
@@ -482,11 +595,13 @@
       {
         "target": "<项目id>",
         "message": "<留言>",
-        "title": "项目名称",  // change
+        "title": "项目名称",
         "from": "<申请人id>",
-        "fromAvatar": "...",  // change
-        "fromName": "...", // change
-        "time": "时间戳"  // change
+        "fromAvatar": "...",
+        "fromName": "...",
+        "time": "时间戳",
+        "id": "<此条申请的id>", 
+        "isChecked": "Boolean",   // 是否已回复, 如果这个申请被回复过, 或者被后续的api请求标记为已读, 就标记为 true, 
       }
     ]
   }
@@ -505,9 +620,11 @@
       {
         "accepted": "Boolean",
         "target": "<项目id>",
-        "title": "项目名称",  // change
+        "title": "项目名称",
         "message": "<留言>",
-        "time": "<时间戳Number>"  // change
+        "time": "<时间戳Number>",
+        "id": "<此条响应的id>", 
+        "isChecked": "Boolean",   // 是否已回复, 如果这个响应被回复过, 或者被后续的api请求标记为已读, 就标记为 true, 
       }
     ]
   }
@@ -544,8 +661,8 @@
   {
     "token": "<token>",
     "accepted": "Boolean",
-    "title": "项目名称", // change
-    "from": "<userID>",  // change, 申请人的id
+    "title": "项目名称",
+    "from": "<userID>",
     "target": "<项目id>",
     "message": "<留言>",
   }
@@ -560,7 +677,7 @@
   }
   ```
 
-### 拉黑    // change
+### 拉黑
 
 > 拉黑后不接受私信, 暂时没有解除和查看拉黑的操作
 
@@ -581,6 +698,47 @@
   {
     "status": 200,
     "msg": "ok",
+  }
+  ```
+
+### 标记已读/未读
+
+- url: `POST /message/isChecked`
+- 数据:
+
+  ```json
+  {
+    "token": "token",
+    "target": "<id>", // 申请的项目的id
+    "type": "<request|response|message|rate>",  // 对应 申请组队|回复申请|私信|评分
+    "isChecked": "Boolean", // 标记为什么状态
+  }
+  ```
+
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+  }
+  ```
+
+### 获取新消息的数量
+
+> 用来标小红点的
+
+- url: `GET /message/new?token=<token>`
+- 数据: query 中的 **token**
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": {
+      "number": "Number",     // 所有 isChecked == false 的四种消息的数量
+    }
   }
   ```
 
