@@ -396,7 +396,7 @@
 
 #### 获得特定发布
 
-- url: `GET /project?id=<id>`
+- url: `GET /project?id=<id>&userID=<...>`  // 如果没有userID字段(比如说还没注册的游客)就不做处理
 - 数据: query 中的 id 参数
 - 响应:
 
@@ -533,16 +533,7 @@
 
 ### 删除项目
 
-- url: `DELETE /project`
-- 数据:
-
-  ```json
-  {
-    "token": "...", // 必须是项目发起者才能删除
-    "id": "项目id",
-  }
-  ```
-
+- url: `DELETE /project?token=<token>&id=<id>`
 - 响应:
 
   ```json
