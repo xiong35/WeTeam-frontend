@@ -1,5 +1,5 @@
 
-# api 文档 v3.3
+# api 文档 v3.4
 
 > 用尖括号括起来的地方代表某个变量, 如 "id=<..>" 指id等于某个用户的id号, 实际请求时替换为 "id=1234567" 之类的  
 > 用 "|" 分割的代表n选1, 如 "\<male|female|unknown\>" 代表3选1  
@@ -375,7 +375,8 @@
       // 这里数据就不分页了吧, 这样可以直接在前端排序, 免得请求太频繁
       {
         "title": "...",
-        "tags": ["...", "...", ],      "finished": "Boolean",  // change 项目是否结束
+        "tags": ["...", "...", ],
+        "finished": "Boolean",  // change 项目是否结束
         "beginDate": "<yyyy/mm/dd格式的String>",
         "memberNum": "Number",
         "id": "<id>",
@@ -383,6 +384,7 @@
         "rank":  "...",
         "major": ["...", "...", ],
         "period": "...",
+        "members": ["userID", ]
       },
       // ...
     ]
@@ -582,20 +584,19 @@
   }
   ```
 
-## 发布主题项目
+## 主题推文
+
+### 发布主题推文
 
 - url: `POST /projectTheme`
 - 数据:
 
   ```json
   {
-    "token":"...",
-    "publisher": "<userID>",
     "publisherToken": "<token>",
-    "title": "...",
-    "tag": "...",
-    "beginDate": "<yyyy/mm/dd格式的String>",
-    "description": "...",
+    "brief": "<简介>",
+    "content": "<长文本>",
+    "cover": "<封面图的url>",
   }
   ```
 
@@ -610,3 +611,48 @@
     }
   }
   ```
+
+### 获得主题项目摘要
+
+- url: `GET /projectTheme?id=all`
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "id": "推文id",
+        "publisher": "<userID>",
+        "publisherName": "...",
+        "publisherAvatar": "...",
+        "brief": "...",
+        "cover": "<封面图的url>",
+      },
+      // {}, {}
+    ]
+  }
+  ```
+
+### 获取详细内容
+
+- url: `GET /projectTheme?id=<id>`
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": {
+      "id": "推文id",
+      "publisher": "<userID>",
+      "publisherName": "...",
+      "publisherAvatar": "...",
+      "brief": "...",
+      "content": "长文本",
+      "cover": "<封面图的url>",
+    },
+  }
+  ```
+
