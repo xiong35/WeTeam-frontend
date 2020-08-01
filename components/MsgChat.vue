@@ -22,7 +22,7 @@
     </v-card-text>
 
     <v-card-actions>
-      <BtnChat text="回复留言" userID="adf"></BtnChat>
+      <BtnChat text="回复留言" :userID="msg.from"></BtnChat>
       <v-spacer></v-spacer>
       <BtnBlock :userID="msg.from"></BtnBlock>
 

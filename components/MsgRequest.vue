@@ -121,17 +121,20 @@
         let { token, userInfo } = this.$store.state;
         let userID = userInfo.userID;
 
-        let title = this.msg.title;
-        let target = this.msg.target;
+        let { title, target, from } = this.msg;
 
         let res = await POST("/message/joinResponse", {
           token,
           accepted,
           title,
-          from: userID,
+          from,
           target,
           message: sendMsg,
         });
+
+        if (res && res.status == 200) {
+          alert((this.accepted ? "同意" : "拒绝") + "成功!");
+        }
       },
     },
     created() {},

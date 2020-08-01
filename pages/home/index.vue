@@ -5,6 +5,7 @@
         v-model="keyword"
         rounded
         dense
+        outlined
         append-icon="mdi-magnify"
         @click:append="search"
         @keydown.enter="search"
