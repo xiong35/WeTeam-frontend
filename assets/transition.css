@@ -1,8 +1,16 @@
 .layout-enter-active,
 .layout-leave-active {
-  transition: opacity 0.15s;
+  transition: all 0.15s;
 }
-.layout-enter,
-.layout-leave-active {
+
+.layout-enter-to,
+.layout-leave {
+  transition: all 0.15s;
+  opacity: 1;
+}
+
+.layout-leave-to,
+.layout-enter {
+  transition: all 0.15s;
   opacity: 0;
 }

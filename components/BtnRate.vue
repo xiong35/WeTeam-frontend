@@ -43,7 +43,6 @@
           <v-textarea
             class="ma-4"
             label="你对ta的评价是..."
-            outlined
             v-model="description"
           >
           </v-textarea>

@@ -22,7 +22,6 @@
         <v-form ref="form1" v-model="page1Valid" lazy-validation>
           <v-text-field
             label="账号"
-            outlined
             required
             clearable
             :rules="[(v) => !!v || '请填写账号']"
@@ -31,7 +30,6 @@
           ></v-text-field>
           <v-text-field
             label="用户名"
-            outlined
             required
             clearable
             :rules="[(v) => !!v || '请填写用户名']"
@@ -39,7 +37,6 @@
           ></v-text-field>
           <v-text-field
             label="密码"
-            outlined
             type="password"
             :rules="[
               (v) => !!v || '请填写密码',
@@ -52,7 +49,6 @@
           ></v-text-field>
           <v-text-field
             label="确认密码"
-            outlined
             type="password"
             :rules="[(v) => v === pw || '两次密码不一致']"
             required
@@ -85,7 +81,6 @@
                 accept="image/png, image/jpeg, image/jpg, image/bmp"
                 label="选择头像"
                 v-model="avatarFile"
-                outlined
                 @change="uploadAvatar"
                 :prepend-icon="null"
               ></v-file-input>
@@ -101,13 +96,11 @@
           </v-row>
           <v-select
             label="性别"
-            outlined
             :items="['保密', '男生', '女生']"
             v-model="gender"
           ></v-select>
           <v-text-field
             label="校园卡号"
-            outlined
             :rules="[
               (v) => {
                 let reg = /\w\d{9}/;
@@ -120,7 +113,6 @@
           ></v-text-field>
           <v-textarea
             label="个人简介"
-            outlined
             :rules="[
               (v) => {
                 return !!v || '个人简介不能为空QwQ';
@@ -135,7 +127,6 @@
             v-model="major"
             label="专业(拼音排列)"
             validate-on-blur
-            outlined
             clearable
             :rules="[(v) => !!v || '请选择专业']"
           ></v-autocomplete>
@@ -143,7 +134,6 @@
             :items="['20级', '19级', '18级', '17级', '16级']"
             v-model="grade"
             label="年级"
-            outlined
             :menu-props="{ top: true, offsetY: true }"
             :rules="[(v) => !!v || '请选择年级']"
           ></v-select>
@@ -214,15 +204,15 @@
     data() {
       return {
         curStep: 1,
-        account: "18827",
-        nickname: "xiong35",
-        pw: "123456",
-        pwConfirm: "123456",
+        account: "",
+        nickname: "",
+        pw: "",
+        pwConfirm: "",
         page1Valid: true,
         avatar: "",
-        gender: "保密",
-        description: "foo bar. lorem",
-        schoolID: "U201914903",
+        gender: "",
+        description: "",
+        schoolID: "",
         majors,
         major: "",
         grade: "",

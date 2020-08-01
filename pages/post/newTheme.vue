@@ -39,12 +39,10 @@
             accept="image/png, image/jpeg, image/jpg, image/bmp"
             label="上传推文封面"
             v-model="coverFile"
-            outlined
             @change="uploadCover"
           ></v-file-input>
           <v-textarea
             label="活动简介"
-            outlined
             :rules="[
               (v) => {
                 return !!v || '活动简介不能为空';
@@ -58,7 +56,6 @@
         <v-btn
           color="primary"
           class="float-right"
-          outlined
           @click="validate"
         >
           下一步
@@ -115,12 +112,12 @@
         ],
       };
     },
-    // validate({ store, redirect }) {
-    //   if (!store.state.token || !store.state.userInfo) {
-    //     redirect("/user/login?hint=true");
-    //   }
-    //   return true;
-    // },
+    validate({ store, redirect }) {
+      if (!store.state.token || !store.state.userInfo) {
+        redirect("/user/login?hint=true");
+      }
+      return true;
+    },
     components: {},
     data() {
       return {

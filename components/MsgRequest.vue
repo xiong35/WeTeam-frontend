@@ -57,7 +57,6 @@
 
         <v-card class="pa-3">
           <v-textarea
-            outlined
             label="输入留言"
             v-model="sendMsg"
           ></v-textarea>

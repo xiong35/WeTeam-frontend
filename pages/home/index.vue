@@ -5,7 +5,6 @@
         v-model="keyword"
         rounded
         dense
-        outlined
         append-icon="mdi-magnify"
         @click:append="search"
         @keydown.enter="search"
@@ -87,13 +86,11 @@
                 '6~10人',
                 '10人以上',
               ]"
-              outlined=""
               label="项目人数"
             ></v-select>
             <v-select
               class="pa-0"
               v-model="periodFilter"
-              outlined=""
               :items="[
                 '不限',
                 '一周内',
@@ -110,7 +107,6 @@
             ></v-select>
             <v-select
               class="pa-0"
-              outlined=""
               v-model="typeFilter"
               :items="[
                 '不限',
@@ -133,7 +129,6 @@
             ></v-select>
             <v-select
               class="pa-0"
-              outlined=""
               v-model="rankFilter"
               :items="['不限', '院级', '校级', '省级', '国家级']"
               label="项目评级"

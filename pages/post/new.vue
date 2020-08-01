@@ -20,13 +20,11 @@
         multiple
         chips
         label="项目类别(多选)"
-        outlined
         :rules="[(v) => v.length > 0 || '请选择项目类别']"
       ></v-select>
       <v-text-field
         label="项目名称"
         v-model="title"
-        outlined=""
         :rules="[(v) => !!v || '请填写项目名称']"
       ></v-text-field>
       <v-menu
@@ -44,7 +42,6 @@
             readonly
             v-bind="attrs"
             v-on="on"
-            outlined=""
             :rules="[(v) => !!v || '请填写项目开始时间']"
           ></v-text-field>
         </template>
@@ -68,7 +65,6 @@
       </v-menu>
       <v-textarea
         label="项目简介"
-        outlined=""
         v-model="description"
         :rules="[(v) => !!v || '请填写项目简介']"
       ></v-textarea>
@@ -76,7 +72,6 @@
       <v-text-field
         label="项目人数"
         v-model="number"
-        outlined=""
         :rules="[
           (v) => !!v || '请填写项目人数',
           (v) => !!Number(v) || '请输入数字',
@@ -93,13 +88,11 @@
           '一年',
           '一年以上',
         ]"
-        outlined=""
         label="项目周期"
         :rules="[(v) => !!v || '请选择项目周期']"
       ></v-select>
       <v-textarea
         label="技能要求"
-        outlined=""
         v-model="skill"
         :rules="[(v) => !!v || '请填写技能要求']"
       ></v-textarea>
@@ -107,7 +100,6 @@
         :items="['20级', '19级', '18级', '17级', '16级']"
         v-model="grade"
         label="年级要求(多选)"
-        outlined
         multiple
         chips
         :rules="[(v) => v.length > 0 || '请选择年级']"
@@ -115,7 +107,6 @@
       <v-autocomplete
         v-model="major"
         :items="majors"
-        outlined=""
         label="专业要求(多选)"
         multiple
         chips
@@ -126,18 +117,13 @@
         v-model="rank"
         :items="['院级', '校级', '省级', '国家级']"
         label="项目评级"
-        outlined=""
         :rules="[(v) => !!v || '请填写项目评级']"
         :menu-props="{ top: true, offsetY: true }"
       ></v-select>
     </v-form>
     <v-card-actions class="mt-n4 pr-4">
       <v-spacer></v-spacer>
-      <v-btn
-        outlined
-        color="primary"
-        @click="submit"
-        class="ma-4 mt-n4"
+      <v-btn color="primary" @click="submit" class="ma-4 mt-n4"
         >提交</v-btn
       >
     </v-card-actions>
@@ -175,16 +161,16 @@
     data() {
       return {
         type: [],
-        title: "联创夏令营",
-        grade: ["19级"],
+        title: "",
+        grade: [],
         dateMenu: false,
         date: "",
-        description: "联创团队举办的夏令营, 可以学到很多知识",
-        number: "7",
+        description: "",
+        number: "",
         period: "",
         rank: "",
         major: [],
-        skill: "精通c++, java, lisp, brainfuck",
+        skill: "",
         majors,
       };
     },

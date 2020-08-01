@@ -189,7 +189,6 @@
 
           <v-card class="pa-4">
             <v-textarea
-              outlined
               label="向负责人夸夸自己！"
               v-model="sendMsg"
             ></v-textarea>

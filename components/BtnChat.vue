@@ -19,11 +19,7 @@
     </template>
 
     <v-card class="pa-3">
-      <v-textarea
-        outlined
-        label="输入留言"
-        v-model="sendMsg"
-      ></v-textarea>
+      <v-textarea label="输入留言" v-model="sendMsg"></v-textarea>
       <v-card-actions>
         <v-spacer></v-spacer>
 

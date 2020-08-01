@@ -8,14 +8,12 @@
     <v-text-field
       v-model="account"
       label="请输入账号"
-      outlined
     ></v-text-field>
     <v-text-field
       v-model="password"
       label="请输入密码"
       :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
       :type="show ? 'text' : 'password'"
-      outlined
       @click:append="show = !show"
       ref="pw"
     ></v-text-field>

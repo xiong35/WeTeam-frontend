@@ -16,7 +16,6 @@
       </v-chip>
       <v-chip
         v-for="(tag, ind) in post.type"
-        outlined
         :key="ind"
         class="ma-1"
         small

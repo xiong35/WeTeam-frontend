@@ -96,7 +96,8 @@
   #bottom-nav {
     z-index: 99999;
     .v-btn {
-      min-width: 0;
+      min-width: 20vw;
+      height: 56px;
     }
   }
 </style>
