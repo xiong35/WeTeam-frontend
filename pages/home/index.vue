@@ -303,6 +303,7 @@
         );
 
         this.following = res.data.map((obj) => obj.userID);
+        console.log(this.following, this.allPosts);
         this.hasGot = true;
       },
     },

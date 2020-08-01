@@ -86,6 +86,9 @@
         });
         this.$store.commit("setToken", token);
       }
+
+      res = await GET("/user/follow?userID=" + userID);
+      this.$store.commit("setFollowing", res.data);
     },
   };
 </script>

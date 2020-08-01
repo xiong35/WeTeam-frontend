@@ -78,13 +78,15 @@
         res = await GET("/user/info?userID=" + userID);
 
         if (res.status == 200) {
-          console.log(res);
           this.$store.commit("setUserInfo", {
             ...res.data[0],
             userID,
           });
           this.$store.commit("setToken", token);
         }
+
+        res = await GET("/user/follow?userID=" + userID);
+        this.$store.commit("setFollowing", res.data);
 
         alert("登陆成功");
 

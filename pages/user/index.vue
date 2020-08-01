@@ -51,10 +51,13 @@
             v-if="!self"
             color="black"
             nuxt
-            @click="star"
+            @click="toggleFollow"
             outlined
           >
-            <v-icon left>mdi-account-star-outline</v-icon>关注
+            <div v-if="!hasFollow">
+              <v-icon left>mdi-account-star-outline</v-icon>关注
+            </div>
+            <div v-else><v-icon left>mdi-check</v-icon>已关注</div>
           </v-btn>
         </v-col>
       </v-row>
@@ -189,7 +192,13 @@
         records: [],
       };
     },
-    computed: {},
+    computed: {
+      hasFollow() {
+        return ~this.$store.state.following
+          .map((v) => v.userID)
+          .indexOf(this.info.userID);
+      },
+    },
     watch: {
       async tab(newVal, oldVal) {
         if (this.haveRecords) {
@@ -206,7 +215,24 @@
       },
     },
     methods: {
-      star() {},
+      async toggleFollow() {
+        console.log({
+          token: this.$store.state.token,
+          followee: this.info.userID,
+          type: this.hasFollow ? "cancel" : "begin",
+        });
+
+        let res = await POST("/user/follow", {
+          token: this.$store.state.token,
+          followee: this.info.userID,
+          type: this.hasFollow ? "cancel" : "begin",
+        });
+
+        console.log(res);
+        alert(this.hasFollow ? "成功取消关注!" : "成功关注");
+        this.$router.replace(this.$route.fullPath + "#/");
+      },
+
       avgStar(star) {
         if (typeof star == "number") {
           return star / this.info.rating.ratedNum;
@@ -246,6 +272,7 @@
 
         info = res.data[0];
       }
+      info.userID = userID * 1;
 
       let res = await GET("/user/rate?userID=" + userID);
       let rates = res.data;
