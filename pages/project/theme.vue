@@ -2,7 +2,12 @@
   <v-card>
     <TopBar title="活动详情"></TopBar>
     <div class="pa-3">
-      <v-img :aspect-ratio="2 / 1" :src="theme.cover"> </v-img>
+      <v-img
+        :aspect-ratio="2 / 1"
+        position="center"
+        :src="theme.cover"
+      >
+      </v-img>
     </div>
     <mavon-editor
       class="article-content"
@@ -29,12 +34,12 @@
     name: "index",
     head() {
       return {
-        title: "",
+        title: "活动详情",
         meta: [
           {
             hid: "description",
             name: "description",
-            content: "",
+            content: "活动详情",
           },
         ],
       };

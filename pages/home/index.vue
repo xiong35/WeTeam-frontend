@@ -34,9 +34,9 @@
     </v-row>
     <v-carousel
       cycle
-      :show-arrows="false"
       hide-delimiter-background
-      show-arrows-on-hover
+      show-arrows
+      interval="2500"
       delimiter-icon="mdi-minus"
       height="160"
     >
@@ -47,7 +47,11 @@
           align="center"
           justify="center"
         >
-          <v-img :src="theme.cover" position="center"></v-img>
+          <v-img
+            :aspect-ratio="2 / 1"
+            :src="theme.cover"
+            position="center"
+          ></v-img>
         </v-row>
       </v-carousel-item>
     </v-carousel>
