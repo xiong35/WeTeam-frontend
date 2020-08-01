@@ -343,7 +343,7 @@
     mounted() {},
     async asyncData({ store, query }) {
       let res = await GET("/project?id=all");
-      let themeRes = await GET("/projectTheme?id=all");
+      let themeRes = await GET("/projectTheme?id=all&limit=4");
 
       return { allPosts: res.data, themes: themeRes.data };
     },
