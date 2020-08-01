@@ -89,6 +89,19 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-subtitle>
+            周期
+          </v-list-item-subtitle>
+          <v-list-item-title>
+            {{ post.period }}
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-subtitle>
             简介
           </v-list-item-subtitle>
           <v-list-item-title>

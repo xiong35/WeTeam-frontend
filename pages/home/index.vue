@@ -40,9 +40,14 @@
       delimiter-icon="mdi-minus"
       height="160"
     >
-      <v-carousel-item v-for="(slide, i) in images" :key="i">
-        <v-row class="fill-height" align="center" justify="center">
-          <v-img :src="slide" position="center"></v-img>
+      <v-carousel-item v-for="(theme, i) in themes" :key="i">
+        <v-row
+          @click="$router.push('/project/theme?id=' + theme.id)"
+          class="fill-height"
+          align="center"
+          justify="center"
+        >
+          <v-img :src="theme.cover" position="center"></v-img>
         </v-row>
       </v-carousel-item>
     </v-carousel>
@@ -56,8 +61,8 @@
           color="basil"
           grow=""
         >
-          <v-tab>关注</v-tab>
           <v-tab>推荐</v-tab>
+          <v-tab>关注</v-tab>
         </v-tabs>
       </v-col>
       <v-btn outlined @click="dialog = true" class="mx-auto"
@@ -154,8 +159,8 @@
       <v-tab-item>
         <v-card flat>
           <Card
-            v-for="(post, index) in allPosts"
-            :key="index"
+            v-for="post in allPosts"
+            :key="post.id"
             :post="post"
           ></Card>
         </v-card>
@@ -164,8 +169,8 @@
       <v-tab-item>
         <v-card flat>
           <Card
-            v-for="(post, index) in allPosts"
-            :key="index"
+            v-for="post in filteredPosts"
+            :key="post.id"
             :post="post"
           ></Card>
         </v-card>
@@ -177,6 +182,7 @@
 <script>
   import Card from "~/components/Card";
   import { GET } from "~/network/methods";
+  import { checkSignIn } from "~/utils/validate";
 
   export default {
     transition: "layout",
@@ -200,11 +206,9 @@
       return {
         keywordCategory: "组队",
         keyword: "",
-        images: [
-          "http://static.xiong35.cn/image/placeHolder.gif",
-          "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2801976318,4129713714&fm=15&gp=0.jpg",
-        ],
         tab: 0,
+        hasGot: false,
+        following: [],
         sortList: ["发布者评分", "项目人数", "开始时间"],
         dialog: false,
         periodFilter: ["不限"],
@@ -213,8 +217,95 @@
         numberFilter: "不限",
       };
     },
-    computed: {},
-    watch: {},
+    computed: {
+      filteredPosts() {
+        let {
+          periodFilter,
+          typeFilter,
+          rankFilter,
+          numberFilter,
+        } = this;
+
+        return this.filterByTab
+          .filter((p) => {
+            // filter period
+            if (
+              ~periodFilter.indexOf("不限") ||
+              periodFilter.length == 0
+            ) {
+              return true;
+            }
+
+            return ~periodFilter.indexOf(p.period);
+          })
+          .filter((p) => {
+            // filter type
+            if (
+              ~typeFilter.indexOf("不限") ||
+              typeFilter.length == 0
+            ) {
+              return true;
+            }
+            for (let t of p.type) {
+              if (~typeFilter.indexOf(t)) {
+                return true;
+              }
+            }
+            return false;
+          })
+          .filter((p) => {
+            // filter rank
+            if (
+              ~rankFilter.indexOf("不限") ||
+              rankFilter.length == 0
+            ) {
+              return true;
+            }
+            return ~rankFilter.indexOf(p.rank);
+          })
+          .filter((p) => {
+            // filter number
+            switch (numberFilter) {
+              case "1~2人":
+                return 1 <= p.memberNum && p.memberNum <= 2;
+              case "3~5人":
+                return 3 <= p.memberNum && p.memberNum <= 5;
+              case "6~10人":
+                return 6 <= p.memberNum && p.memberNum <= 10;
+              case "10人以上":
+                return p.memberNum > 10;
+            }
+            return true;
+          });
+      },
+      filterByTab() {
+        if (this.tab == 0) {
+          return this.allPosts.filter((p) => {
+            return true;
+          });
+        } else {
+          return this.allPosts.filter((p) => {
+            console.log(p);
+          });
+        }
+      },
+    },
+    watch: {
+      async tab() {
+        if (this.hasGot) {
+          return;
+        }
+        checkSignIn(this);
+
+        let res = await GET(
+          "/user/follow?userID=" +
+            this.$store.state.userInfo.userID
+        );
+
+        this.following = res.data.map((obj) => obj.userID);
+        this.hasGot = true;
+      },
+    },
     methods: {
       search() {
         if (this.keywordCategory == "用户") {
@@ -231,15 +322,9 @@
     mounted() {},
     async asyncData({ store, query }) {
       let res = await GET("/project?id=all");
+      let themeRes = await GET("/projectTheme?id=all");
 
-      if (!res || res.status != 200) {
-        alert("好像出了点问题QwQ");
-        return;
-      }
-
-      console.log(res.data);
-
-      return { allPosts: res.data };
+      return { allPosts: res.data, themes: themeRes.data };
     },
   };
 </script>
