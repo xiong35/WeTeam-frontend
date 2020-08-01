@@ -216,19 +216,12 @@
     },
     methods: {
       async toggleFollow() {
-        console.log({
-          token: this.$store.state.token,
-          followee: this.info.userID,
-          type: this.hasFollow ? "cancel" : "begin",
-        });
-
         let res = await POST("/user/follow", {
           token: this.$store.state.token,
           followee: this.info.userID,
           type: this.hasFollow ? "cancel" : "begin",
         });
 
-        console.log(res);
         alert(this.hasFollow ? "成功取消关注!" : "成功关注");
         this.$router.replace(this.$route.fullPath + "#/");
       },

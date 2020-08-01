@@ -41,25 +41,7 @@
     mounted() {},
     async asyncData({ store, query }) {
       if (query.cat === "组队") {
-        // var res = await GET("/project?keyword=" + query.kw);
-        var res = {
-          status: 200,
-          msg: "ok",
-          data: [
-            {
-              title: "...",
-              finished: true, // change 项目是否结束
-              tags: ["...", "..."],
-              beginDate: "2002/06/19",
-              memberNum: 7,
-              id: "sdc",
-              type: ["...", "..."],
-              rank: "...",
-              major: ["...", "..."],
-              period: "...",
-            },
-          ],
-        };
+        var res = await GET("/project?keyword=" + query.kw);
       }
 
       return { posts: res.data };

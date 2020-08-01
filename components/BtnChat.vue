@@ -83,8 +83,6 @@
           message: this.sendMsg,
         });
 
-        console.log(res);
-
         alert("发送成功!");
 
         this.menu = false;

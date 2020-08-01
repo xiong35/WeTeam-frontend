@@ -71,7 +71,6 @@
       ]);
 
       responses.forEach((promise, ind) => {
-        console.log(promise);
         if (
           promise &&
           promise.status == "fulfilled" &&

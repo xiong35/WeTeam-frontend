@@ -147,20 +147,11 @@
 
         let res = await upload("/img/acticity", formData);
 
-        console.log(res);
-
         this.cover = MY_BASE_URL + res.data.url.slice(1);
       },
 
       async submit() {
         let { cover, brief, content } = this;
-
-        console.log({
-          publisherToken: this.$store.state.token,
-          brief,
-          content,
-          cover,
-        });
 
         let res = await POST("/projectTheme", {
           publisherToken: this.$store.state.token,
@@ -168,7 +159,6 @@
           content,
           cover,
         });
-        console.log(res);
 
         alert("发布成功!");
 

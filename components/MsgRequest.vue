@@ -133,8 +133,6 @@
           target,
           message: sendMsg,
         });
-
-        console.log(res);
       },
     },
     created() {},
