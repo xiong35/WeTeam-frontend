@@ -309,10 +309,11 @@
           this.$store.commit("setToken", token);
         }
 
-        POST("/user/resume", { resume, token });
+        res = await POST("/user/resume", { resume, token });
 
-        alert("注册成功!");
-
+        if (res) {
+          alert("注册成功!");
+        }
         this.$router.push("/home");
       },
     },

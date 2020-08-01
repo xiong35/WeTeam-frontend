@@ -195,10 +195,14 @@
         showDetailRate: false,
         haveRecords: false,
         records: [],
+        curFollowState: "",
       };
     },
     computed: {
       hasFollow() {
+        if (this.curFollowState) {
+          return this.curFollowState == "yes";
+        }
         return ~this.$store.state.following
           .map((v) => v.userID)
           .indexOf(this.info.userID);
@@ -227,8 +231,10 @@
           type: this.hasFollow ? "cancel" : "begin",
         });
 
-        alert(this.hasFollow ? "成功取消关注!" : "成功关注");
-        this.$router.replace(this.$route.fullPath + "#/");
+        if (res) {
+          alert(this.hasFollow ? "成功取消关注!" : "成功关注");
+          this.curFollowState = this.hasFollow ? "no" : "yes";
+        }
       },
 
       avgStar(star) {

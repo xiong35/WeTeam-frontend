@@ -158,9 +158,10 @@
           cover,
         });
 
-        alert("发布成功!");
-
-        this.$router.push("/home");
+        if (res) {
+          alert("发布成功!");
+          this.$router.push("/home");
+        }
       },
     },
     created() {},

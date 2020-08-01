@@ -79,7 +79,9 @@
           message: this.sendMsg,
         });
 
-        alert("发送成功!");
+        if (res) {
+          alert("发送成功!");
+        }
 
         this.menu = false;
       },

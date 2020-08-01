@@ -132,9 +132,10 @@
           message: sendMsg,
         });
 
-        if (res && res.status == 200) {
+        if (res) {
           alert((this.accepted ? "同意" : "拒绝") + "成功!");
         }
+        this.menu = false;
       },
     },
     created() {},

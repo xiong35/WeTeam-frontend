@@ -214,6 +214,9 @@
         };
 
         let res = await POST("/project", data, "application/json");
+        if (!res) {
+          return;
+        }
 
         let { id } = res.data;
 

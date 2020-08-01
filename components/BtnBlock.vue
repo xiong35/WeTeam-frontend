@@ -36,7 +36,9 @@
           rejectee: this.userID,
         });
 
-        alert("成功拉黑此人!");
+        if (res) {
+          alert("成功拉黑此人!");
+        }
       },
     },
     created() {},

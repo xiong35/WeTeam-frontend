@@ -128,7 +128,9 @@
           description,
         });
 
-        alert("提交成功!");
+        if (res) {
+          alert("提交成功!");
+        }
         this.dialog = false;
       },
     },

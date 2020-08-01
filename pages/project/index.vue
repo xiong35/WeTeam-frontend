@@ -156,7 +156,7 @@
                   {{ member.nickname }}
                 </p>
                 <BtnRate
-                  v-if="post.finished && inGroup"
+                  v-if="post.finished && inGroup && !self"
                   :userID="post.members[index]"
                   :nickname="member.nickname"
                 ></BtnRate>
@@ -281,9 +281,10 @@
           target: this.id,
           message: this.sendMsg,
         });
-
+        if (res) {
+          alert("发送成功");
+        }
         this.dialog = false;
-        alert("发送成功");
       },
 
       finish() {
