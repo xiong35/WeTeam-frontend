@@ -202,16 +202,20 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-btn
-          v-else
-          outlined
-          color="orange darken-1"
-          large
-          :disabled="post.finished"
-          @click="finish"
-        >
-          结束项目
-        </v-btn>
+        <v-row v-else justify="space-around">
+          <v-btn outlined color="error" large @click="delete_">
+            删除项目
+          </v-btn>
+          <v-btn
+            outlined
+            color="warning"
+            large
+            :disabled="post.finished"
+            @click="finish"
+          >
+            结束项目
+          </v-btn>
+        </v-row>
       </v-list-item>
     </v-list>
   </v-card>
@@ -223,7 +227,7 @@
   import ChipProjectStatus from "~/components/ChipProjectStatus";
 
   import { timestampFmt } from "~/utils/time";
-  import { GET, POST } from "~/network/methods";
+  import { GET, POST, DELETE } from "~/network/methods";
   import { checkSignIn } from "~/utils/validate";
 
   export default {
@@ -287,18 +291,31 @@
         this.dialog = false;
       },
 
-      finish() {
-        if (!checkSignIn(this)) {
-          return;
-        }
-
+      async finish() {
         if (confirm("确定要结束本次活动吗?")) {
-          POST("/project/finish", {
+          let res = await POST("/project/finish", {
             token: this.$store.state.token,
             id: this.id,
           });
+          if (res) {
+            alert("成功结束项目!");
+            this.post.finished = true;
+          }
+        }
+      },
 
-          this.post.finished = true;
+      async delete_() {
+        if (
+          prompt('请输入: "我确定删除此项目"') ==
+          "我确定删除此项目"
+        ) {
+          let res = await DELETE(
+            `/project?token=${this.$store.state.token}&id=${this.post.id}}`
+          );
+          if (res) {
+            alert("成功删除项目!");
+            this.$router.replace("/home");
+          }
         }
       },
     },
@@ -313,6 +330,7 @@
       let projectRes = await GET("/project?id=" + id);
       if (!projectRes || projectRes.status != 200) {
         this.$router.replace("/404");
+        return;
       }
 
       let self = false;
@@ -325,15 +343,15 @@
         self = true;
       }
 
-      let memberID = projectRes.data.members;
+      let memberIDs = projectRes.data.members;
 
       let memberRes = await GET(
-        "/user/info?userID=" + memberID.join("&userID=")
+        "/user/info?userID=" + memberIDs.join("&userID=")
       );
 
       return {
         post: projectRes.data,
-        members: memberRes.data,
+        members: (memberRes && memberRes.data) || [],
         id,
         self,
       };
