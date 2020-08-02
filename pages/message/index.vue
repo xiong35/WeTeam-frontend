@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="messages.length > 0">
     <div class="pt-2" v-for="(msg, ind) in messages" :key="ind">
       <MsgChat :msg="msg.data" v-if="msg.type == 0"></MsgChat>
       <MsgResponse
@@ -17,6 +17,7 @@
       ></MsgRate>
     </div>
   </div>
+  <ThePlaceholder v-else></ThePlaceholder>
 </template>
 
 <script>
@@ -24,6 +25,7 @@
   import MsgResponse from "~/components/MsgResponse";
   import MsgRequest from "~/components/MsgRequest";
   import MsgRate from "~/components/MsgRate";
+  import ThePlaceholder from "~/components/ThePlaceholder";
 
   import { POST, GET } from "~/network/methods";
 
@@ -50,6 +52,8 @@
     },
     components: {
       MsgChat,
+      ThePlaceholder,
+
       MsgResponse,
       MsgRequest,
       MsgRate,

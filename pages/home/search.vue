@@ -24,29 +24,32 @@
     </v-tabs>
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <v-card flat>
+        <v-card v-if="posts.length > 0" flat>
           <Card
             v-for="(post, index) in posts"
             :post="post"
             :key="index"
           ></Card>
         </v-card>
+        <ThePlaceholder v-else></ThePlaceholder>
       </v-tab-item>
 
       <v-tab-item>
-        <v-card flat>
+        <v-card v-if="users.length > 0" flat>
           <UserList :users="users"></UserList>
         </v-card>
+        <ThePlaceholder v-else></ThePlaceholder>
       </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
 
 <script>
-  import { GET } from "~/network/methods";
-
   import Card from "~/components/Card";
   import UserList from "~/components/UserList";
+  import ThePlaceholder from "~/components/ThePlaceholder";
+
+  import { GET } from "~/network/methods";
 
   export default {
     transition: "layout",
@@ -63,7 +66,7 @@
         ],
       };
     },
-    components: { Card, UserList },
+    components: { Card, UserList, ThePlaceholder },
     data() {
       return {
         kw: "",

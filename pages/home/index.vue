@@ -139,23 +139,25 @@
 
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <v-card flat>
+        <v-card v-if="filteredPosts.length > 0" flat>
           <Card
             v-for="post in filteredPosts"
             :key="post.id"
             :post="post"
           ></Card>
         </v-card>
+        <ThePlaceholder v-else></ThePlaceholder>
       </v-tab-item>
 
       <v-tab-item>
-        <v-card flat>
+        <v-card v-if="filteredPosts.length > 0" flat>
           <Card
             v-for="post in filteredPosts"
             :key="post.id"
             :post="post"
           ></Card>
         </v-card>
+        <ThePlaceholder v-else></ThePlaceholder>
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -163,6 +165,8 @@
 
 <script>
   import Card from "~/components/Card";
+  import ThePlaceholder from "~/components/ThePlaceholder";
+
   import { GET } from "~/network/methods";
   import { checkSignIn } from "~/utils/validate";
 
@@ -183,6 +187,7 @@
     },
     components: {
       Card,
+      ThePlaceholder,
     },
     data() {
       return {

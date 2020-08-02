@@ -1,14 +1,16 @@
 <template>
-  <div>
+  <div v-if="follows.length > 0">
     <TopBar :title="title"></TopBar>
     <Card :post="post" v-for="(post, index) in posts" :key="index">
     </Card>
   </div>
+  <ThePlaceholder v-else></ThePlaceholder>
 </template>
 
 <script>
   import Card from "~/components/Card";
   import TopBar from "~/components/TopBar";
+  import ThePlaceholder from "~/components/ThePlaceholder";
 
   import { GET } from "~/network/methods";
 
@@ -27,7 +29,7 @@
         ],
       };
     },
-    components: { Card, TopBar },
+    components: { ThePlaceholder, Card, TopBar },
     data() {
       return {};
     },
