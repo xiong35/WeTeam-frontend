@@ -25,10 +25,22 @@
         <v-icon>mdi-comment-plus</v-icon>
         <span>发布</span>
       </v-btn>
-      <v-btn nuxt to="/message">
+      <v-badge
+        :content="newMsg"
+        :value="showNewMsg"
+        color="red"
+        offset-y="23px"
+        offset-x="7vw"
+      >
+        <v-btn nuxt to="/message">
+          <v-icon>mdi-bell</v-icon>
+          <span>消息</span>
+        </v-btn>
+      </v-badge>
+      <!-- <v-btn nuxt to="/message">
         <v-icon>mdi-bell</v-icon>
         <span>消息</span>
-      </v-btn>
+      </v-btn> -->
       <v-btn nuxt to="/about">
         <v-icon>mdi-account</v-icon>
         <span>我的</span>
@@ -53,12 +65,19 @@
     data() {
       return {
         bottomNav: 0,
+        showNewMsg: false,
+        newMsg: 0,
       };
     },
     watch: {
       "$route.path"(path) {
         let paths = path.split("?")[0].split("/").slice(1);
         this.bottomNav = pageMap[paths[0]];
+      },
+      bottomNav(newVal) {
+        if (newVal == 3) {
+          this.showNewMsg = false;
+        }
       },
     },
     computed: {},
@@ -89,6 +108,13 @@
 
       res = await GET("/user/follow?userID=" + userID);
       this.$store.commit("setFollowing", res.data);
+
+      res = await GET("/message/new?token=" + token);
+      console.log(res);
+      if (res && res.status == 200) {
+        this.showNewMsg = true;
+        this.newMsg = res.data.number;
+      }
     },
   };
 </script>
