@@ -1,11 +1,15 @@
 <template>
   <v-card flat>
+    <TopBar title="搜索结果"></TopBar>
     <v-row class="pa-4 pb-1 mb-n3">
       <v-text-field
         v-model="kw"
+        ref="search"
         rounded
         dense
         outlined
+        lazy-validation
+        :rules="[(v) => !!v || '请输入查找内容']"
         append-icon="mdi-magnify"
         @click:append="search"
         @keydown.enter="search"
@@ -17,7 +21,7 @@
       class="pl-3 pr-1"
       v-model="tab"
       background-color="transparent"
-      color="accent"
+      color="primary darken-2"
     >
       <v-tab>组队</v-tab>
       <v-tab>用户</v-tab>
@@ -48,6 +52,7 @@
   import Card from "~/components/Card";
   import UserList from "~/components/UserList";
   import ThePlaceholder from "~/components/ThePlaceholder";
+  import TopBar from "~/components/TopBar";
 
   import { GET } from "~/network/methods";
 
@@ -66,7 +71,12 @@
         ],
       };
     },
-    components: { Card, UserList, ThePlaceholder },
+    components: {
+      Card,
+      UserList,
+      ThePlaceholder,
+      TopBar,
+    },
     data() {
       return {
         kw: "",
@@ -83,6 +93,10 @@
     },
     methods: {
       async search() {
+        if (!this.$refs.search.validate()) {
+          return;
+        }
+
         let { kw, tab } = this;
         if (tab == 0) {
           let res = await GET("/project?keyword=" + kw);
@@ -94,12 +108,13 @@
       },
     },
     created() {},
-    mounted() {},
+    mounted() {
+      this.search();
+    },
     async asyncData({ store, query }) {
       let { kw } = query;
-      let res = await GET("/project?keyword=" + kw);
 
-      return { posts: res.data, kw };
+      return { kw };
     },
   };
 </script>

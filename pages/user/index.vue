@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <TopBar :title="info.nickname + '的主页'" />
-    <v-row class="text-center">
+    <v-row class="text-center py-0">
       <v-col>
         <v-avatar class="mt-4" size="80px">
           <img :src="info.avatar" alt="alt" />
@@ -20,56 +20,54 @@
         >
       </v-col>
     </v-row>
-    <v-col class="pt-0">
-      <p class="text-center pa-0">
-        {{ info.grade }}级 - {{ info.major }}专业
-      </p>
-      <v-row class="py-0 text-center">
-        <v-col class="col-4">
-          <BtnChat
-            v-if="!self"
-            :outlined="true"
-            :textbtn="false"
-            icon="mdi-chat-processing-outline"
-            :userID="info.userID"
-          ></BtnChat>
-        </v-col>
-        <v-col class="col-4">
-          <v-btn
-            color="primary"
-            nuxt
-            :to="
-              '/user/resume?userID=' +
-              info.userID +
-              '&nickname=' +
-              info.nickname
-            "
-            outlined
-          >
-            <v-icon left>mdi-file-account-outline</v-icon>简历
-          </v-btn>
-        </v-col>
-        <v-col class="col-4">
-          <v-btn
-            v-if="!self"
-            color="primary"
-            nuxt
-            @click="toggleFollow"
-            outlined
-          >
-            <div v-if="!hasFollow">
-              <v-icon left>mdi-account-star-outline</v-icon>关注
-            </div>
-            <div v-else><v-icon left>mdi-check</v-icon>已关注</div>
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-col>
+    <p class="text-center pa-0 mb-0">
+      {{ info.grade }}级 - {{ info.major }}专业
+    </p>
+    <v-row class="text-center px-3">
+      <v-col class="col-4">
+        <BtnChat
+          v-if="!self"
+          :outlined="true"
+          :textbtn="false"
+          icon="mdi-chat-processing-outline"
+          :userID="info.userID"
+        ></BtnChat>
+      </v-col>
+      <v-col class="col-4">
+        <v-btn
+          color="primary"
+          nuxt
+          :to="
+            '/user/resume?userID=' +
+            info.userID +
+            '&nickname=' +
+            info.nickname
+          "
+          outlined
+        >
+          <v-icon left>mdi-file-account-outline</v-icon>简历
+        </v-btn>
+      </v-col>
+      <v-col class="col-4">
+        <v-btn
+          v-if="!self"
+          color="primary"
+          nuxt
+          @click="toggleFollow"
+          outlined
+        >
+          <div v-if="!hasFollow">
+            <v-icon left>mdi-account-star-outline</v-icon>关注
+          </div>
+          <div v-else><v-icon left>mdi-check</v-icon>已关注</div>
+        </v-btn>
+      </v-col>
+    </v-row>
     <v-tabs
       v-model="tab"
       background-color="transparent"
-      color="accent"
-      centered=""
+      color="primary darken-2"
+      centered
     >
       <v-tab>他人评价</v-tab>
       <v-tab>组队记录</v-tab>

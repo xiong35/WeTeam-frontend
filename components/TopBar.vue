@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar dark>
+  <v-toolbar dark color="primary darken-3">
     <v-icon @click="$router.back()" flat class="mr-3"
       >mdi-arrow-left</v-icon
     >
