@@ -43,7 +43,7 @@
           class="pl-3 pr-1"
           v-model="tab"
           background-color="transparent"
-          color="basil"
+          color="accent"
           grow
         >
           <v-tab>推荐</v-tab>

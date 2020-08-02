@@ -70,7 +70,7 @@ export default {
       themes: {
         light: {
           primary: "#32AADE",
-          accent: colors.indigo.accent1,
+          accent: colors.indigo.accent3,
           secondary: colors.blueGrey.base,
           info: colors.blue.base,
           warning: colors.amber.darken1,
