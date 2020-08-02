@@ -62,11 +62,9 @@
     methods: {},
     created() {},
     mounted() {},
-    async asyncData({ store, query, redirect }) {
+    async asyncData({ store, query }) {
       let { token, userInfo } = store.state;
-      if (!token || !userInfo) {
-        return redirect("/user/login?hint=true");
-      }
+
       let userID = userInfo.userID;
 
       let messages = [];

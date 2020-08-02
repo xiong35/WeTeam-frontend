@@ -82,38 +82,68 @@
     },
     computed: {},
     async mounted() {
-      let paths = this.$route.path
-        .split("?")[0]
-        .split("/")
-        .slice(1);
-      this.bottomNav = pageMap[paths[0]];
-
-      if (this.$store.state.token) {
-        return;
+      {
+        // init bottom nav
+        let paths = this.$route.path
+          .split("?")[0]
+          .split("/")
+          .slice(1);
+        this.bottomNav = pageMap[paths[0]];
       }
 
-      let { token, userID } = getToken();
-      if (!token) {
-        return;
-      }
-      let res = await GET("/user/info?userID=" + userID);
+      {
+        // first time, init userInfo
+        let { token, userID } = getToken();
+        if (token && userID) {
+          // if have token
+          // get data
+          let responses = await Promise.allSettled([
+            GET("/user/info?userID=" + userID), // user info
+            GET("/user/follow?userID=" + userID), // followers, to filter index page data
+            GET("/message/new?token=" + token), // new msg num
+          ]);
+          if (
+            responses[0].status == "fulfilled" &&
+            responses[0].value.status == 200
+          ) {
+            this.$store.commit("setUserInfo", {
+              ...responses[0].value.data[0],
+              userID,
+            });
+            this.$store.commit("setToken", token);
+          }
+          if (
+            responses[1].status == "fulfilled" &&
+            responses[1].value.status == 200
+          ) {
+            this.$store.commit(
+              "setFollowing",
+              responses[1].value.data
+            );
+          }
+          if (
+            responses[2].status == "fulfilled" &&
+            responses[2].value.status == 200
+          ) {
+            this.showNewMsg = true;
+            this.newMsg = responses[2].value.data.number;
+          }
+        } else {
+          // else
+          // set store's placeholder as null
+          this.$store.commit("setUserInfo", null);
+          this.$store.commit("setToken", null);
 
-      if (res.status == 200) {
-        this.$store.commit("setUserInfo", {
-          ...res.data[0],
-          userID,
-        });
-        this.$store.commit("setToken", token);
-      }
-
-      res = await GET("/user/follow?userID=" + userID);
-      this.$store.commit("setFollowing", res.data);
-
-      res = await GET("/message/new?token=" + token);
-      console.log(res);
-      if (res && res.status == 200) {
-        this.showNewMsg = true;
-        this.newMsg = res.data.number;
+          // check if is at forbidden page, and redirect
+          let path = this.$route.fullPath;
+          if (
+            path.startsWith("/post") ||
+            path.startsWith("/about") ||
+            path.startsWith("/message")
+          ) {
+            this.$router.replace("/user/login?hint=true");
+          }
+        }
       }
     },
   };

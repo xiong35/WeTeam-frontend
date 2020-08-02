@@ -72,7 +72,9 @@
 
 <script>
   import BtnBlock from "~/components/BtnBlock";
+
   import { POST } from "~/network/methods";
+  import { checkSignIn } from "~/utils/validate";
 
   export default {
     name: "BtnRate",
@@ -101,6 +103,9 @@
     watch: {},
     methods: {
       async submit() {
+        if (!checkSignIn(this)) {
+          return;
+        }
         let { token, userInfo } = this.$store.state;
 
         let rater = userInfo.userID;

@@ -6,6 +6,7 @@
 
 <script>
   import { POST } from "~/network/methods";
+  import { checkSignIn } from "~/utils/validate";
 
   export default {
     name: "BtnBlock",
@@ -23,6 +24,9 @@
     watch: {},
     methods: {
       async block() {
+        if (!checkSignIn(this)) {
+          return;
+        }
         if (
           !confirm(
             "确定将此用户加入黑名单吗?(你将不会收到他的任何消息)"

@@ -32,6 +32,7 @@
 
 <script>
   import { POST } from "~/network/methods";
+  import { checkSignIn } from "~/utils/validate";
 
   export default {
     name: "BtnChat",
@@ -72,6 +73,9 @@
     watch: {},
     methods: {
       async submit() {
+        if (!checkSignIn(this)) {
+          return;
+        }
         let res = await POST("/user/chat", {
           token: this.$store.state.token,
           from: this.$store.state.userInfo.userID,

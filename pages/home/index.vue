@@ -309,7 +309,9 @@
         if (this.hasGot) {
           return;
         }
-        checkSignIn(this);
+        if (!checkSignIn(this)) {
+          return;
+        }
 
         let res = await GET(
           "/user/follow?userID=" +

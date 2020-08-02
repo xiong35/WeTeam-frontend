@@ -152,12 +152,6 @@
         ],
       };
     },
-    validate({ store, redirect }) {
-      if (!store.state.token || !store.state.userInfo) {
-        return redirect("/user/login?hint=true");
-      }
-      return true;
-    },
     components: { TopBar },
     data() {
       return {
@@ -225,7 +219,12 @@
         this.$router.push("/project?id=" + id);
       },
     },
-    created() {},
+    created() {
+      let { userInfo, token } = this.$store.state;
+      if (!userInfo || !token) {
+        this.$router.replace("/user/login?hint=true");
+      }
+    },
     mounted() {},
     async asyncData({ store, query }) {},
   };

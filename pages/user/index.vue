@@ -165,6 +165,7 @@
   import Card from "~/components/Card";
 
   import { POST, GET } from "~/network/methods";
+  import { checkSignIn } from "~/utils/validate";
 
   export default {
     transition: "layout",
@@ -180,12 +181,6 @@
           },
         ],
       };
-    },
-    validate({ store, redirect }) {
-      if (!store.state.token || !store.state.userInfo) {
-        return redirect("/user/login?hint=true");
-      }
-      return true;
     },
     components: { TopBar, MsgRate, Card, BtnChat },
     data() {
@@ -225,6 +220,10 @@
     },
     methods: {
       async toggleFollow() {
+        if (!checkSignIn(this)) {
+          return;
+        }
+
         let res = await POST("/user/follow", {
           token: this.$store.state.token,
           followee: this.info.userID,
@@ -261,9 +260,11 @@
 
       let info,
         self = false;
-      if (store.state.userInfo.userID) {
-        if (userID == store.state.userInfo.userID) {
-          info = store.state.userInfo;
+
+      let userInfo = store.state.userInfo;
+      if (userInfo && userInfo.userID) {
+        if (userID == userInfo.userID) {
+          info = userInfo;
           self = true;
         }
       }
