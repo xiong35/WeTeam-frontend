@@ -53,7 +53,7 @@
       title() {
         return (
           this.nickname +
-          (this.typr == "follow" ? "的关注" : "的粉丝")
+          (this.type == "follow" ? "的关注" : "的粉丝")
         );
       },
     },
