@@ -129,6 +129,7 @@
         });
 
         if (res) {
+          this.$emit("change");
           alert("提交成功!");
         }
         this.dialog = false;

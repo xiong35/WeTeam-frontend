@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card :style="{ opacity: msg.isChecked ? 0.4 : 1 }">
     <v-list-item
       @click.self="$router.push('/user?userID=' + msg.from)"
     >
@@ -73,9 +73,12 @@
       <v-spacer></v-spacer>
       <BtnBlock :userID="msg.from"></BtnBlock>
 
-      <v-btn icon>
-        <v-icon>mdi-trash-can-outline</v-icon>
-      </v-btn>
+      <BtnCheck
+        :id="msg.id"
+        type="request"
+        :is-checked="msg.isChecked"
+        @change="toggleCheck"
+      ></BtnCheck>
     </v-card-actions>
   </v-card>
 </template>
@@ -83,13 +86,14 @@
 <script>
   import BtnChat from "~/components/BtnChat";
   import BtnBlock from "~/components/BtnBlock";
+  import BtnCheck from "~/components/BtnCheck";
 
   import { timestampFmt } from "~/utils/time";
   import { POST } from "~/network/methods";
 
   export default {
     name: "MsgChat",
-    components: { BtnChat, BtnBlock },
+    components: { BtnChat, BtnBlock, BtnCheck },
     data() {
       return {
         menu: false,
@@ -133,9 +137,18 @@
         });
 
         if (res) {
+          this.toggleCheck("yes");
           alert((this.accepted ? "同意" : "拒绝") + "成功!");
         }
         this.menu = false;
+      },
+
+      toggleCheck(state) {
+        if (state) {
+          this.msg.isChecked = state == "yes" ? true : false;
+          return;
+        }
+        this.msg.isChecked = !this.msg.isChecked;
       },
     },
     created() {},

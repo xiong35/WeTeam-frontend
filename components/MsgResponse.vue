@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card :style="{ opacity: msg.isChecked ? 0.4 : 1 }">
     <v-list-item
       @click="$router.push('/project?id=' + msg.target)"
     >
@@ -27,21 +27,25 @@
         看看别的项目
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-trash-can-outline</v-icon>
-      </v-btn>
+      <BtnCheck
+        :id="msg.id"
+        type="response"
+        :is-checked="msg.isChecked"
+        @change="toggleCheck"
+      ></BtnCheck>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
   import BtnChat from "~/components/BtnChat";
+  import BtnCheck from "~/components/BtnCheck";
 
   import { timestampFmt } from "~/utils/time";
 
   export default {
     name: "MsgChat",
-    components: { BtnChat },
+    components: { BtnChat, BtnCheck },
     data() {
       return {};
     },
@@ -61,7 +65,16 @@
       },
     },
     watch: {},
-    methods: { timestampFmt },
+    methods: {
+      timestampFmt,
+      toggleCheck(state) {
+        if (state) {
+          this.msg.isChecked = state == "yes" ? true : false;
+          return;
+        }
+        this.msg.isChecked = !this.msg.isChecked;
+      },
+    },
     created() {},
     mounted() {},
   };

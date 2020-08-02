@@ -16,7 +16,7 @@
     props: {
       userID: {
         type: Number,
-        reruired: true,
+        required: true,
       },
     },
     computed: {},

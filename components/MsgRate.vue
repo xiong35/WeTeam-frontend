@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card :style="{ opacity: msg.isChecked && hidable ? 0.4 : 1 }">
     <v-list-item
       @click="$router.push('/user?userID=' + msg.rater)"
     >
@@ -83,13 +83,21 @@
     </v-list>
 
     <v-card-actions class="pt-0">
-      <BtnChat text="回复评价" :userID="msg.rater"></BtnChat>
+      <BtnChat
+        v-if="self"
+        text="回复评价"
+        :userID="msg.rater"
+        @change="toggleCheck('yes')"
+      ></BtnChat>
       <v-spacer></v-spacer>
       <BtnBlock :userID="msg.rater"></BtnBlock>
 
-      <v-btn icon>
-        <v-icon>mdi-trash-can-outline</v-icon>
-      </v-btn>
+      <BtnCheck
+        :id="msg.id"
+        type="rate"
+        :is-checked="msg.isChecked"
+        @change="toggleCheck"
+      ></BtnCheck>
     </v-card-actions>
   </v-card>
 </template>
@@ -97,12 +105,13 @@
 <script>
   import BtnChat from "~/components/BtnChat";
   import BtnBlock from "~/components/BtnBlock";
+  import BtnCheck from "~/components/BtnCheck";
 
   import { timestampFmt } from "~/utils/time";
 
   export default {
     name: "MsgRate",
-    components: { BtnChat, BtnBlock },
+    components: { BtnChat, BtnBlock, BtnCheck },
     data() {
       return {
         showDetailRate: false,
@@ -112,6 +121,10 @@
       msg: {
         type: Object,
         required: true,
+      },
+      hidable: {
+        type: Boolean,
+        default: false,
       },
     },
     computed: {
@@ -123,9 +136,25 @@
           3
         );
       },
+      self() {
+        let { userInfo } = this.$store.state;
+        if (!userInfo || !userInfo.userID) {
+          return false;
+        }
+        return userInfo.userID == this.msg.ratee;
+      },
     },
     watch: {},
-    methods: { timestampFmt },
+    methods: {
+      timestampFmt,
+      toggleCheck(state) {
+        if (state) {
+          this.msg.isChecked = state == "yes" ? true : false;
+          return;
+        }
+        this.msg.isChecked = !this.msg.isChecked;
+      },
+    },
     created() {},
     mounted() {},
   };

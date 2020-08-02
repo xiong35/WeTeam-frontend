@@ -10,7 +10,11 @@
         :msg="msg.data"
         v-else-if="msg.type == 2"
       ></MsgRequest>
-      <MsgRate :msg="msg.data" v-else-if="msg.type == 3"></MsgRate>
+      <MsgRate
+        :hidable="true"
+        :msg="msg.data"
+        v-else-if="msg.type == 3"
+      ></MsgRate>
     </div>
   </div>
 </template>
@@ -64,7 +68,10 @@
         return redirect("/user/login?hint=true");
       }
       let userID = userInfo.userID;
+
       let messages = [];
+      let allChecked = [];
+      let allNotChecked = [];
 
       let responses = await Promise.allSettled([
         GET("/user/chat?userID=" + userID),
@@ -79,8 +86,19 @@
           promise.status == "fulfilled" &&
           promise.value.status == 200
         ) {
-          messages = messages.concat(
-            promise.value.data.map((obj) => ({
+          let resDatas = promise.value.data;
+
+          let checked = resDatas.filter((v) => v.isChecked);
+          let notChecked = resDatas.filter((v) => !v.isChecked);
+
+          allChecked = allChecked.concat(
+            checked.map((obj) => ({
+              type: ind,
+              data: obj,
+            }))
+          );
+          allNotChecked = allNotChecked.concat(
+            notChecked.map((obj) => ({
               type: ind,
               data: obj,
             }))
@@ -88,10 +106,14 @@
         }
       });
 
-      messages = messages.sort((a, b) => {
+      allChecked = allChecked.sort((a, b) => {
         return b.data.time - a.data.time;
       });
-      return { messages };
+      allNotChecked = allNotChecked.sort((a, b) => {
+        return b.data.time - a.data.time;
+      });
+      console.log(allNotChecked, allChecked);
+      return { messages: allNotChecked.concat(allChecked) };
     },
   };
 </script>

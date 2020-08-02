@@ -80,6 +80,7 @@
         });
 
         if (res) {
+          this.$emit("change");
           alert("发送成功!");
         }
 
