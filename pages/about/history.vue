@@ -1,5 +1,5 @@
 <template>
-  <div v-if="follows.length > 0">
+  <div v-if="posts.length > 0">
     <TopBar :title="title"></TopBar>
     <Card :post="post" v-for="(post, index) in posts" :key="index">
     </Card>
