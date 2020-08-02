@@ -1,5 +1,5 @@
 
-# api 文档 v4.0
+# api 文档 v4.1
 
 > 用尖括号括起来的地方代表某个变量, 如 "id=<..>" 指id等于某个用户的id号, 实际请求时替换为 "id=1234567" 之类的  
 > 用 "|" 分割的代表n选1, 如 "\<male|female|unknown\>" 代表3选1  
@@ -308,7 +308,7 @@
         "userID": "...",
         "avatar": "...",
         "nickname": "...",
-        "description": "...",
+        "description": "...", // 用户的个人简介
       }
     ]
   }
@@ -766,7 +766,7 @@
 
 ### 获得主题项目摘要
 
-- url: `GET /projectTheme?id=all&limit=<Number>`  // 获取最近的几条
+- url: `GET /projectTheme?id=all&limit=<Number>`  // 获取最近的多少条
 - 响应:
 
   ```json
