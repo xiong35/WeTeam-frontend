@@ -11,25 +11,6 @@
         @keydown.enter="search"
         placeholder="请输入查找内容"
       >
-        <template v-slot:prepend-inner>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-              <v-icon
-                v-on="on"
-                @click="
-                  keywordCategory =
-                    keywordCategory == '组队' ? '用户' : '组队'
-                "
-                >{{
-                  keywordCategory == "组队"
-                    ? "mdi-account-multiple"
-                    : "mdi-account-question"
-                }}</v-icon
-              >
-            </template>
-            搜索{{ keywordCategory }}
-          </v-tooltip>
-        </template>
       </v-text-field>
     </v-row>
     <v-carousel
@@ -208,7 +189,6 @@
     },
     data() {
       return {
-        keywordCategory: "组队",
         keyword: "",
         tab: 0,
         hasGot: false,
@@ -335,14 +315,7 @@
         list.splice(ind, 1);
       },
       search() {
-        if (this.keywordCategory == "用户") {
-          alert("暂不支持搜索用户QwQ");
-          this.keywordCategory = "组队";
-          return;
-        }
-        this.$router.push(
-          `/home/search?kw=${this.keyword}&cat=${this.keywordCategory}`
-        );
+        this.$router.push(`/home/search?kw=${this.keyword}`);
       },
     },
     created() {},
