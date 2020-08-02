@@ -144,7 +144,11 @@
         return userInfo.userID == this.msg.ratee;
       },
     },
-    watch: {},
+    watch: {
+      "$route.fullPath"() {
+        this.$router.go(0);
+      },
+    },
     methods: {
       timestampFmt,
       toggleCheck(state) {

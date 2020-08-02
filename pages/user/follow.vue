@@ -3,17 +3,17 @@
     <TopBar :title="title"></TopBar>
     <v-list three-line>
       <v-list-item
-        :to="'/user?userID=' + following.userID"
-        v-for="(following, index) in followings"
+        :to="'/user?userID=' + follow.userID"
+        v-for="(follow, index) in follows"
         :key="index"
       >
         <v-list-item-avatar size="55px">
-          <v-img :src="following.avatar"></v-img>
+          <v-img :src="follow.avatar"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
           <v-list-item-title>{{
-            following.nickname
+            follow.nickname
           }}</v-list-item-title>
           <v-list-item-subtitle>去看看ta></v-list-item-subtitle>
         </v-list-item-content>
@@ -51,7 +51,10 @@
     filters: {},
     computed: {
       title() {
-        return this.nickname + "的关注";
+        return (
+          this.nickname +
+          (this.typr == "follow" ? "的关注" : "的粉丝")
+        );
       },
     },
     watch: {},
@@ -59,9 +62,10 @@
     created() {},
     mounted() {},
     async asyncData({ store, query }) {
-      let res = await GET("/user/follow?userID=" + query.userID);
+      let { type, userID } = query;
+      let res = await GET(`/user/${type}?userID=${userID}`);
 
-      return { followings: res.data, ...query };
+      return { follows: res.data, ...query };
     },
   };
 </script>

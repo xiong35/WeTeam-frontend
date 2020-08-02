@@ -9,16 +9,15 @@
         <h3 class="ma-2">{{ info.nickname }}</h3>
         <nuxt-link
           tag="span"
-          :to="
-            '/user/following?userID=' +
-            info.userID +
-            '&nickname=' +
-            info.nickname
-          "
+          :to="`/user/follow?userID=${info.userID}&nickname=${info.nickname}&type=follow`"
           class="left-box mr-5 pr-5"
           >关注: {{ info.followingNum }}</nuxt-link
         >
-        <span>粉丝: {{ info.followerNum }}</span>
+        <nuxt-link
+          tag="span"
+          :to="`/user/follow?userID=${info.userID}&nickname=${info.nickname}&type=follower`"
+          >粉丝: {{ info.followerNum }}</nuxt-link
+        >
       </v-col>
     </v-row>
     <v-col class="pt-0">
