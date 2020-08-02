@@ -15,10 +15,7 @@
       >主页详情</nuxt-link
     >
     <v-divider></v-divider>
-    <nuxt-link
-      class="py-4 px-6"
-      tag="h2"
-      :to="'/user?userID=' + $store.state.userInfo.userID"
+    <nuxt-link class="py-4 px-6" tag="h2" to="/about/history"
       >组队信息浏览记录</nuxt-link
     >
     <v-divider></v-divider>

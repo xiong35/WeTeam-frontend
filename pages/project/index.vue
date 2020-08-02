@@ -327,7 +327,12 @@
         this.$router.replace("/404");
       }
 
-      let projectRes = await GET("/project?id=" + id);
+      let surfix = "";
+      if (store.state.userInfo && store.state.userInfo.userID) {
+        surfix = "&userID=" + store.state.userInfo.userID;
+      }
+
+      let projectRes = await GET("/project?id=" + id + surfix);
       if (!projectRes || projectRes.status != 200) {
         this.$router.replace("/404");
         return;
