@@ -32,12 +32,6 @@
   export default {
     transition: "layout",
     name: "index",
-    validate({ store, redirect }) {
-      if (!store.state.token || !store.state.userInfo) {
-        return redirect("/user/login?hint=true");
-      }
-      return true;
-    },
     head() {
       return {
         title: "消息列表",
@@ -64,10 +58,18 @@
     computed: {},
     watch: {},
     methods: {},
-    created() {},
+    created() {
+      let { userInfo, token } = this.$store.state;
+      if (!userInfo || !token) {
+        this.$router.replace("/user/login?hint=true");
+      }
+    },
     mounted() {},
     async asyncData({ store, query }) {
       let { token, userInfo } = store.state;
+      if (!token || !userInfo) {
+        return;
+      }
 
       let userID = userInfo.userID;
 
