@@ -19,7 +19,7 @@
       class="mavon-editor"
       :toolbars="mavonConfig"
       v-model="resume"
-      defaultOpen="preview"
+      defaultOpen="edit"
       :subfield="false"
       placeholder="请编写你的简历, 让更多人了解你. (支持markdown, latex)"
     />
@@ -37,7 +37,7 @@
 <script>
   import TopBar from "~/components/TopBar";
 
-  import { GET, POST } from "~/network/methods";
+  import { GET, PUT } from "~/network/methods";
   import { mavonConfig } from "~/assets/data";
 
   export default {
@@ -77,8 +77,10 @@
       async submit() {
         let { resume } = this;
         let { token } = this.$store.state;
-        let res = await POST("/user/resume", { resume, token });
-        this.$router.replace(this.$route.fullPath + "#/");
+        let res = await PUT("/user/resume", { resume, token });
+        if (res && res.status == 200) {
+          alert("修改成功!");
+        }
       },
     },
     created() {},
