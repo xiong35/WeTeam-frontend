@@ -6,6 +6,7 @@
       </div>
     </v-main>
     <v-bottom-navigation
+      color="black"
       v-model="bottomNav"
       id="bottom-nav"
       shift
@@ -14,15 +15,23 @@
       small
     >
       <v-btn nuxt to="/home">
-        <v-icon>mdi-home</v-icon>
+        <v-icon
+          >mdi-home{{ bottomNav == 0 ? "" : "-outline" }}</v-icon
+        >
         <span>首页</span>
       </v-btn>
       <v-btn nuxt to="/school">
-        <v-icon>mdi-school</v-icon>
+        <v-icon
+          >mdi-school{{ bottomNav == 1 ? "" : "-outline" }}</v-icon
+        >
         <span>校园圈</span>
       </v-btn>
       <v-btn nuxt to="/post">
-        <v-icon>mdi-comment-plus</v-icon>
+        <v-icon
+          >mdi-comment-plus{{
+            bottomNav == 2 ? "" : "-outline"
+          }}</v-icon
+        >
         <span>发布</span>
       </v-btn>
       <v-badge
@@ -33,16 +42,18 @@
         offset-x="7vw"
       >
         <v-btn nuxt to="/message">
-          <v-icon>mdi-bell</v-icon>
+          <v-icon
+            >mdi-bell{{ bottomNav == 3 ? "" : "-outline" }}</v-icon
+          >
           <span>消息</span>
         </v-btn>
       </v-badge>
-      <!-- <v-btn nuxt to="/message">
-        <v-icon>mdi-bell</v-icon>
-        <span>消息</span>
-      </v-btn> -->
       <v-btn nuxt to="/about">
-        <v-icon>mdi-account</v-icon>
+        <v-icon
+          >mdi-account{{
+            bottomNav == 4 ? "" : "-outline"
+          }}</v-icon
+        >
         <span>我的</span>
       </v-btn>
     </v-bottom-navigation>

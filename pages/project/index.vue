@@ -231,12 +231,12 @@
     name: "index",
     head() {
       return {
-        title: "",
+        title: this.post.title,
         meta: [
           {
             hid: "description",
             name: "description",
-            content: "",
+            content: "WeTeam 的项目详情页",
           },
         ],
       };
