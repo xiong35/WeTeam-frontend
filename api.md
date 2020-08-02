@@ -307,7 +307,8 @@
       {
         "userID": "...",
         "avatar": "...",
-        "nickname": "..."
+        "nickname": "...",
+        "description": "...",
       }
     ]
   }
@@ -327,7 +328,8 @@
       {
         "userID": "...",
         "avatar": "...",
-        "nickname": "..."
+        "nickname": "...",
+        "description": "...",
       }
     ]
   }
@@ -346,7 +348,8 @@
       {
         "userID": "...",
         "avatar": "...",
-        "nickname": "..."
+        "nickname": "...",
+        "description": "...",
       },
       // ...
     ]

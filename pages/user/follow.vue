@@ -1,29 +1,13 @@
 <template>
   <v-card>
     <TopBar :title="title"></TopBar>
-    <v-list three-line>
-      <v-list-item
-        :to="'/user?userID=' + follow.userID"
-        v-for="(follow, index) in follows"
-        :key="index"
-      >
-        <v-list-item-avatar size="55px">
-          <v-img :src="follow.avatar"></v-img>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title>{{
-            follow.nickname
-          }}</v-list-item-title>
-          <v-list-item-subtitle>去看看ta></v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
+    <UserList :users="follows"></UserList>
   </v-card>
 </template>
 
 <script>
   import TopBar from "~/components/TopBar";
+  import UserList from "~/components/UserList";
 
   import { GET } from "~/network/methods";
 
@@ -44,6 +28,7 @@
     },
     components: {
       TopBar,
+      UserList,
     },
     data() {
       return {};
@@ -70,11 +55,4 @@
   };
 </script>
 
-<style scoped lang="scss">
-  .v-list-item:not(:last-of-type) {
-    border-bottom: 1px solid #dddd;
-  }
-  .v-list-item--link:before {
-    background-color: #fff !important;
-  }
-</style>
+<style scoped lang="scss"></style>
