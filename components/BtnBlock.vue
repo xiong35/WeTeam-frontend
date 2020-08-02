@@ -1,5 +1,5 @@
 <template>
-  <v-btn @click="block" text color="deep-purple accent-4">
+  <v-btn @click="block" text color="accent">
     拉黑
   </v-btn>
 </template>

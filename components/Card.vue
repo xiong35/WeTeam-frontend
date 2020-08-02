@@ -11,7 +11,7 @@
         ></ChipProjectStatus>
       </v-row>
 
-      <v-chip small outlined class="ma-1" color="red"
+      <v-chip small outlined class="ma-1" color="info"
         >{{ post.rank }}
       </v-chip>
       <v-chip

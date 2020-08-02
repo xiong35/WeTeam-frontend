@@ -1,5 +1,5 @@
 <template>
-  <v-chip small v-if="finished" outlined color="orange"
+  <v-chip small v-if="finished" outlined color="warning"
     >已结束</v-chip
   >
   <v-chip small v-else outlined color="primary">进行中</v-chip>

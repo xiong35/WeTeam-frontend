@@ -52,7 +52,7 @@
           scrollable
         >
           <v-spacer></v-spacer>
-          <v-btn text color="primary" @click="menu = false"
+          <v-btn text color="black" @click="menu = false"
             >取消</v-btn
           >
           <v-btn

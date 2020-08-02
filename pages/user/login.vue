@@ -19,10 +19,10 @@
     ></v-text-field>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn outlined color="primary" nuxt to="/user/signUp"
+      <v-btn outlined color="info" nuxt to="/user/signUp"
         >注册</v-btn
       >
-      <v-btn outlined color="success" @click="handleLogin">
+      <v-btn outlined color="primary" @click="handleLogin">
         登录
       </v-btn>
     </v-card-actions>

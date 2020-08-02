@@ -28,7 +28,6 @@
         <v-col class="col-4">
           <BtnChat
             v-if="!self"
-            color="black"
             :outlined="true"
             :textbtn="false"
             icon="mdi-chat-processing-outline"
@@ -37,7 +36,7 @@
         </v-col>
         <v-col class="col-4">
           <v-btn
-            color="black"
+            color="primary"
             nuxt
             :to="
               '/user/resume?userID=' +
@@ -53,7 +52,7 @@
         <v-col class="col-4">
           <v-btn
             v-if="!self"
-            color="black"
+            color="primary"
             nuxt
             @click="toggleFollow"
             outlined

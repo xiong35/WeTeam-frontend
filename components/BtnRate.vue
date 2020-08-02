@@ -49,7 +49,7 @@
           <v-switch
             v-model="anonymous"
             label="开启匿名?"
-            color="indigo"
+            color="accent"
             hide-details
             class="mt-n5"
           ></v-switch>
@@ -59,12 +59,10 @@
       <v-card-actions class="px-5">
         <BtnBlock :userID="userID"></BtnBlock>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="dialog = false"
+        <v-btn color="black" text @click="dialog = false"
           >关闭</v-btn
         >
-        <v-btn color="green darken-1" text @click="submit"
-          >提交</v-btn
-        >
+        <v-btn color="primary" text @click="submit">提交</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

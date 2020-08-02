@@ -44,7 +44,7 @@
           v-model="tab"
           background-color="transparent"
           color="basil"
-          grow=""
+          grow
         >
           <v-tab>推荐</v-tab>
           <v-tab>关注</v-tab>
@@ -130,10 +130,7 @@
         </v-card-text>
         <v-card-actions class="pr-4">
           <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1 ma-3"
-            text
-            @click="dialog = false"
+          <v-btn color="primary ma-3" text @click="dialog = false"
             >保存</v-btn
           >
         </v-card-actions>
