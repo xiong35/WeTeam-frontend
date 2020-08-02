@@ -1,5 +1,5 @@
 
-# api 文档 v4.1
+# api 文档 v4.2
 
 > 用尖括号括起来的地方代表某个变量, 如 "id=<..>" 指id等于某个用户的id号, 实际请求时替换为 "id=1234567" 之类的  
 > 用 "|" 分割的代表n选1, 如 "\<male|female|unknown\>" 代表3选1  
@@ -8,7 +8,9 @@
 
 ## 上传图片
 
-- url: `POST /img/<avatar|card|acticity>`, 上传头像|证件照|活动封面的url
+> 新增上传反馈图片的功能
+
+- url: `POST /img/<avatar|card|acticity|other>`, 上传头像|证件照|活动封面的url
 - 数据: `multipart/form-data`
 - 响应:
 
@@ -67,6 +69,54 @@
     "grade": "Number", // 入学年份
     "password": "...", // 用32位md5加密(字母全部小写), 数据库里存放加密后的字符串, 登录时也用加密过的字符串登录
     "userID": "...", // 账号, 不加密
+  }
+  ```
+
+#### 修改信息
+
+- url: `PUT /user/info`
+- 数据:
+  
+  ```json
+  {
+    "token": "token",
+    "avatar": "<url>",
+    "nickname": "...",
+    "gender": "<male|female|unknown>",
+    "description": "...",
+    "schoolID": "...", //校园卡号
+    "major": "...",
+    "grade": "Number", // 入学年份
+  }
+  ```
+
+- 响应: 
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+  }
+  ```
+
+#### 修改密码
+
+- url: `PUT /user/password`
+- 数据:
+  
+  ```json
+  {
+    "token": "token",
+    "password": "<40位字符串>"
+  }
+  ```
+
+- 响应: 
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
   }
   ```
 
@@ -673,7 +723,7 @@
 
 ### 拉黑
 
-> 拉黑后不接受私信, 暂时没有解除和查看拉黑的操作
+> 改为设置是否拉黑
 
 - url: `POST /message/reject`
 - 数据
@@ -683,6 +733,7 @@
     "token": "...",
     "rejecter": "<userID>", // 谁发起的拉黑
     "rejectee": "<userID",  // 拉黑了谁
+    "type": "<reject|accept>", // string 类型, 拉黑或者解除拉黑
   }
   ```
 
@@ -692,6 +743,27 @@
   {
     "status": 200,
     "msg": "ok",
+  }
+  ```
+
+### 获得黑名单
+
+- url: `GET /message/reject?token=<token>`
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "userID": "...",
+        "avatar": "...",
+        "nickname": "...",
+        "description": "...",
+      },
+      // ...
+    ]
   }
   ```
 
