@@ -5,7 +5,12 @@
       <v-avatar size="60" class="ma-4 ml-6">
         <v-img :src="$store.state.userInfo.avatar"></v-img>
       </v-avatar>
-      <h2>{{ $store.state.userInfo.nickname }}</h2>
+      <v-col>
+        <h2>{{ $store.state.userInfo.nickname }}</h2>
+        <span>{{
+          $store.state.userInfo.description.slice(0, 20)
+        }}</span>
+      </v-col>
     </v-row>
     <v-divider></v-divider>
     <nuxt-link

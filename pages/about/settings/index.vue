@@ -71,6 +71,18 @@
     data() {
       return {};
     },
+    head() {
+      return {
+        title: "设置",
+        meta: [
+          {
+            hid: "description",
+            name: "description",
+            content: "WeTeam 的设置界面",
+          },
+        ],
+      };
+    },
     computed: {},
     watch: {},
     methods: {

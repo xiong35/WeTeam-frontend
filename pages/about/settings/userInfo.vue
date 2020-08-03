@@ -105,6 +105,18 @@
     components: {
       TopBar,
     },
+    head() {
+      return {
+        title: "修改信息",
+        meta: [
+          {
+            hid: "description",
+            name: "description",
+            content: "WeTeam 的修改信息界面",
+          },
+        ],
+      };
+    },
     data() {
       return {
         nickname: "",
