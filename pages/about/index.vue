@@ -28,11 +28,8 @@
       >设置</nuxt-link
     >
     <v-divider></v-divider>
-    <nuxt-link
-      class="py-4 px-6"
-      tag="h2"
-      :to="'/user?userID=' + $store.state.userInfo.userID"
-      >客服中心</nuxt-link
+    <nuxt-link class="py-4 px-6" tag="h2" to="/about/feedback"
+      >反馈</nuxt-link
     >
     <v-divider></v-divider>
     <nuxt-link class="py-4 px-6 pb-9" tag="h2" to="/about/us"

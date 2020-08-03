@@ -136,7 +136,6 @@
             responses[2].status == "fulfilled" &&
             responses[2].value.status == 200
           ) {
-            console.log(responses[2]);
             this.newMsg = responses[2].value.data.number;
             this.showNewMsg = !!this.newMsg;
           }

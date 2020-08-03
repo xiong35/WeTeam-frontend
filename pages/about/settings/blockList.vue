@@ -76,7 +76,6 @@
           type: "accept",
         });
 
-        console.log(res);
         if (res) {
           alert("解除成功!");
           this.unBlocked.push(rejectee);
