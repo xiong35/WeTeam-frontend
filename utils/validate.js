@@ -32,3 +32,12 @@ export function checkSignIn({ $store, $router }) {
   }
   return true;
 }
+
+export function refreshTo(to = "/home", curPrefix = "WeTeam") {
+  location.assign(
+    location.href.slice(
+      0,
+      location.href.indexOf(curPrefix) + curPrefix.length
+    ) + to
+  );
+}
