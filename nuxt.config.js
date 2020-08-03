@@ -69,7 +69,7 @@ export default {
       dark: false,
       themes: {
         light: {
-          primary: "#32AADE",
+          primary: "#3094cf",
           accent: colors.indigo.accent3,
           secondary: colors.blueGrey.base,
           info: colors.blue.base,

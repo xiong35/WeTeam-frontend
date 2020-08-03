@@ -66,7 +66,7 @@
     <v-tabs
       v-model="tab"
       background-color="transparent"
-      color="primary darken-2"
+      color="primary darken-1"
       centered
     >
       <v-tab>他人评价</v-tab>

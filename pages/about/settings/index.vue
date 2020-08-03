@@ -5,7 +5,7 @@
       <v-list-item>
         <v-list-item-content class="pl-3">
           <nuxt-link tag="h2" to="/about/settings/userInfo">
-            修改个人信息
+            修改个人信息 // TODO
           </nuxt-link>
         </v-list-item-content>
       </v-list-item>
