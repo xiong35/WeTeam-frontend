@@ -2,7 +2,7 @@
   <v-card flat>
     <TopBar title="搜索结果"></TopBar>
     <v-row class="pa-4 pb-1 mb-n3">
-      <v-form ref="form">
+      <v-form class="col-12" ref="form">
         <v-text-field
           v-model="kw"
           rounded

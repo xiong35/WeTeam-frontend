@@ -97,6 +97,9 @@
       },
 
       logOut() {
+        if (!confirm("确定要退出登录吗?")) {
+          return;
+        }
         localStorage.removeItem("token");
         alert("成功退出登录!");
         refreshTo();
