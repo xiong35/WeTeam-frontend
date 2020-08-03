@@ -125,3 +125,5 @@ export const mavonConfig = {
 };
 
 export const MY_BASE_URL = "http://101.200.210.170/";
+
+export const ADMIN_ID = 1;

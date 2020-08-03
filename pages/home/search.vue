@@ -2,20 +2,21 @@
   <v-card flat>
     <TopBar title="搜索结果"></TopBar>
     <v-row class="pa-4 pb-1 mb-n3">
-      <v-text-field
-        v-model="kw"
-        ref="search"
-        rounded
-        dense
-        outlined
-        lazy-validation
-        :rules="[(v) => !!v || '请输入查找内容']"
-        append-icon="mdi-magnify"
-        @click:append="search"
-        @keydown.enter="search"
-        placeholder="请输入查找内容"
-      >
-      </v-text-field>
+      <v-form ref="form">
+        <v-text-field
+          v-model="kw"
+          rounded
+          dense
+          outlined
+          lazy-validation
+          :rules="[(v) => !!v || '请输入查找内容']"
+          append-icon="mdi-magnify"
+          @click:append="search"
+          @keydown.enter="search"
+          placeholder="请输入查找内容"
+        >
+        </v-text-field>
+      </v-form>
     </v-row>
     <v-tabs
       class="pl-3 pr-1"
@@ -93,7 +94,7 @@
     },
     methods: {
       async search() {
-        if (!this.$refs.search.validate()) {
+        if (!this.$refs.form.validate()) {
           return;
         }
 
