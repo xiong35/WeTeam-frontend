@@ -22,7 +22,7 @@
       class="pl-3 pr-1"
       v-model="tab"
       background-color="transparent"
-      color="primary darken-1"
+      color="primary"
     >
       <v-tab>组队</v-tab>
       <v-tab>用户</v-tab>
