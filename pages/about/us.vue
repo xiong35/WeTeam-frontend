@@ -2,8 +2,11 @@
   <v-card min-height="80vh">
     <TopBar title="关于我们"> </TopBar>
     <div class="text-center">
-      <v-avatar class="mt-8 mb-4" size="30vw" color="grey">
-        <!-- <img src="src" alt="alt" /> -->
+      <v-avatar class="mt-8 mb-4" size="34vw">
+        <v-img
+          :src="require('~/assets/img/LOGO1.png')"
+          alt="alt"
+        />
       </v-avatar>
       <h1><i>WeTeam</i></h1>
       <small>v 1.0</small>
