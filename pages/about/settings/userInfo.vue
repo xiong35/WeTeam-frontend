@@ -141,12 +141,6 @@
     },
     watch: {},
     methods: {
-      validate(next) {
-        if (this.$refs["form" + (next - 1)].validate()) {
-          this.curStep = next;
-        }
-      },
-
       async uploadAvatar(e) {
         let formData = new FormData(); //创建form对象
         formData.append("file", this.avatarFile); //通过append向form对象添加数据
@@ -161,6 +155,10 @@
       },
 
       async submit() {
+        if (!this.$refs.form.validate()) {
+          return;
+        }
+
         let {
           avatar,
           nickname,
