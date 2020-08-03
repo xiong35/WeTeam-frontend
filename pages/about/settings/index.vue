@@ -14,8 +14,7 @@
 
       <v-list-item>
         <v-list-item-content class="pl-3">
-          <nuxt-link tag="h2" to="/404">身份认证</nuxt-link
-          ><small>暂未开通</small>
+          <h2 @click="toResume">修改简历</h2>
         </v-list-item-content>
       </v-list-item>
 
@@ -23,7 +22,9 @@
 
       <v-list-item>
         <v-list-item-content class="pl-3">
-          <h2 @click="toResume">修改简历</h2>
+          <nuxt-link tag="h2" to="/about/settings/password"
+            >修改密码</nuxt-link
+          >
         </v-list-item-content>
       </v-list-item>
 
@@ -41,9 +42,8 @@
 
       <v-list-item>
         <v-list-item-content class="pl-3">
-          <nuxt-link tag="h2" to="/about/settings/password"
-            >修改密码</nuxt-link
-          >
+          <nuxt-link tag="h2" to="/404">身份认证</nuxt-link
+          ><small>暂未开通</small>
         </v-list-item-content>
       </v-list-item>
 
@@ -90,6 +90,10 @@
         if (!checkSignIn(this)) {
           return;
         }
+
+        this.$router.push(
+          `/user/resume?userID=${this.$store.state.userInfo.userID}&nickname=修改我`
+        );
       },
 
       logOut() {
