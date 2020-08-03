@@ -83,8 +83,9 @@
         });
 
         if (res) {
-          alert("修改成功!");
-          this.$router.push("/about/settings");
+          localStorage.removeItem("token");
+          alert("修改成功! 请重新登录");
+          this.$router.push("/user/login");
         }
       },
     },

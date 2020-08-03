@@ -66,9 +66,11 @@ export async function upload(url, data) {
 function checkRes(res) {
   if (!res) {
     alert("出了一点小问题呢QwQ");
+    console.log(res);
     return null;
   }
   if (res.status && res.status != 200) {
+    console.log(res);
     alert(res.msg);
     return null;
   }

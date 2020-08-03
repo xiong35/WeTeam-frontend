@@ -34,10 +34,12 @@
         ) {
           return;
         }
+
         let res = await POST("/message/reject", {
           token: this.$store.state.token,
-          rejecter: this.$store.state.userInfo.userID,
+          rejecter: this.$store.state.userInfo.userID * 1,
           rejectee: this.userID,
+          type: "reject",
         });
 
         if (res) {
