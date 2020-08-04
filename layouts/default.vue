@@ -26,7 +26,7 @@
         >
         <span>校园圈</span>
       </v-btn>
-      <v-btn nuxt to="/post">
+      <v-btn @click="close">
         <v-icon
           >mdi-comment-plus{{
             bottomNav == 2 ? "" : "-outline"
@@ -57,6 +57,42 @@
         <span>我的</span>
       </v-btn>
     </v-bottom-navigation>
+    <div
+      class="link-container"
+      :class="{ active: bottomNav == 2 }"
+    >
+      <div @click="close" class="hider"></div>
+
+      <nuxt-link tag="div" to="/post/new" class="col-4 link-item">
+        <img
+          class="link-img"
+          :src="require('~/assets/img/post.png')"
+        />
+        <span>发布组队</span>
+      </nuxt-link>
+      <nuxt-link
+        tag="div"
+        to="/post/share"
+        class="col-4 link-item"
+      >
+        <img
+          class="link-img"
+          :src="require('~/assets/img/share.png')"
+        />
+        <span>干货分享</span>
+      </nuxt-link>
+      <nuxt-link
+        tag="div"
+        to="/post/newTheme"
+        class="col-4 link-item"
+      >
+        <img
+          class="link-img"
+          :src="require('~/assets/img/event.png')"
+        />
+        <span>主题活动</span>
+      </nuxt-link>
+    </div>
   </v-app>
 </template>
 
@@ -67,7 +103,6 @@
   const pageMap = {
     home: 0,
     school: 1,
-    post: 2,
     message: 3,
     about: 4,
   };
@@ -78,6 +113,7 @@
         bottomNav: 0,
         showNewMsg: false,
         newMsg: 0,
+        pre: 0,
       };
     },
     watch: {
@@ -85,10 +121,16 @@
         let paths = path.split("?")[0].split("/").slice(1);
         this.bottomNav = pageMap[paths[0]];
       },
-      bottomNav(newVal) {
+      bottomNav(newVal, pre) {
+        this.pre = pre;
         if (newVal == 3) {
           this.showNewMsg = false;
         }
+      },
+    },
+    methods: {
+      close() {
+        this.bottomNav == 2 ? (this.bottomNav = this.pre) : "";
       },
     },
     computed: {},
@@ -161,10 +203,57 @@
 </script>
 <style lang="scss">
   #bottom-nav {
-    z-index: 99999;
+    z-index: 9999;
     .v-btn {
       min-width: 20vw;
       height: 56px;
+    }
+  }
+  .link-container {
+    height: 37%;
+    width: 100%;
+    position: fixed;
+    bottom: -100px;
+    left: 0;
+    z-index: 999;
+    display: flex;
+    justify-items: space-between;
+    align-items: center;
+    padding: 10px;
+    transform: scale(0.3);
+    transition: all 0.3s;
+    .link-item {
+      flex-direction: column;
+      justify-items: space-between;
+      align-items: center;
+      .link-img {
+        height: 80%;
+        width: 80%;
+      }
+      span {
+        color: #8d8d8d;
+      }
+    }
+    .hider {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #fffe;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      transition: all 0.3s;
+      z-index: -1;
+    }
+    &.active {
+      bottom: 30px;
+      transform: scale(1);
+      .hider {
+        transform: scale(150);
+      }
     }
   }
 </style>
