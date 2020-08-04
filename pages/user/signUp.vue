@@ -138,6 +138,16 @@
             :rules="[(v) => !!v || '请选择专业']"
           ></v-autocomplete>
           <v-select
+            :items="categories"
+            v-model="interests"
+            label="兴趣爱好"
+            validate-on-blur
+            clearable
+            multiple
+            chips
+            :rules="[(v) => !!v.length || '请选择兴趣']"
+          ></v-select>
+          <v-select
             :items="['20级', '19级', '18级', '17级', '16级']"
             v-model="grade"
             label="年级"
@@ -186,7 +196,12 @@
 </template>
 
 <script>
-  import { majors, mavonConfig, MY_BASE_URL } from "~/assets/data";
+  import {
+    majors,
+    mavonConfig,
+    MY_BASE_URL,
+    categories,
+  } from "~/assets/data";
 
   import { POST, upload, GET } from "~/network/methods";
   import { sha40_digest } from "~/utils/sha256";
@@ -226,8 +241,10 @@
         avatarFile: null,
         page2Valid: false,
         resume: "",
+        interests: [],
         mavonConfig,
         avatarID: 0,
+        categories,
       };
     },
     computed: {
@@ -270,6 +287,7 @@
           account,
           defaultAvatar,
           resume,
+          interests,
         } = this;
 
         grade = parseInt(grade);
@@ -286,11 +304,13 @@
           grade,
           password,
           userID: account,
+          interest: interests.join(","),
         };
 
-        await POST("/user/info", data);
+        let res = await POST("/user/info", data);
+        console.log(res);
 
-        let res = await POST("/user/login", {
+        res = await POST("/user/login", {
           password,
           userID: account,
         });
