@@ -5,53 +5,32 @@
 
       <v-divider></v-divider>
 
-      <v-stepper-step step="2">输入详细推文</v-stepper-step>
+      <v-stepper-step step="2">输入详细内容</v-stepper-step>
     </v-stepper-header>
 
     <v-stepper-items>
       <v-stepper-content step="1">
-        <h3 class="mb-3">完善基本信息</h3>
-        <v-img class="mb-6" :aspect-ratio="2 / 1" :src="cover">
-          <template v-slot:placeholder>
-            <v-row
-              class="fill-height ma-0"
-              align="center"
-              justify="center"
-              style="
-                background-color: #eee;
-                color: #999;
-                border-radius: 3px;
-              "
-            >
-              请上传封面
-            </v-row>
-          </template>
-        </v-img>
+        <h3 class="mb-3">输入基本信息</h3>
         <v-form ref="form" lazy-validation>
-          <v-file-input
-            ref="fileInput"
-            :rules="[
-              (value) =>
-                !value ||
-                value.size < 10000000 ||
-                '封面大小不能超过 10 MB!',
-            ]"
-            accept="image/png, image/jpeg, image/jpg, image/bmp"
-            label="上传推文封面"
-            v-model="coverFile"
-            @change="uploadCover"
-          ></v-file-input>
           <v-textarea
-            label="活动简介"
+            label="分享简介"
             :rules="[
               (v) => {
-                return !!v || '活动简介不能为空';
+                return !!v || '分享简介不能为空';
               },
             ]"
             required
             clearable
             v-model="brief"
           ></v-textarea>
+          <v-select
+            :items="categories"
+            v-model="categoty"
+            multiple
+            chips
+            :menu-props="{ top: true, offsetY: true }"
+            label="请选择分享主题"
+          ></v-select>
         </v-form>
         <v-btn
           color="primary"
@@ -63,14 +42,16 @@
       </v-stepper-content>
 
       <v-stepper-content class="px-1" step="2">
-        <h3 class="mb-3 px-2">请输入完整推文内容</h3>
+        <h3 class="mb-3 px-3">请输入完整分享内容</h3>
         <mavon-editor
+          ref="$md"
+          @imgAdd="uploadImg"
           class="mavon-editor"
           :toolbars="mavonConfig"
           v-model="content"
           defaultOpen="edit"
           :subfield="false"
-          placeholder="请输入完整推文内容. (支持markdown, latex)"
+          placeholder="请输入完整推文内容. (支持markdown, latex, 图片上传)"
         />
         <v-btn
           color="primary"
@@ -93,7 +74,11 @@
 </template>
 
 <script>
-  import { mavonConfig, MY_BASE_URL } from "~/assets/data";
+  import {
+    mavonConfig,
+    MY_BASE_URL,
+    categories,
+  } from "~/assets/data";
 
   import { POST, upload } from "~/network/methods";
 
@@ -102,12 +87,12 @@
     name: "singUp",
     head() {
       return {
-        title: "发布主题活动",
+        title: "发布分享",
         meta: [
           {
             hid: "description",
             name: "description",
-            content: "WeTeam 发布主题活动页面",
+            content: "WeTeam 的发布分享页面",
           },
         ],
       };
@@ -116,11 +101,17 @@
     data() {
       return {
         curStep: 1,
-        cover: "",
         brief: "",
         coverFile: null,
         content: "",
-        mavonConfig,
+        mavonConfig: {
+          ...mavonConfig,
+          imagelink: true,
+        },
+        categories,
+        categoty: [],
+        img_file: {},
+        hint: true,
       };
     },
     computed: {},
@@ -132,24 +123,37 @@
         }
       },
 
-      async uploadCover(e) {
-        let formData = new FormData(); //创建form对象
-        formData.append("file", this.coverFile); //通过append向form对象添加数据
+      async uploadImg(pos, $file) {
+        let formData = new FormData();
+        formData.append("file", $file);
 
         let res = await upload("/img/acticity", formData);
 
-        this.cover = MY_BASE_URL + res.data.url.slice(1);
+        if (res && res.status == 200) {
+          let url = MY_BASE_URL + res.data.url.slice(1);
+          this.$refs.$md.$img2Url(pos, url);
+          if (this.hint) {
+            this.hint = false;
+            alert(
+              "上传之后自动插入图片的链接, 可以点右上角的眼睛查看预览效果"
+            );
+          }
+        }
       },
 
       async submit() {
-        let { cover, brief, content } = this;
+        let { categoty, brief, content } = this;
 
-        let res = await POST("/projectTheme", {
-          publisherToken: this.$store.state.token,
-          brief,
-          content,
-          cover,
-        });
+        let res = await POST(
+          "/share",
+          {
+            publisherToken: this.$store.state.token,
+            brief,
+            content,
+            categoty,
+          },
+          "application/json"
+        );
 
         if (res) {
           alert("发布成功!");

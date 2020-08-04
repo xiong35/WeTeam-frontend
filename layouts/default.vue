@@ -223,9 +223,7 @@
     transform: scale(0.3);
     transition: all 0.3s;
     .link-item {
-      flex-direction: column;
-      justify-items: space-between;
-      align-items: center;
+      text-align: center;
       .link-img {
         height: 80%;
         width: 80%;
