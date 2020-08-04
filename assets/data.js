@@ -124,6 +124,21 @@ export const mavonConfig = {
   preview: true, // 预览
 };
 
+export const categories = [
+  "科技科研",
+  "设计美术",
+  "IT技术",
+  "创业创新",
+  "财汇金融",
+  "营销策划",
+  "影视摄影",
+  "广告创意",
+  "公益服务",
+  "学科学术",
+  "音乐舞蹈",
+  "其他",
+];
+
 export const MY_BASE_URL = "http://101.200.210.170/";
 
 export const ADMIN_ID = 1;

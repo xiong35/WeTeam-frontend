@@ -97,20 +97,7 @@
               class="pa-0"
               v-model="typeFilter"
               @change="checkAll"
-              :items="[
-                '不限',
-                '科技大赛',
-                '设计比赛',
-                'IT应用开发',
-                '创业大赛',
-                '财汇金融',
-                '营销策划',
-                '影视摄影',
-                '广告创意',
-                '公益大赛',
-                '学科学术',
-                '其他',
-              ]"
+              :items="['不限', ...categories]"
               multiple
               chips
               label="项目类型"
@@ -169,6 +156,7 @@
 
   import { GET } from "~/network/methods";
   import { checkSignIn } from "~/utils/validate";
+  import { categories } from "~/assets/data";
 
   export default {
     transition: "layout",
@@ -201,6 +189,7 @@
         typeFilter: ["不限"],
         rankFilter: ["不限"],
         numberFilter: "不限",
+        categories,
       };
     },
     computed: {

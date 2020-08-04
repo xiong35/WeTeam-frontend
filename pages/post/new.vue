@@ -3,19 +3,7 @@
     <TopBar title="发布组队"></TopBar>
     <v-form lazy-validation class="pa-4 pt-7">
       <v-select
-        :items="[
-          '科技大赛',
-          '设计比赛',
-          'IT应用开发',
-          '创业大赛',
-          '财汇金融',
-          '营销策划',
-          '影视摄影',
-          '广告创意',
-          '公益大赛',
-          '学科学术',
-          '其他',
-        ]"
+        :items="categories"
         v-model="type"
         multiple
         chips
@@ -134,7 +122,7 @@
 <script>
   import TopBar from "~/components/TopBar";
 
-  import { majors } from "~/assets/data";
+  import { majors, categories } from "~/assets/data";
   import { POST } from "~/network/methods";
 
   export default {
@@ -167,6 +155,7 @@
         major: [],
         skill: "",
         majors,
+        categories,
       };
     },
     computed: {},
@@ -219,6 +208,7 @@
         this.$router.push("/project?id=" + id);
       },
     },
+
     created() {
       let { userInfo, token } = this.$store.state;
       if (!userInfo || !token) {
