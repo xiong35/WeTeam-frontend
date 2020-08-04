@@ -1,5 +1,5 @@
 
-# api 文档 v4.2
+# api 文档 v5.0
 
 > 用尖括号括起来的地方代表某个变量, 如 "id=<..>" 指id等于某个用户的id号, 实际请求时替换为 "id=1234567" 之类的  
 > 用 "|" 分割的代表n选1, 如 "\<male|female|unknown\>" 代表3选1  
@@ -9,8 +9,9 @@
 ## 上传图片
 
 > 新增上传反馈图片的功能
+> 图片上传的选项里加了一个feedback和share 
 
-- url: `POST /img/<avatar|card|acticity|other>`, 上传头像|证件照|活动封面的url
+- url: `POST /img/<avatar|acticity|feedback|share>`, 上传 头像|活动封面|反馈图片|分享图片 的url
 - 数据: `multipart/form-data`
 - 响应:
 
@@ -67,6 +68,7 @@
     "schoolID": "...", //校园卡号
     "major": "...",
     "grade": "Number", // 入学年份
+    "interest": "...",   // 用户的兴趣爱好
     "password": "...", // 用32位md5加密(字母全部小写), 数据库里存放加密后的字符串, 登录时也用加密过的字符串登录
     "userID": "...", // 账号, 不加密
   }
@@ -147,7 +149,8 @@
           "attitude": "Number",     // 以下几项都是总分数
           "capability": "Number",
           "personality": "Number",
-        }
+        },
+        "interest": "...",   // 用户的兴趣爱好
       },
       // ...
     ]
@@ -880,3 +883,87 @@
   }
   ```
 
+## 分享
+
+### 发布分享
+
+- url: `POST /share`
+- 数据:
+
+  ```json
+  {
+    "publisherToken": "<token>",
+    "brief": "<简介>",
+    "content": "<长文本>",
+    "categoty": "...",
+  }
+  ```
+
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": {
+      "id": "<id>"
+    }
+  }
+  ```
+
+### 获得分享摘要
+
+- url: `GET /share?id=all`
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": [
+      {
+        "id": "分享id",
+        "publisher": "<userID>",
+        "publisherName": "...",
+        "publisherAvatar": "...",
+        "brief": "...",
+        "cover": "<封面图的url>",
+        "categoty": "...",
+      },
+      // {}, {}
+    ]
+  }
+  ```
+
+### 获取详细内容
+
+- url: `GET /share?id=<id>`
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+    "data": {
+      "id": "分享id",
+      "publisher": "<userID>",
+      "publisherName": "...",
+      "publisherAvatar": "...",
+      "brief": "...",
+      "content": "长文本",
+      "categoty": "...",
+    },
+  }
+  ```
+
+### 删除分享
+
+- url: `DELETE /share?id=<id>&token=<token>`
+- 响应:
+
+  ```json
+  {
+    "status": 200,
+    "msg": "ok",
+  }
+  ```
