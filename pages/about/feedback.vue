@@ -56,7 +56,7 @@
 <script>
   import TopBar from "~/components/TopBar";
 
-  import { upload, POST } from "~//network/methods";
+  import { upload, POST } from "~/network/methods";
   import { MY_BASE_URL, ADMIN_ID } from "~/assets/data";
 
   export default {
@@ -108,7 +108,7 @@
 
         if (res) {
           alert("提交成功, 感谢您的反馈, 我们会尽快处理 QwQ");
-          this.$router.push("/abnout/settings");
+          this.$router.push("/about/settings");
         }
       },
 
@@ -118,8 +118,7 @@
         let formData = new FormData(); //创建form对象
         formData.append("file", file); //通过append向form对象添加数据
 
-        let res = await upload("/img/acticity", formData);
-        console.log(res);
+        let res = await upload("/img/feedback", formData);
 
         this.imgs.push(MY_BASE_URL + res.data.url.slice(1));
       },

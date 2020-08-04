@@ -887,6 +887,8 @@
 
 ### 发布分享
 
+> 这里用 json 传输!
+
 - url: `POST /share`
 - 数据:
 
@@ -895,7 +897,7 @@
     "publisherToken": "<token>",
     "brief": "<简介>",
     "content": "<长文本>",
-    "categoty": "...",
+    "categoty": ["...", "..."],
   }
   ```
 
