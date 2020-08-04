@@ -1,6 +1,6 @@
 <template>
   <div
-    class="placeholder text-center align-center text--secondary py-8"
+    class="placeholder text-center caption align-center text--secondary py-8"
   >
     <p>{{ msg }}</p>
     <p>去<nuxt-link to="/hone">主页</nuxt-link>看看吧</p>

@@ -2,7 +2,7 @@
   <v-card :to="'/project?id=' + post.id" class="my-2">
     <v-card-text>
       <v-row class="align-center py-0 px-3">
-        <span class="headline text--primary mb-1">
+        <span class="card-headline text--primary mb-1">
           {{ post.title }}
         </span>
         <v-spacer></v-spacer>
@@ -57,4 +57,9 @@
   };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .card-headline {
+    font-size: 18px;
+    font-weight: 400;
+  }
+</style>
