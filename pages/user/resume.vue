@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center">
+  <v-card class="text-center">
     <TopBar :title="title"></TopBar>
     <mavon-editor
       v-if="!self"
@@ -31,7 +31,7 @@
       outlined
       >提交</v-btn
     >
-  </div>
+  </v-card>
 </template>
 
 <script>

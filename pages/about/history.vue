@@ -1,9 +1,9 @@
 <template>
-  <div v-if="posts.length > 0">
+  <v-card v-if="posts.length > 0">
     <TopBar :title="title"></TopBar>
     <Card :post="post" v-for="(post, index) in posts" :key="index">
     </Card>
-  </div>
+  </v-card>
   <ThePlaceholder v-else></ThePlaceholder>
 </template>
 

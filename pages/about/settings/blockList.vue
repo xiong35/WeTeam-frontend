@@ -1,5 +1,5 @@
 <template>
-  <div class="blocklist">
+  <v-card class="blocklist">
     <TopBar title="黑名单"></TopBar>
     <v-list v-if="users.length > 0" three-line>
       <v-list-item v-for="(user, index) in users" :key="index">
@@ -33,7 +33,7 @@
       </v-list-item>
     </v-list>
     <ThePlaceholder v-else></ThePlaceholder>
-  </div>
+  </v-card>
 </template>
 
 <script>

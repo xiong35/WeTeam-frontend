@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-card>
     <TopBar title="反馈"></TopBar>
     <v-form ref="form">
       <v-select
@@ -50,7 +50,7 @@
         >提交</v-btn
       >
     </v-row>
-  </div>
+  </v-card>
 </template>
 
 <script>
