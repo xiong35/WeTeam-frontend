@@ -841,7 +841,7 @@
 
 ### 获得主题项目摘要
 
-- url: `GET /projectTheme?id=all&limit=<Number>`  // 获取最近的多少条
+- url: `GET /projectTheme?id=all&limit=<Number>&sort=<time|hot>`  // 获取最近的多少条
 - 响应:
 
   ```json

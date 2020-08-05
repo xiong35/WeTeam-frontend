@@ -1,38 +1,52 @@
 <template>
   <div class="home">
-    <v-row class="pa-4 pb-1 mb-n3">
-      <v-text-field
-        v-model="keyword"
-        rounded
-        dense
-        outlined
-        append-icon="mdi-magnify"
-        @click:append="search"
-        @keydown.enter="search"
-        placeholder="请输入查找内容"
+    <div class="search-container">
+      <div
+        @click="$router.push('/home/search?dontSearch=true')"
+        class="fake-search"
       >
-      </v-text-field>
-    </v-row>
+        <span>请输入搜索内容</span>
+        <v-icon>mdi-magnify</v-icon>
+      </div>
+    </div>
 
     <v-divider></v-divider>
 
-    <h2 class="mt-3 ml-3 mb-n2">活动榜</h2>
+    <p class="list-header">
+      <v-img
+        class="trophy"
+        height="16px"
+        width="16px"
+        :src="require('~/assets/img/trophy.png')"
+      ></v-img>
+      活动榜
+    </p>
+    <!-- -->
 
-    <v-row class="pa-2">
-      <div
-        v-for="(theme, index) in themes"
-        :key="index"
-        class="col-6 pa-2 align-center justify-center"
-      >
-        <v-card
-          rounded
-          flat
+    <v-row class="pa-4 text--secondary">
+      <v-col class="col-6 py-1 left">
+        <div
+          v-for="(theme, index) in leftThemes"
+          :key="index"
           @click="$router.push('/project/theme?id=' + theme.id)"
-          class="pa-3 activity"
+          class="pb-1"
         >
-          <b>{{ index + 1 + ". " }}</b> {{ theme.brief }}</v-card
+          {{ theme.brief }}
+        </div>
+      </v-col>
+      <v-col class="col-6 py-1">
+        <div
+          v-for="(theme, index) in rightThemes"
+          :key="index"
+          @click="$router.push('/project/theme?id=' + theme.id)"
+          class="pb-1"
         >
-      </div>
+          {{ theme.brief }}
+        </div>
+        <div class="pb-1">
+          <nuxt-link to="/school/activities">更多</nuxt-link>
+        </div>
+      </v-col>
     </v-row>
 
     <v-divider></v-divider>
@@ -44,9 +58,15 @@
         color="primary"
         grow
       >
-        <v-tab>全部</v-tab>
-        <v-tab>推荐</v-tab>
-        <v-tab>关注</v-tab>
+        <v-tab
+          ><big><b>全部</b></big></v-tab
+        >
+        <v-tab
+          ><big><b>推荐</b></big></v-tab
+        >
+        <v-tab
+          ><big><b>关注</b></big></v-tab
+        >
       </v-tabs>
     </v-row>
 
@@ -166,6 +186,13 @@
         }
         return interests.split(",");
       },
+
+      leftThemes() {
+        return this.themes.filter((_, ind) => !(ind % 2));
+      },
+      rightThemes() {
+        return this.themes.filter((_, ind) => ind % 2);
+      },
     },
     watch: {},
     methods: {
@@ -177,7 +204,9 @@
     mounted() {},
     async asyncData({ store, query }) {
       let res = await GET("/share?id=all");
-      let themeRes = await GET("/projectTheme?id=all&limit=4");
+      let themeRes = await GET(
+        "/projectTheme?id=all&limit=4&sort=hot"
+      );
 
       return { allShares: res.data, themes: themeRes.data };
     },
@@ -185,8 +214,36 @@
 </script>
 
 <style scoped lang="scss">
-  .activity {
-    border: 1px solid #3094cf99;
+  .search-container {
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $primary;
+    padding: 18px 16px;
+    .fake-search {
+      background-color: #fff;
+      border-radius: 30px;
+      display: flex;
+      justify-content: space-between;
+      line-height: 30px;
+      padding: 0 8px 0 12px;
+      color: #8d8d8d;
+      font-size: 14px;
+    }
+  }
+  .list-header {
     color: $primary;
+    font-size: 16px;
+    margin: 66px 0 -10px 16px;
+    .trophy {
+      display: inline-block;
+      position: relative;
+      top: 2px;
+    }
+  }
+
+  .left {
+    border-right: 1px solid #eee;
   }
 </style>

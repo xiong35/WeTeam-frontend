@@ -110,12 +110,13 @@
     },
     created() {},
     mounted() {
+      if (this.dontSearch) {
+        return;
+      }
       this.search();
     },
     async asyncData({ store, query }) {
-      let { kw } = query;
-
-      return { kw };
+      return query;
     },
   };
 </script>
