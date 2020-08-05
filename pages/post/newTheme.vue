@@ -143,6 +143,10 @@
 
       async submit() {
         let { cover, brief, content } = this;
+        let reg = /^#{1,2}.*/g;
+        if (!reg.test(content)) {
+          content = "# " + brief + content + "\n\n";
+        }
 
         let res = await POST("/projectTheme", {
           publisherToken: this.$store.state.token,

@@ -58,15 +58,9 @@
         color="primary"
         grow
       >
-        <v-tab
-          ><big><b>全部</b></big></v-tab
-        >
-        <v-tab
-          ><big><b>推荐</b></big></v-tab
-        >
-        <v-tab
-          ><big><b>关注</b></big></v-tab
-        >
+        <v-tab><big>全部</big></v-tab>
+        <v-tab><big>推荐</big></v-tab>
+        <v-tab><big>关注</big></v-tab>
       </v-tabs>
     </v-row>
 

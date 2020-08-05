@@ -3,7 +3,7 @@
     <TopBar title="设置"></TopBar>
     <nuxt-link
       class="py-4 px-6 mt-1"
-      tag="h2"
+      tag="div"
       to="/about/settings/userInfo"
     >
       修改个人信息
@@ -11,13 +11,15 @@
 
     <v-divider></v-divider>
 
-    <h2 class="py-4 px-6" tag="h2" @click="toResume">修改简历</h2>
+    <div class="py-4 px-6" tag="div" @click="toResume">
+      修改简历
+    </div>
 
     <v-divider></v-divider>
 
     <nuxt-link
       class="py-4 px-6"
-      tag="h2"
+      tag="div"
       to="/about/settings/password"
       >修改密码</nuxt-link
     >
@@ -27,13 +29,13 @@
     <nuxt-link
       class="py-4 px-6"
       to="/about/settings/blockList"
-      tag="h2"
+      tag="div"
       >黑名单</nuxt-link
     >
 
     <v-divider></v-divider>
 
-    <nuxt-link class="py-4 px-6" tag="h2" to="/404"
+    <nuxt-link class="py-4 px-6" tag="div" to="/404"
       >身份认证<small style="font-weight: 200;"
         >&nbsp;&nbsp; 暂未开通</small
       ></nuxt-link
@@ -41,7 +43,7 @@
 
     <v-divider></v-divider>
 
-    <h2 @click="logOut" class="py-4 px-6" tag="h2">退出登录</h2>
+    <div @click="logOut" class="py-4 px-6" tag="div">退出登录</div>
   </v-card>
 </template>
 

@@ -46,8 +46,8 @@
           color="primary"
           grow
         >
-          <v-tab>推荐</v-tab>
-          <v-tab>关注</v-tab>
+          <v-tab><big>推荐</big></v-tab>
+          <v-tab><big>关注</big></v-tab>
         </v-tabs>
       </v-col>
       <v-btn outlined @click="dialog = true" class="mx-auto"

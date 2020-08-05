@@ -4,14 +4,21 @@
     :style="{ opacity: msg.isChecked && hidable ? 0.4 : 1 }"
   >
     <v-list-item
-      @click="$router.push('/user?userID=' + msg.rater)"
+      @click="
+        msg.rater && $router.push('/user?userID=' + msg.rater)
+      "
     >
       <v-list-item-avatar size="50">
-        <v-img :src="msg.raterAvatar"></v-img>
+        <v-img
+          :src="
+            msg.raterAvatar ||
+            'http://static.xiong35.cn/image/icons/open-doodles/31.png'
+          "
+        ></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="headline"
-          >来自<strong>{{ msg.raterName }}</strong
+          >来自<strong>{{ msg.raterName || "匿名用户" }}</strong
           >的评价</v-list-item-title
         >
         <v-list-item-subtitle>

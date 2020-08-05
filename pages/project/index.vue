@@ -152,11 +152,15 @@
                 <img :src="member.avatar" alt="alt" />
               </v-list-item-avatar>
               <v-list-item-content>
-                <p class="text-h6">
+                <p>
                   {{ member.nickname }}
                 </p>
                 <BtnRate
-                  v-if="post.finished && inGroup && !self"
+                  v-if="
+                    post.finished &&
+                    inGroup &&
+                    !isSelf(post.members[index])
+                  "
                   :userID="post.members[index]"
                   :nickname="member.nickname"
                 ></BtnRate>
@@ -275,6 +279,12 @@
     },
     watch: {},
     methods: {
+      isSelf(id) {
+        let userID =
+          this.$store.state.userInfo &&
+          this.$store.state.userInfo.userID;
+        return id == userID;
+      },
       async submit() {
         if (!checkSignIn(this)) {
           return;

@@ -1,5 +1,5 @@
 <template>
-  <v-card v-if="posts.length > 0">
+  <v-card flat v-if="posts.length > 0">
     <TopBar :title="title"></TopBar>
     <Card :post="post" v-for="(post, index) in posts" :key="index">
     </Card>
@@ -52,6 +52,7 @@
       let res = await GET(
         "/project/history?token=" + store.state.token
       );
+      console.log(res);
       if (res && res.status == 200) {
         return { posts: res.data };
       } else {

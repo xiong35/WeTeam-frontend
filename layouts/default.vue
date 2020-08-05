@@ -238,6 +238,7 @@
       }
       span {
         color: #8d8d8d;
+        display: block;
       }
     }
     .hider {
