@@ -1,42 +1,17 @@
 <template>
   <div>
     <TopBar :title="title"></TopBar>
-    <v-card
-      class="my-4 info-card"
+    <CardTheme
       v-for="(theme, index) in themes"
+      :theme="theme"
       :key="index"
-      :to="'/project/theme?id=' + theme.id"
-    >
-      <v-list-item>
-        <v-list-item-avatar>
-          <v-img :src="theme.publisherAvatar"></v-img>
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title
-            >发布者:
-            <nuxt-link :to="'/user?userID=' + theme.publisher">{{
-              theme.publisherName
-            }}</nuxt-link></v-list-item-title
-          >
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-img
-        :src="theme.cover"
-        width="100%"
-        :aspect-ratio="2 / 1"
-        position="center"
-      ></v-img>
-
-      <v-card-text>
-        {{ theme.brief }}
-      </v-card-text>
-    </v-card>
+    ></CardTheme>
   </div>
 </template>
 
 <script>
   import TopBar from "~/components/TopBar";
+  import CardTheme from "~/components/CardTheme";
 
   import { GET } from "~/network/methods";
 
@@ -55,7 +30,10 @@
         ],
       };
     },
-    components: { TopBar },
+    components: {
+      TopBar,
+      CardTheme,
+    },
     data() {
       return {
         title: "主题活动",
