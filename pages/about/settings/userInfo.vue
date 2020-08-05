@@ -18,12 +18,19 @@
           <v-col class="col-9">
             <v-file-input
               :rules="[
-                (value) =>
-                  !value ||
-                  value.size < 6000000 ||
+                (v) =>
+                  !v ||
+                  v.size < 6000000 ||
                   '头像大小不能超过 6 MB!',
+                (v) => {
+                  return (
+                    !v ||
+                    !!~accept.indexOf(v.type) ||
+                    '请选择正确的格式'
+                  );
+                },
               ]"
-              accept="image/png, image/jpeg, image/jpg, image/bmp"
+              :accept="accept"
               label="选择头像"
               v-model="avatarFile"
               @change="uploadAvatar"
@@ -76,6 +83,16 @@
           :rules="[(v) => !!v || '请选择专业']"
         ></v-autocomplete>
         <v-select
+          :items="categories"
+          v-model="interests"
+          label="兴趣爱好"
+          validate-on-blur
+          clearable
+          multiple
+          chips
+          :rules="[(v) => !!v.length || '请选择兴趣']"
+        ></v-select>
+        <v-select
           :items="['20级', '19级', '18级', '17级', '16级']"
           v-model="grade"
           label="年级"
@@ -96,7 +113,7 @@
 <script>
   import TopBar from "~/components/TopBar";
 
-  import { majors } from "~/assets/data";
+  import { majors, categories, MY_BASE_URL } from "~/assets/data";
   import { POST, GET, upload, PUT } from "~/network/methods";
   import { refreshTo } from "~/utils/validate";
 
@@ -131,6 +148,14 @@
         isValid: false,
         resume: "",
         avatarID: 0,
+        categories,
+        interests: [],
+        accept: [
+          "image/png",
+          "image/jpeg",
+          "image/jpg",
+          "image/bmp",
+        ],
       };
     },
     computed: {
@@ -142,8 +167,11 @@
     watch: {},
     methods: {
       async uploadAvatar(e) {
+        if (!e || !~this.accept.indexOf(e.type)) {
+          return;
+        }
         let formData = new FormData(); //创建form对象
-        formData.append("file", this.avatarFile); //通过append向form对象添加数据
+        formData.append("file", e); //通过append向form对象添加数据
 
         let res = await upload("/img/avatar", formData);
 
@@ -168,6 +196,7 @@
           major,
           grade,
           defaultAvatar,
+          interests,
         } = this;
 
         grade = parseInt(grade);
@@ -181,6 +210,7 @@
           schoolID,
           major,
           grade,
+          interest: interests.join(","),
         };
 
         let res = await PUT("/user/info", data);

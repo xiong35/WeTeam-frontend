@@ -9,30 +9,28 @@
       color="black"
       v-model="bottomNav"
       id="bottom-nav"
-      shift
-      grow
       app
       small
     >
-      <v-btn nuxt to="/home">
+      <v-btn :ripple="false" nuxt to="/home">
+        <span>首页</span>
         <v-icon
           >mdi-home{{ bottomNav == 0 ? "" : "-outline" }}</v-icon
         >
-        <span>首页</span>
       </v-btn>
-      <v-btn nuxt to="/school">
+      <v-btn :ripple="false" nuxt to="/school">
+        <span>校园圈</span>
         <v-icon
           >mdi-school{{ bottomNav == 1 ? "" : "-outline" }}</v-icon
         >
-        <span>校园圈</span>
       </v-btn>
-      <v-btn @click="close">
+      <v-btn :ripple="false" @click="close">
+        <span>发布</span>
         <v-icon
           >mdi-comment-plus{{
             bottomNav == 2 ? "" : "-outline"
           }}</v-icon
         >
-        <span>发布</span>
       </v-btn>
       <v-badge
         :content="newMsg"
@@ -41,20 +39,20 @@
         offset-y="23px"
         offset-x="7vw"
       >
-        <v-btn nuxt to="/message">
+        <v-btn :ripple="false" nuxt to="/message">
+          <span>消息</span>
           <v-icon
             >mdi-bell{{ bottomNav == 3 ? "" : "-outline" }}</v-icon
           >
-          <span>消息</span>
         </v-btn>
       </v-badge>
-      <v-btn nuxt to="/about">
+      <v-btn :ripple="false" nuxt to="/about">
+        <span>我的</span>
         <v-icon
           >mdi-account{{
             bottomNav == 4 ? "" : "-outline"
           }}</v-icon
         >
-        <span>我的</span>
       </v-btn>
     </v-bottom-navigation>
     <div
@@ -207,6 +205,16 @@
     .v-btn {
       min-width: 20vw;
       height: 56px;
+      &.v-btn--active {
+        color: $primary;
+        background-color: #fff;
+      }
+      &::before {
+        background-color: #fff;
+      }
+      span {
+        font-size: 10px;
+      }
     }
   }
   .link-container {

@@ -110,7 +110,7 @@
             label="校园卡号"
             :rules="[
               (v) => {
-                let reg = /\w\d{9}/;
+                let reg = /^\w\d{9}$/;
                 return reg.test(v) || '校园卡号格式错误';
               },
             ]"

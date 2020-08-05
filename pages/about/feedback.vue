@@ -82,6 +82,12 @@
         content: "",
         imgs: [],
         type: "我要吐槽产品经理的设计￣へ￣",
+        accept: [
+          "image/png",
+          "image/jpeg",
+          "image/jpg",
+          "image/bmp",
+        ],
       };
     },
     computed: {},
@@ -115,10 +121,14 @@
       async uploadFile() {
         let file = await this.selectFile();
 
+        if (!file || !~this.accept.indexOf(file.type)) {
+          return;
+        }
+
         let formData = new FormData(); //创建form对象
         formData.append("file", file); //通过append向form对象添加数据
 
-        let res = await upload("/img/feedback", formData);
+        let res = await upload("/img/avatar", formData);
 
         this.imgs.push(MY_BASE_URL + res.data.url.slice(1));
       },
@@ -127,7 +137,7 @@
         return new Promise((res, rej) => {
           const el = document.createElement("input");
           el.type = "file";
-          el.accept = "image/*";
+          el.accept = this.accept;
           el.multiple = false;
           el.addEventListener("change", (_) => {
             res(el.files[0]);
