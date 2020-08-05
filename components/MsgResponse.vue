@@ -7,7 +7,7 @@
       @click="$router.push('/project?id=' + msg.target)"
     >
       <v-list-item-content>
-        <v-list-item-title class="headline"
+        <v-list-item-title class=""
           >来自项目<strong>{{ msg.title }}</strong
           >的回复</v-list-item-title
         >
@@ -61,9 +61,9 @@
     computed: {
       result() {
         if (this.msg.accepted) {
-          return "你成功加入这个项目了😝";
+          return "你成功加入项目了😝";
         } else {
-          return "很遗憾, 你被拒绝了😥";
+          return "很遗憾, 你没能加入队伍😥下次再来吧!";
         }
       },
     },

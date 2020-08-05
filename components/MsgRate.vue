@@ -17,7 +17,7 @@
         ></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class="headline"
+        <v-list-item-title class=""
           >来自<strong>{{ msg.raterName || "匿名用户" }}</strong
           >的评价</v-list-item-title
         >

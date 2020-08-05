@@ -8,7 +8,7 @@
         <v-img :src="msg.fromAvatar"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class="headline"
+        <v-list-item-title class=""
           >来自<strong>{{ msg.fromName }}</strong
           >的留言</v-list-item-title
         >
