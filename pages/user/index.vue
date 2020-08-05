@@ -71,6 +71,7 @@
     >
       <v-tab>他人评价</v-tab>
       <v-tab>组队记录</v-tab>
+      <v-tab>分享</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
       <v-tab-item>
@@ -146,8 +147,18 @@
       </v-tab-item>
 
       <v-tab-item>
+        <ThePlaceholder
+          v-if="records.length == 0"
+        ></ThePlaceholder>
         <div v-for="(record, index) in records" :key="index">
           <Card :post="record"></Card>
+        </div>
+      </v-tab-item>
+
+      <v-tab-item>
+        <ThePlaceholder v-if="shares.length == 0"></ThePlaceholder>
+        <div v-for="(share, index) in shares" :key="index">
+          <CardShare :share="share"></CardShare>
         </div>
       </v-tab-item>
     </v-tabs-items>
@@ -159,6 +170,8 @@
   import MsgRate from "~/components/MsgRate";
   import BtnChat from "~/components/BtnChat";
   import Card from "~/components/Card";
+  import CardShare from "~/components/CardShare";
+  import ThePlaceholder from "~/components/ThePlaceholder";
 
   import { POST, GET } from "~/network/methods";
   import { checkSignIn } from "~/utils/validate";
@@ -178,7 +191,14 @@
         ],
       };
     },
-    components: { TopBar, MsgRate, Card, BtnChat },
+    components: {
+      TopBar,
+      MsgRate,
+      Card,
+      BtnChat,
+      ThePlaceholder,
+      CardShare,
+    },
     data() {
       return {
         info: {},
@@ -186,6 +206,8 @@
         showDetailRate: false,
         haveRecords: false,
         records: [],
+        haveShares: false,
+        shares: [],
         curFollowState: "",
       };
     },
@@ -201,17 +223,24 @@
     },
     watch: {
       async tab(newVal, oldVal) {
-        if (this.haveRecords) {
-          return;
+        if (!this.haveRecords && newVal == 1) {
+          let res = await GET(
+            "/project/user?userID=" + this.info.userID
+          );
+          if (!res || res.status != 200) {
+            return;
+          }
+          this.records = res.data;
         }
-
-        let res = await GET(
-          "/project/user?userID=" + this.info.userID
-        );
-        if (!res || res.status != 200) {
-          return;
+        if (!this.haveShares && newVal == 2) {
+          let res = await GET(
+            "/share/user?userID=" + this.info.userID
+          );
+          if (!res || res.status != 200) {
+            return;
+          }
+          this.records = res.data;
         }
-        this.records = res.data;
       },
     },
     methods: {
