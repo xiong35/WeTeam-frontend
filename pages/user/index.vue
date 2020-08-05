@@ -68,6 +68,8 @@
       background-color="transparent"
       color="primary"
       centered
+      grow
+      class="pa-2"
     >
       <v-tab>他人评价</v-tab>
       <v-tab>组队记录</v-tab>
@@ -239,7 +241,7 @@
           if (!res || res.status != 200) {
             return;
           }
-          this.records = res.data;
+          this.shares = res.data;
         }
       },
     },

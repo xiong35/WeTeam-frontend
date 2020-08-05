@@ -205,7 +205,7 @@
     async asyncData({ store, query }) {
       let res = await GET("/share?id=all");
       let themeRes = await GET(
-        "/projectTheme?id=all&limit=4&sort=hot"
+        "/projectTheme?id=all&limit=5&sort=hot"
       );
 
       return { allShares: res.data, themes: themeRes.data };
