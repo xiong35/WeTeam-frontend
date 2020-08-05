@@ -5,3 +5,8 @@ a {
 h2 {
   font-size: 18px;
 }
+
+.info-card.v-card {
+  box-shadow: 2px 2px 12px #dddd !important;
+  border: 1px solid #cccc;
+}

@@ -1,5 +1,8 @@
 <template>
-  <v-card :style="{ opacity: msg.isChecked ? 0.4 : 1 }">
+  <v-card
+    class="info-card"
+    :style="{ opacity: msg.isChecked ? 0.4 : 1 }"
+  >
     <v-list-item
       @click.self="$router.push('/user?userID=' + msg.from)"
     >

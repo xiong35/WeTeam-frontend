@@ -1,5 +1,8 @@
 <template>
-  <v-card :to="'/project/share?id=' + share.id" class="my-2">
+  <v-card
+    :to="'/project/share?id=' + share.id"
+    class="my-2 info-card"
+  >
     <v-list three-line>
       <v-list-item>
         <v-list-item-avatar size="55px">

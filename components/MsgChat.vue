@@ -1,5 +1,8 @@
 <template>
-  <v-card :style="{ opacity: msg.isChecked ? 0.4 : 1 }">
+  <v-card
+    class="info-card"
+    :style="{ opacity: msg.isChecked ? 0.4 : 1 }"
+  >
     <v-list-item @click="$router.push('/user?userID=' + msg.from)">
       <v-list-item-avatar size="50">
         <v-img :src="msg.fromAvatar"></v-img>

@@ -1,5 +1,5 @@
 <template>
-  <v-card :to="'/project?id=' + post.id" class="my-2">
+  <v-card :to="'/project?id=' + post.id" class="my-2 info-card">
     <v-card-text>
       <v-row class="align-center py-0 px-3">
         <span class="card-headline text--primary mb-1">

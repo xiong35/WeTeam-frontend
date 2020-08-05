@@ -1,5 +1,8 @@
 <template>
-  <v-card :style="{ opacity: msg.isChecked && hidable ? 0.4 : 1 }">
+  <v-card
+    class="info-card"
+    :style="{ opacity: msg.isChecked && hidable ? 0.4 : 1 }"
+  >
     <v-list-item
       @click="$router.push('/user?userID=' + msg.rater)"
     >
