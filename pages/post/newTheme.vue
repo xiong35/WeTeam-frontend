@@ -41,17 +41,17 @@
             v-model="coverFile"
             @change="uploadCover"
           ></v-file-input>
-          <v-textarea
-            label="活动简介"
+          <v-text-field
+            label="活动标题"
             :rules="[
               (v) => {
-                return !!v || '活动简介不能为空';
+                return !!v || '活动标题不能为空';
               },
             ]"
             required
             clearable
             v-model="brief"
-          ></v-textarea>
+          ></v-text-field>
         </v-form>
         <v-btn
           color="primary"
