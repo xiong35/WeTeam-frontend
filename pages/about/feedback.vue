@@ -24,13 +24,14 @@
       <v-col
         v-for="(img, index) in imgs"
         :key="index"
-        class="col-4 pa-2"
+        class="col-4 pa-2 post-img"
       >
         <v-img
           :aspect-ratio="1 / 1"
           position="center"
           :src="img"
         ></v-img>
+        <div @click="imgs.splice(index, 1)" class="cancel">x</div>
       </v-col>
       <v-col @click="uploadFile" class="pa-2 col-4">
         <v-img
@@ -152,4 +153,18 @@
   };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .post-img {
+    position: relative;
+    .cancel {
+      line-height: 20px;
+      width: 20px;
+      text-align: center;
+      background-color: #bbb;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      color: #fff;
+    }
+  }
+</style>
