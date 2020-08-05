@@ -37,7 +37,7 @@
                 '封面大小不能超过 10 MB!',
             ]"
             accept="image/png, image/jpeg, image/jpg, image/bmp"
-            label="上传推文封面"
+            label="上传推文封面(宽高比以 2:1 为佳, 不支持gif)"
             v-model="coverFile"
             @change="uploadCover"
           ></v-file-input>

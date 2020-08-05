@@ -23,7 +23,7 @@
     </p>
     <!-- -->
 
-    <v-row class="pa-4 text--secondary">
+    <v-row style="font-size: 14px;" class="pa-4 text--secondary">
       <v-col class="col-6 py-1 left">
         <div
           v-for="(theme, index) in leftThemes"
@@ -31,7 +31,7 @@
           @click="$router.push('/project/theme?id=' + theme.id)"
           class="pb-1"
         >
-          {{ theme.brief }}
+          {{ index * 2 + 1 + ". " + theme.brief }}
         </div>
       </v-col>
       <v-col class="col-6 py-1">
@@ -41,7 +41,7 @@
           @click="$router.push('/project/theme?id=' + theme.id)"
           class="pb-1"
         >
-          {{ theme.brief }}
+          {{ index * 2 + 2 + ". " + theme.brief }}
         </div>
         <div class="pb-1">
           <nuxt-link to="/school/activities">更多</nuxt-link>

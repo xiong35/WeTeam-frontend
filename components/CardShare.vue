@@ -34,7 +34,7 @@
     </v-row>
     <v-row class="pb-2 px-6">
       <v-spacer></v-spacer>
-      <span class="text--secondary"
+      <span class="text--secondary caption"
         >发布时间: {{ timestampFmt(share.time) }}</span
       >
     </v-row>

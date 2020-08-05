@@ -6,7 +6,16 @@ h2 {
   font-size: 18px;
 }
 
-.info-card.v-card {
+h3 {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.v-card {
   box-shadow: 2px 2px 12px #dddd !important;
   border: 1px solid #cccc;
+}
+
+.v-divider {
+  margin: 0 10px 0 10px;
 }

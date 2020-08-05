@@ -1,9 +1,11 @@
 <template>
-  <v-toolbar dark color="primary">
-    <v-icon @click="$router.back()" flat class="mr-3"
+  <v-toolbar class="topbar" dark color="primary">
+    <v-icon @click="$router.back()" flat class="icon"
       >mdi-arrow-left</v-icon
     >
-    <v-toolbar-title>{{ title }}</v-toolbar-title>
+    <span class="title">
+      {{ title }}
+    </span>
   </v-toolbar>
 </template>
 
@@ -22,4 +24,22 @@
     mounted() {},
   };
 </script>
-<style scoped></style>
+<style scoped lang="scss">
+  .topbar {
+    text-align: center;
+
+    .icon {
+      position: absolute;
+      top: 16px;
+      left: 15px;
+    }
+    .title {
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      margin: auto;
+      font-size: 18px !important;
+    }
+  }
+</style>

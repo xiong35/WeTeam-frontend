@@ -1,12 +1,13 @@
 <template>
-  <div>
+  <v-card flat>
     <TopBar :title="title"></TopBar>
     <CardTheme
       v-for="(theme, index) in themes"
       :theme="theme"
       :key="index"
+      :index_="index"
     ></CardTheme>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -45,7 +46,9 @@
     created() {},
     mounted() {},
     async asyncData({ store, query, redirect }) {
-      let res = await GET("/projectTheme?id=all&limit=50");
+      let res = await GET(
+        "/projectTheme?id=all&limit=50&sort=hot"
+      );
       if (!res || res.status != 200) {
         return redirect("/404");
       }

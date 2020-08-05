@@ -7,7 +7,7 @@
       </v-avatar>
       <v-col>
         <h2>{{ $store.state.userInfo.nickname }}</h2>
-        <span>{{
+        <span style="font-size: 12px;">{{
           $store.state.userInfo.description.slice(0, 20)
         }}</span>
       </v-col>
@@ -15,24 +15,24 @@
     <v-divider></v-divider>
     <nuxt-link
       class="py-4 px-6"
-      tag="h2"
+      tag="div"
       :to="'/user?userID=' + $store.state.userInfo.userID"
       >主页详情</nuxt-link
     >
     <v-divider></v-divider>
-    <nuxt-link class="py-4 px-6" tag="h2" to="/about/history"
+    <nuxt-link class="py-4 px-6" tag="div" to="/about/history"
       >组队信息浏览记录</nuxt-link
     >
     <v-divider></v-divider>
-    <nuxt-link class="py-4 px-6" tag="h2" to="/about/settings"
+    <nuxt-link class="py-4 px-6" tag="div" to="/about/settings"
       >设置</nuxt-link
     >
     <v-divider></v-divider>
-    <nuxt-link class="py-4 px-6" tag="h2" to="/about/feedback"
+    <nuxt-link class="py-4 px-6" tag="div" to="/about/feedback"
       >反馈</nuxt-link
     >
     <v-divider></v-divider>
-    <nuxt-link class="py-4 px-6 pb-9" tag="h2" to="/about/us"
+    <nuxt-link class="py-4 px-6 pb-9" tag="div" to="/about/us"
       >联系我们</nuxt-link
     >
   </v-card>
