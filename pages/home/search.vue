@@ -23,9 +23,11 @@
       v-model="tab"
       background-color="transparent"
       color="primary"
+      centered
     >
       <v-tab>组队</v-tab>
       <v-tab>用户</v-tab>
+      <v-tab>分享</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
       <v-tab-item>
@@ -45,6 +47,17 @@
         </v-card>
         <ThePlaceholder v-else></ThePlaceholder>
       </v-tab-item>
+
+      <v-tab-item>
+        <v-card v-if="shares.length > 0" flat>
+          <CardShare
+            v-for="(share, index) in shares"
+            :share="share"
+            :key="index"
+          ></CardShare>
+        </v-card>
+        <ThePlaceholder v-else></ThePlaceholder>
+      </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
@@ -54,6 +67,7 @@
   import UserList from "~/components/UserList";
   import ThePlaceholder from "~/components/ThePlaceholder";
   import TopBar from "~/components/TopBar";
+  import CardShare from "~/components/CardShare";
 
   import { GET } from "~/network/methods";
 
@@ -77,12 +91,14 @@
       UserList,
       ThePlaceholder,
       TopBar,
+      CardShare,
     },
     data() {
       return {
         kw: "",
         posts: [],
         users: [],
+        shares: [],
         tab: 0,
       };
     },
@@ -105,6 +121,9 @@
         } else if (tab == 1) {
           let res = await GET("/user/search?keyword=" + kw);
           this.users = res.data;
+        } else if (tab == 2) {
+          let res = await GET("/share/search?keyword=" + kw);
+          this.shares = res.data;
         }
       },
     },
