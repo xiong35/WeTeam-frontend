@@ -308,7 +308,6 @@
         };
 
         let res = await POST("/user/info", data);
-        console.log(res);
 
         res = await POST("/user/login", {
           password,

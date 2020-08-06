@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card flat>
     <TopBar title="反馈"></TopBar>
     <v-form ref="form">
       <v-select

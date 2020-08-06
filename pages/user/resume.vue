@@ -1,5 +1,5 @@
 <template>
-  <v-card class="text-center">
+  <v-card flat class="text-center">
     <TopBar :title="title"></TopBar>
     <mavon-editor
       v-if="!self"

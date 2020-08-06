@@ -52,7 +52,6 @@
       let res = await GET(
         "/project/history?token=" + store.state.token
       );
-      console.log(res);
       if (res && res.status == 200) {
         return { posts: res.data };
       } else {

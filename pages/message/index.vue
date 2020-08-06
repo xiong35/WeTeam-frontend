@@ -116,7 +116,6 @@
       allNotChecked = allNotChecked.sort((a, b) => {
         return b.data.time - a.data.time;
       });
-      console.log(allNotChecked.concat(allChecked));
       return { messages: allNotChecked.concat(allChecked) };
     },
   };

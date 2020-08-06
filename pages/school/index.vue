@@ -31,7 +31,7 @@
           @click="$router.push('/project/theme?id=' + theme.id)"
           class="pb-1"
         >
-          {{ index * 2 + 1 + ". " + theme.brief }}
+          {{ trim(index * 2 + 1 + ". " + theme.brief) }}
         </div>
       </v-col>
       <v-col class="col-6 py-1">
@@ -41,7 +41,7 @@
           @click="$router.push('/project/theme?id=' + theme.id)"
           class="pb-1"
         >
-          {{ index * 2 + 2 + ". " + theme.brief }}
+          {{ trim(index * 2 + 2 + ". " + theme.brief) }}
         </div>
         <div class="pb-1">
           <nuxt-link to="/school/activities">更多</nuxt-link>
@@ -192,6 +192,13 @@
     methods: {
       search() {
         this.$router.push(`/home/search?kw=${this.keyword}`);
+      },
+
+      trim(str) {
+        if (str.length < 20) {
+          return str;
+        }
+        return str.slice(0, 20) + "...";
       },
     },
     created() {},

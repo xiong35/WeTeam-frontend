@@ -307,7 +307,6 @@
 
       let res = await GET("/user/rate?userID=" + userID);
       let rates = res.data;
-      console.log(rates);
 
       return {
         info: { ...info, userID: userID * 1 },
