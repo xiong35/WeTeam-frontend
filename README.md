@@ -1,20 +1,5 @@
 # WeTeam
 
-## Build Setup
+2020联创夏令营heckweek合作完成的交友组队网站
 
-```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+主要功能为发布组队需求, 申请加入团队, 与团队管理者沟通等
